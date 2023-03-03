@@ -32,4 +32,13 @@ class RestaurantRegistrationForm(forms.ModelForm):
 
 
 
+class LoginForm (forms.ModelForm):
+    username = forms.CharField(widget=forms.TextInput())
+    password = forms.CharField(widget=forms.PasswordInput())
+
+    class Meta:
+        model = User
+        fields = ('email', 'username', 'password',)
+
+
 
