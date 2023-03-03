@@ -1,0 +1,20 @@
+
+<!-- base registration page for testing -->
+<h1>Register for Bestaurant!</h1>
+{% if registered %}
+    <strong>thank you for registering for Bestaurant!</strong>
+{% else %}
+    <strong>register here!</strong><br />
+    <!--enctype="multipart/form-data" tells the HTTP client to package and send data accordingly.-->
+    <form id="registration_form" method="post" action="{% url 'accounts:register' %}" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <!-- Display each form-->
+        {{ user_form.as_p }}
+        {{ user_account_form.as_p }}
+        {{ profile_form.as_p }}
+
+        <!--provide a button to click to submit the form.-->
+        <input type="submit" name="submit" value="Register" />
+    </form>
+{% endif %}
