@@ -1,0 +1,49 @@
+<!DOCTYPE html> 
+{% load staticfiles %}
+
+<html>
+
+    <head>
+        <title>User: {{ username }}</title>
+    </head>
+
+    <body>
+        <h1>User: {{ username }}</h1>
+        <div>
+            {% if photo %}
+                <img src="{{ MEDIA_URL }}profile_images/{{ username }}.jpg" width="100" height="100">
+            {% endif %}
+            <ul>
+                <li>
+                    {% if restaurantOwner %}
+                        Restaurant owner
+                    {% else %}
+                        Regular reviewer
+                    {% endif %}
+                </li>
+                {% if about %}
+                    <li>
+                        {{ about }}
+                    </li>
+                {% endif %}
+                {% if recentlyReviewed %}
+                    <li>
+                        {{ recentlyReviewed }}
+                    </li>
+                {% endif %}
+            </ul>
+            {% if restaurants %}
+            <h3>Restaurants owned by {{ username }}</h3>
+                <ul>
+                    {% for restaurant in restaurants %}
+                        <li>
+                            <a href="/restaurant/{{ restaurant.restaurantName }}">
+                                {{ restaurant.restaurantName }}
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+
+</html>

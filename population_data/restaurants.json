@@ -1,0 +1,170 @@
+[
+    {
+        "owner": "thomas892",
+        "restaurantName": "The Piper Bar",
+        "category": "Casual Dining",
+        "address": "57 Cochrane Street, George Square",
+        "logo": true
+    },
+    {
+        "owner": "Dakota",
+        "restaurantName": "Dakota Bar and Grill",
+        "category": "Fine Dining",
+        "address": "179 West Regent Street",
+        "logo": true
+    },
+    {
+        "owner": "angrycupcake",
+        "restaurantName": "My Home Bakery Hyndland Street",
+        "category": "Cafe",
+        "address": "59 Hyndland St",
+        "logo": true
+    },
+    {
+        "owner": "angrycupcake",
+        "restaurantName": "My Home Bakery Kildrostan Street",
+        "category": "Cafe",
+        "address": "8 Kildrostan St",
+        "logo": false
+    },
+    {
+        "owner": "Ox&Finch Official",
+        "restaurantName": "Ox And Finch",
+        "category": "Fine Dining",
+        "address": "920 Sauchiehall Street",
+        "logo": true
+    },
+    {
+        "owner": "McDonalds Glasgow",
+        "restaurantName": "McDonalds Crow Road",
+        "category": "Fast Food",
+        "address": "Westend Retail Pk, Crow Rd",
+        "logo": true
+    },
+    {
+        "owner": "McDonalds Glasgow",
+        "restaurantName": "McDonalds Finniestion Street",
+        "category": "Fast Food",
+        "address": "45 Finnieston Street",
+        "logo": true
+    },
+    {
+        "owner": "McDonalds Glasgow",
+        "restaurantName": "McDonalds Sauchiehall Street",
+        "category": "Fast Food",
+        "address": "101/105 Sauchiehall Street",
+        "logo": true
+    },
+    {
+        "owner": "Dahkin",
+        "restaurantName": "Dahkin",
+        "category": "Fine Dining",
+        "address": "89 Candleriggs Road",
+        "logo": true
+    },
+    {
+        "owner": "Absolute Roasters",
+        "restaurantName": "Absolute Roasters Hyndland Street",
+        "category": "Coffeehouse",
+        "address": "70-72 Hyndland Street",
+        "logo": true
+    },
+    {
+        "owner": "Allistair Tones",
+        "restaurantName": "KFC Argyle Street",
+        "category": "Fast Food",
+        "address": "178 Argyle Street",
+        "logo": true
+    },
+    {
+        "owner": "Allistair Tones",
+        "restaurantName": "KFC Braehead",
+        "category": "Fast Food",
+        "address": "121 Braehead Shopping Centre",
+        "logo": true
+    },
+    {
+        "owner": "Burger King",
+        "restaurantName": "Burger King Castlebank Street",
+        "category": "Fast Food",
+        "address": "300 Castlebank Street",
+        "logo": true
+    },
+    {
+        "owner": "coffee_addict",
+        "restaurantName": "Riverhill Coffee Bar",
+        "category": "Coffeehouse",
+        "address": "179 West Regent Street, Glasgow G2 4DP Scotland",
+        "logo": true
+    },
+    {
+        "owner": "E-Street",
+        "restaurantName": "E-Street",
+        "category": "Cafe",
+        "address": "421 Clarkston Road",
+        "logo": true
+    },
+    {
+        "owner": "Matthew McDurmot",
+        "restaurantName": "Suissi Vegan Kitchen",
+        "category": "Casual Dining",
+        "address": "422 Clarkston Road",
+        "logo": true
+    },
+    {
+        "owner": "Matthew McDurmot",
+        "restaurantName": "Scran",
+        "category": "Casual Dining",
+        "address": "239 London Road",
+        "logo": true
+    },
+    {
+        "owner": "magicpie",
+        "restaurantName": "Ottoman Coffeehouse",
+        "category": "Coffeehouse",
+        "address": "73 Berkeley Street",
+        "logo": true
+    },
+    {
+        "owner": "boris",
+        "restaurantName": "Ronzio Coffeehouse",
+        "category": "Coffeehouse",
+        "address": "1361 Argyle Street Kelvingrove",
+        "logo": true
+    },
+    {
+        "owner": "yousef03",
+        "restaurantName": "Serene Coffee House",
+        "category": "Coffeehouse",
+        "address": "381 Paisley Road West",
+        "logo": true
+    },
+    {
+        "owner": "eliza",
+        "restaurantName": "Gamba Seafood Restaurant",
+        "category": "Casual Dining",
+        "address": "225A West George Street",
+        "logo": true
+    },
+    {
+        "owner": "eliza",
+        "restaurantName": "Ashoka",
+        "category": "Casual Dining",
+        "address": "225B West George Street",
+        "logo": true
+    },
+    {
+        "owner": "fiona_snedden",
+        "restaurantName": "North Star Cafe",
+        "category": "Cafe",
+        "address": "108 Queen Margaret Drive",
+        "logo": true
+    },
+    {
+        "owner": "fiona_snedden",
+        "restaurantName": "Rose & Grants",
+        "category": "Cafe",
+        "address": "27 Trongate",
+        "logo": true
+    }
+]

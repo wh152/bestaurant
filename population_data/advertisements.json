@@ -1,0 +1,94 @@
+[
+    {
+        "restaurant": "The Piper Bar",
+        "description": "A renowned pub in George Square, full with any range of drinks you could want at an affordable price."
+    },
+    {
+        "restaurant": "Dakota Bar and Grill",
+        "description": "Here at Dakota, we pride ourselves in providing only the finest quality food, and our bar and grill is no exception."
+    },
+    {
+        "restaurant": "My Home Bakery Hyndland Street",
+        "description": "Hi, I bake cakes :) feel free to join the queue that regularly forms at lunchtime outside my shop!"
+    },
+    {
+        "restaurant": "Ox And Finch",
+        "description": "Based in one of the most iconic streets in Glasgow, we will add to this by giving you a meal you won't forget."
+    },
+    {
+        "restaurant": "McDonalds Crow Road",
+        "description": "The McDonalds in Anniesland, Crow Road"
+    },
+    {
+        "restaurant": "McDonalds Finniestion Street",
+        "description": "The McDonalds in Finniestion"
+    },
+    {
+        "restaurant": "McDonalds Sauchiehall Street",
+        "description": "Always a popular place on Friday and Saturday nights, this McDonalds is sure to make you happy!"
+    },
+    {
+        "restaurant": "Dahkin",
+        "description": "Providing fine South Asian cuisine, tucked away in Candleriggs Road. Anything you want, we have."
+    },
+    {
+        "restaurant": "Absolute Roasters Hyndland Street",
+        "description": "Start your morning with a fresh prep at our newest opening of the Absolute Roasters brand on Hyndland Street!"
+    },
+    {
+        "restaurant": "KFC Argyle Street",
+        "description": "The well-known KFC on Argyle Street"
+    },
+    {
+        "restaurant": "KFC Braehead",
+        "description": "Pop-by after a movie on a night out!"
+    },
+    {
+        "restaurant": "Burger King Castlebank Street",
+        "description": "The old-standing Burger King on Castebank Street."
+    },
+    {
+        "restaurant": "Riverhill Coffee Bar",
+        "description": "We make all forms of coffee with an excellent view to match."
+    },
+    {
+        "restaurant": "E-Street",
+        "description": "A cheap, cozy cafe on E-Street, a great place to stop by for lunch with co-workers."
+    },
+    {
+        "restaurant": "Suissi Vegan Kitchen",
+        "description": "Get ahead of the trend by coming to the new restaurant that can provide any vegan delicacy for a great price!"
+    },
+    {
+        "restaurant": "Scran",
+        "description": "Come and get your scran!"
+    },
+    {
+        "restaurant": "Ottoman Coffeehouse",
+        "description": "With an beautiful and old-fashioned place to have your daily coffee in, what more could you want?"
+    },
+    {
+        "restaurant": "Ronzio Coffeehouse",
+        "description": "A new coffeehouse that rivals the prices of its competitors whilst still handling your coffee with care"
+    },
+    {
+        "restaurant": "Serene Coffee House",
+        "description": "A tranquil, peaceful spot where you can relax at any time with a cup of your favourite cappucino!"
+    },
+    {
+        "restaurant": "Gamba Seafood Restaurant",
+        "description": "All sorts of delicious and exotic seafood in this city-known eat-out!"
+    },
+    {
+        "restaurant": "Ashoka",
+        "description": "A great place to take your friends for a quick bite, we have something for everyone here at Ashoka!"
+    },
+    {
+        "restaurant": "North Star Cafe",
+        "description": "For once, a cafe that provides the atmosphere and food that you deserve without testing your wallet!"
+    },
+    {
+        "restaurant": "Rose & Grants",
+        "description": "A fantastic cafe that has recently expanded its range - be the first to try out!"
+    }
+]

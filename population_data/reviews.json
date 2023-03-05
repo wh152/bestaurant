@@ -1,0 +1,98 @@
+[
+    {
+        "reviewer": "thomas892",
+        "restaurant": "Gamba Seafood Restaurant",
+        "rating": 8,
+        "comment": "Great kalimari and squid soup!"
+    },
+    {
+        "reviewer": "MeganMcKredis",
+        "restaurant": "Gamba Seafood Restaurant",
+        "rating": 4,
+        "comment": "The food was great, but the waiting times are just too long to justify coming here unfortunately :("
+    },
+    {
+        "reviewer": "davey",
+        "restaurant": "Gamba Seafood Restaurant",
+        "rating": 1,
+        "comment": "Didn't offer fish and chips, outraged!"
+    },
+    {
+        "reviewer": "born2pizza",
+        "restaurant": "Gamba Seafood Restaurant",
+        "rating": 3,
+        "comment": "The only pizza available had very little seafood on it, as a pizza connoisseur this upsets me greatly"
+    },
+    {
+        "reviewer": "magicpie",
+        "restaurant": "Gamba Seafood Restaurant",
+        "rating": 9,
+        "comment": "As a restaurant owner myself I know a tight ship when I see one, and Gamba is absolutely terrific with its service too!"
+    },
+    {
+        "reviewer": "fiona_snedden",
+        "restaurant": "Gamba Seafood Restaurant",
+        "rating": 7,
+        "comment": "Food was stellar and there was no end of options to choose from, but in the evenings the place gets very noisy."
+    },
+    {
+        "reviewer": "Martin Fosco",
+        "restaurant": "Gamba Seafood Restaurant",
+        "rating": 5,
+        "comment": "ok."
+    },
+    {
+        "reviewer": "aaron232",
+        "restaurant": "Gamba Seafood Restaurant",
+        "rating": 7,
+        "comment": "Great family meal, they have good kids options that weren't too expensive. May well come here again, would recommend."
+    },
+    {
+        "reviewer": "finn__",
+        "restaurant": "Gamba Seafood Restaurant",
+        "rating": 8,
+        "comment": "Their kalimari really is excellent, anyone who likes seafood should come here!"
+    },
+    {
+        "reviewer": "shettleston",
+        "restaurant": "Gamba Seafood Restaurant",
+        "rating": 6,
+        "comment": "The waiting times killed the experience for me, but the food was great when it eventually did arrive"
+    },
+    {
+        "reviewer": "boris",
+        "restaurant": "Gamba Seafood Restaurant",
+        "rating": 10,
+        "comment": "I went there for lunch and the service and food were just the best, nothing to complain about here!"
+    },
+    {
+        "reviewer": "boris",
+        "restaurant": "Absolute Roasters Hyndland Street",
+        "rating": 3,
+        "comment": "Charged me £8.25 for two cups of coffee and a muffin. Yet another rubbish, overpriced West End coffeehouse!"
+    },
+    {
+        "reviewer": "coffee_addict",
+        "restaurant": "Absolute Roasters Hyndland Street",
+        "rating": 8,
+        "comment": "Very modern and vibrant atmosphere here, the amount of coffee could sometimes be a tad too small for me though"
+    },
+    {
+        "reviewer": "magicpie",
+        "restaurant": "Absolute Roasters Hyndland Street",
+        "rating": 5,
+        "comment": "Very expensive but they do know how to make your coffee at the perfect pressure and temperature!"
+    },
+    {
+        "reviewer": "angrycupcake",
+        "restaurant": "Absolute Roasters Hyndland Street",
+        "rating": 8,
+        "comment": "Love coming across the road here before I open my shop at lunchtime, always wakes me up very well :)"
+    },
+    {
+        "reviewer": "MeganMcKredis",
+        "restaurant": "Dakota Bar and Grill",
+        "rating": 6,
+        "comment": "The food smelled great, they did give me too many onions though. Just a couple of slices would have been fine."
+    }
+]

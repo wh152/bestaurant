@@ -1,0 +1,234 @@
+[
+    {
+        "username": "thomas892",
+        "email": "thomas892@gmail.com",
+        "password": "thomas892",
+        "restaurantOwner": true,
+        "about": "Hi, I'm a dad of 3 from Renfrew who owns a small pub. Make sure to pop by!",
+        "photo": true
+    },
+    {
+        "username": "MeganMcKredis",
+        "email": "meganmck@yahoo.com",
+        "password": "MeganMcKredis",
+        "restaurantOwner": false,
+        "about": "I enjoy rating stuff.",
+        "photo": true
+    },
+    {
+        "username": "Dakota",
+        "email": "hello@dakotabarandgrill.com",
+        "password": "Dakota",
+        "restaurantOwner": true,
+        "about": "Management account of the Dakota Bar & Grill fine dining restaurant.",
+        "photo": true
+    },
+    {
+        "username": "davey",
+        "email": "thomas892@gmail.com",
+        "password": "davey",
+        "restaurantOwner": false,
+        "about": "I've conquered all the chippies!",
+        "photo": true
+    },
+    {
+        "username": "anon",
+        "email": ";j|nJ*3S#~St,-@proton.me",
+        "password": "yvkX_I|pxr:o(;#>#H1",
+        "restaurantOwner": false,
+        "about": "",
+        "photo": false
+    },
+    {
+        "username": "born2pizza",
+        "email": "claireclementine2@gmail.com",
+        "password": "born2pizza",
+        "restaurantOwner": false,
+        "about": "pizza lover",
+        "photo": true
+    },
+    {
+        "username": "angrycupcake",
+        "email": "thomas892@gmail.com",
+        "password": "1secretpassword",
+        "restaurantOwner": true,
+        "about": "Owner of My Home Bakery on Hyndland Road",
+        "photo": true
+    },
+    {
+        "username": "magicpie",
+        "email": "thursofraser@outlook.com",
+        "password": "magicpie",
+        "restaurantOwner": true,
+        "about": "Visiting Glasgow from Thurso to see my pal :)",
+        "photo": false
+    },
+    {
+        "username": "Ox&Finch Official",
+        "email": "thomas892@gmail.com",
+        "password": "Ox&Finch Official",
+        "restaurantOwner": true,
+        "about": "Account for Ox And Finch on Sauchiehall Street",
+        "photo": true
+    },
+    {
+        "username": "McDonalds Glasgow",
+        "email": "ronald@mcdonalds.com",
+        "password": "McDonalds Glasgow",
+        "restaurantOwner": true,
+        "about": "Official account for McDonalds Glasgow.",
+        "photo": true
+    },
+    {
+        "username": "fiona_snedden",
+        "email": "fiona__snedden@outlook.com",
+        "password": "fiona_snedden",
+        "restaurantOwner": true,
+        "about": "Local Glasgow restaurant owner who loves eating out!",
+        "photo": true
+    },
+    {
+        "username": "Dahkin",
+        "email": "official@dahkin.com",
+        "password": "Dahkin",
+        "restaurantOwner": true,
+        "about": "Providing fine South Asian cuisine in Merchant City",
+        "photo": true
+    },
+    {
+        "username": "Absolute Roasters",
+        "email": "hello@absoluteroasters.com",
+        "password": "Absolute Roasters",
+        "restaurantOwner": true,
+        "about": "We own Absolute Roaster coffee shop on Hyndland Street.",
+        "photo": true
+    },
+    {
+        "username": "Allistair Tones",
+        "email": "glasgow@kfc.com",
+        "password": "Allistair Tones",
+        "restaurantOwner": true,
+        "about": "Owner of KFC's Glasgow branch",
+        "photo": true
+    },
+    {
+        "username": "Burger King",
+        "email": "glasgow@burgerking.com",
+        "password": "Burger King",
+        "restaurantOwner": true,
+        "about": "Burger ",
+        "photo": true
+    },
+    {
+        "username": "coffee_addict",
+        "email": "pomwsg@gmail.com",
+        "password": "coffee_addict",
+        "restaurantOwner": true,
+        "about": "Cappucino is my favourite type, love having it every day before work!",
+        "photo": false
+    },
+    {
+        "username": "E-Street",
+        "email": "e-street@gmail.com",
+        "password": "Street",
+        "restaurantOwner": true,
+        "about": "Account for the E-Street Cafe!",
+        "photo": true
+    },
+    {
+        "username": "e-wing",
+        "email": "e-wing@gmail.com",
+        "password": "e-wing",
+        "restaurantOwner": false,
+        "about": "",
+        "photo": false
+    },
+    {
+        "username": "ratatouille",
+        "email": "sewer_rat@yahoo.com",
+        "password": "ratatouille",
+        "restaurantOwner": false,
+        "about": "",
+        "photo": true
+    },
+    {
+        "username": "Amelia Neilson",
+        "email": "aneilson23@gmail.com",
+        "password": "Amelia Neilson",
+        "restaurantOwner": false,
+        "about": "",
+        "photo": false
+    },
+    {
+        "username": "Martin Fosco",
+        "email": "martinbfosco@proton.me",
+        "password": "Martin Fosco",
+        "restaurantOwner": false,
+        "about": "",
+        "photo": true
+    },
+    {
+        "username": "aaron232",
+        "email": "aar0n232@gmail.com",
+        "password": "aaron232",
+        "restaurantOwner": false,
+        "about": "",
+        "photo": true
+    },
+    {
+        "username": "Matthew McDurmot",
+        "email": "matthewmcd@outlook.com",
+        "password": "Matthew McDurmot",
+        "restaurantOwner": true,
+        "about": "",
+        "photo": false
+    },
+    {
+        "username": "eliza",
+        "email": "lucky_beaver@gmail.com",
+        "password": "eliza",
+        "restaurantOwner": true,
+        "about": "",
+        "photo": true
+    },
+    {
+        "username": "finn__",
+        "email": "finn_oreilly@outlook.com",
+        "password": "finn__",
+        "restaurantOwner": false,
+        "about": "",
+        "photo": true
+    },
+    {
+        "username": "yousef03",
+        "email": "yjosm34@gmail.com",
+        "password": "yousef03",
+        "restaurantOwner": true,
+        "about": "",
+        "photo": true
+    },
+    {
+        "username": "ilovecafes",
+        "email": "jillHarris624@proton.me",
+        "password": "ilovecafes",
+        "restaurantOwner": false,
+        "about": "",
+        "photo": false
+    },
+    {
+        "username": "shettleston",
+        "email": "euan_ross3422@gmail.com",
+        "password": "shettleston",
+        "restaurantOwner": false,
+        "about": "",
+        "photo": false
+    },
+    {
+        "username": "boris",
+        "email": "bvelinov892@outlook.com",
+        "password": "boris",
+        "restaurantOwner": true,
+        "about": "",
+        "photo": false
+    }
+]

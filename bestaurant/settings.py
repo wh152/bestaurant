@@ -51,6 +51,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'accounts',
     'search',
+    'user',
+    'managerestaurants',
+    'advertise',
     'registration',  # registration-redux package
 ]
 

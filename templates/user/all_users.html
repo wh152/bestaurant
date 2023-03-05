@@ -1,0 +1,20 @@
+<!DOCTYPE html> 
+{% load staticfiles %}
+
+<html>
+
+    <head>
+        <title>All Users</title>
+    </head>
+
+    <body>
+        <h1>List of all users</h1>
+        <div>
+            <ul>
+                {% for user in allUsers %}
+                    <li><a href="/user/{{ user.user.username }}">{{ user.user.username }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+
+</html>
