@@ -59,4 +59,4 @@ def register(request):
         restaurant_owner_form = RestaurantRegistrationForm()
 
     #render the template depending on the context.
-    return render(request, 'bestaurant/register.html', context = {'user_form': customer_form, 'user_account_form':user_account_form, 'profile_form': restaurant_owner_form, 'registered': registrationSuccess})
+    return render(request, 'accounts/register.html', context = {'user_form': customer_form, 'user_account_form':user_account_form, 'profile_form': restaurant_owner_form, 'registered': registrationSuccess})
