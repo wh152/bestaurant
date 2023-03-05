@@ -1,0 +1,7 @@
+from django.urls import path
+
+from .views import search_results, show_category
+
+urlpatterns = [path("search/", search_results.as_view(), name = 'search_results'),
+               path('category/<slug:category_name_slug>/', show_category, name='show_category'),
+               ]

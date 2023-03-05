@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+
+{%load staticfiles %}
+{% load bestaurant_template_tags %}
+
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>
+        {% block title_block %} BESTAURANT {% endblock %}
+    </title>
+</head>
+
+<body>
+
+{% block search_bar_block %}
+    <form action="{% url 'search_results' %}" method="get">
+        <input name="q" type="text" placeholder="Search">
+        <input type="submit" name="submit" value="Search">
+    </form>
+
+{% endblock %}
+
+
+<div>
+    {% block body_block %}
+    {% endblock %}
+</div>
+
+<div>
+    {% block sidebar_block %}
+        {% get_category_list category %}
+    {% endblock %}
+</div>
+<br><br>
+
+<div>
+    //links
+</div>
+
+</body>
+</html>
