@@ -1,5 +1,7 @@
 from django.shortcuts import render
-from accounts.forms import RegistrationForm, UserAccountForm, RestaurantRegistrationForm
+from accounts.forms import RegistrationForm, UserAccountForm, RestaurantRegistrationForm, LoginForm
+from django.contrib.auth.models import User
+from django.contrib.auth.hashers import check_password
 
 # Create your views here.
 
@@ -13,7 +15,7 @@ def register(request):
         restaurant_owner_form = RestaurantRegistrationForm(request.POST)
 
         #If the two forms are valid save the user's form data to the database
-        if customer_form.is_valid() and user_account_form.is_valid():
+        if customer_form.is_valid() and user_account_form.is_valid() and customer_form.cleaned_data['password'] == customer_form.cleaned_data['confirm_password']:
             #save the users form data to the database.
             customer = customer_form.save()
 
@@ -60,3 +62,44 @@ def register(request):
 
     #render the template depending on the context.
     return render(request, 'accounts/register.html', context = {'user_form': customer_form, 'user_account_form':user_account_form, 'profile_form': restaurant_owner_form, 'registered': registrationSuccess})
+
+
+def login(request):
+    loginSuccess = False
+    loginFailed = False
+    if request.method == 'POST':
+        login_form= LoginForm(request.POST)
+
+        username_or_email = request.POST.get('username_or_email')
+        password = request.POST.get('password')
+
+        #use Django's machinery to try to see if the username/password combination is valid - if it is, a User object 
+        #is returned.
+
+        #filter objects first by username, if an object is returned check if password matches. If an empty query set is returned, filter 
+        # by email, email is not unique so if a non empty query set is returned loop over each object and see if password matches for any. 
+        
+        
+        try:
+            #try to get the user with the given email, if nothing is returned we go to the except block
+            user_object = User.objects.get(username = username_or_email)
+
+            if check_password(password, user_object.password):
+                loginSuccess = True
+        except:
+            #it is possible for more than one user to have the same email, so we use filter and loop over 
+            #all the objects returned and see if there is a password match
+            user_objects = User.objects.filter(email = username_or_email)
+            for current_user in user_objects:
+                if check_password(password, current_user.password):
+                    loginSuccess = True
+                    break
+        
+        if not loginSuccess:
+            loginFailed = True
+
+    else:
+        login_form = LoginForm()
+
+    return render(request, 'accounts/login.html', context = {'login_form': login_form, 'logged_in': loginSuccess, 'login_failed' : loginFailed})
+

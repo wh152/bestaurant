@@ -6,6 +6,7 @@ class RegistrationForm(forms.ModelForm):
     
     username = forms.CharField(widget=forms.TextInput())
     password = forms.CharField(widget=forms.PasswordInput())
+    confirm_password = forms.CharField(widget=forms.PasswordInput())
 
     class Meta:
         model = User
@@ -22,23 +23,18 @@ class UserAccountForm(forms.ModelForm):
 
 
 class RestaurantRegistrationForm(forms.ModelForm):
-    restaurantName = forms.CharField(max_length=128, help_text="Enter your restaurant name")
+    restaurantName = forms.CharField(max_length=128, label="Restaurant name", help_text="Enter your restaurant name",)
     category = forms.CharField(max_length = 128, help_text = "What category is your restaurant? E.g. Fast food, fine dining, etc")
     address = forms.CharField(max_length = 256, help_text = "Enter the address of your restaurant" )
 
     class Meta:
         model = Restaurant
-        fields = ('logo', 'restaurantName', 'category', 'address')
+        fields = ('restaurantName', 'category', 'address','logo')
 
 
 
-class LoginForm (forms.ModelForm):
-    username = forms.CharField(widget=forms.TextInput())
+class LoginForm (forms.Form):
+    username_or_email = forms.CharField(widget=forms.TextInput())
     password = forms.CharField(widget=forms.PasswordInput())
-
-    class Meta:
-        model = User
-        fields = ('email', 'username', 'password',)
-
 
 
