@@ -21,21 +21,32 @@
 
 {% endblock %}
 
-
-<div>
-    {% block body_block %}
-    {% endblock %}
-</div>
-
 <div>
     {% block sidebar_block %}
+        <h2>Restaurant Categories</h2>
+
         {% get_category_list category %}
+
+
+        <h2>Sort All Restaurants</h2>
+
+        <form action="{% url 'most_reviewed' %}" method="get">
+            <input type="submit" name="most_reviewed" value="Most Reviewed">
+        </form>
+
+        <form action="{% url 'recently_reviewed' %}" method="get">
+            <input type="submit" name="recently_reviewed" value="Most Recently Reviewed">
+        </form>
+
+        <form action="{% url 'recently_added' %}" method="get">
+            <input type="submit" name="recently_added" value="Recently Added">
+        </form>
     {% endblock %}
 </div>
 <br><br>
 
 <div>
-    //links
+    <!-- links -->
 </div>
 
 </body>

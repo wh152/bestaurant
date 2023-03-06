@@ -1,0 +1,31 @@
+{% extends 'accounts/base.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+    Bestaurant Home Page
+{% endblock %}
+
+{% block body_block %}
+<div>
+    {% if user.is_authenticated %}
+        Welcome {{ user.username }}
+    {% endif %}
+<!-- Need to add in tick for restaurant owner users -->
+</div>
+
+<div>
+    <h2>Top Rated Restaurants</h2>
+    {% if Restaurants %}
+    <ul>
+        {% for restaurant in Restaurants %}
+        <li><a href="{{ restaurant.url }}">{{ restaurant.restaurantName }}</a></li>
+        <!-- Restaurant Profile -->
+        {% endfor %}
+    </ul>
+
+    {% else %}
+        <strong>There are no restaurants present.</strong>
+    {% endif %}
+</div>
+
+{% endblock %}
