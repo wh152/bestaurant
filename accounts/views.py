@@ -2,6 +2,7 @@ from django.shortcuts import render
 from accounts.forms import RegistrationForm, UserAccountForm, RestaurantRegistrationForm, LoginForm
 from django.contrib.auth.models import User
 from django.contrib.auth.hashers import check_password
+from accounts.models import Restaurant
 
 # Create your views here.
 
@@ -103,3 +104,12 @@ def login(request):
 
     return render(request, 'accounts/login.html', context = {'login_form': login_form, 'logged_in': loginSuccess, 'login_failed' : loginFailed})
 
+
+def index(request):
+    
+    restaurant_rating_list = Restaurant.objects.order_by('-average rating')[:3]
+
+    context_dict = {}
+    context_dict['restaurants'] = restaurant_rating_list
+
+    return render(request, 'accounts/index.html', context=context_dict)
