@@ -26,5 +26,5 @@ urlpatterns = [
     path('managerestaurants/', include('managerestaurants.urls')),
     path('advertise/', include('advertise.urls')),
     # path('user/<str:username>', views.viewOneUser, name='viewOneUser'),
-    path('search', include('search.urls')), add in when has valid patterns
+    path('search', include('search.urls')), #add in when has valid patterns
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
