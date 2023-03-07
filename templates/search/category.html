@@ -12,7 +12,10 @@
 
 <ul>
   {% for restaurant in restaurants %}
-    <li><a href="{{ restaurant.url }}">{{ restaurant.restaurantName }}</a></li>
+  <p>Name: { restaurant.restaurantName }</p>
+  <p>Rating: </p> <!--Star Rating Functionality-->
+  <p>Description: { restaurant.category }, { restaurant.address } </p> 
+  <!-- Review Links -->
   {% endfor %}
 </ul>
 {% else %}
