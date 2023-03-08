@@ -13,6 +13,7 @@
 
 <body>
 
+
 {% block search_bar_block %}
     <form action="{% url 'search_results' %}" method="get">
         <input name="q" type="text" placeholder="Search">
@@ -42,6 +43,12 @@
             <input type="submit" name="recently_added" value="Recently Added">
         </form>
     {% endblock %}
+</div>
+
+<div>
+    <!-- testing log out-->
+    <a href="{% url 'rango:logout' %}">Logout</a>
+    
 </div>
 <br><br>
 

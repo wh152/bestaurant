@@ -1,7 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from accounts.forms import RegistrationForm, UserAccountForm, RestaurantRegistrationForm, LoginForm
 from django.contrib.auth.models import User
 from django.contrib.auth.hashers import check_password
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import logout
 from accounts.models import Restaurant
 
 # Create your views here.
@@ -105,9 +107,15 @@ def login(request):
     return render(request, 'accounts/login.html', context = {'login_form': login_form, 'logged_in': loginSuccess, 'login_failed' : loginFailed})
 
 
+@login_required
+def logout(request):
+    logout(request)
+    return redirect('accounts: logout')
+
+
 def index(request):
     
-    restaurant_rating_list = Restaurant.objects.order_by('-average rating')[:3]
+    restaurant_rating_list = Restaurant.objects.order_by('-averageRating')[:3]
 
     context_dict = {}
     context_dict['restaurants'] = restaurant_rating_list
