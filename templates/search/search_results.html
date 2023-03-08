@@ -9,9 +9,11 @@
 {% block body_block %}
     <ul>
         {% for restaurant in results_list %}
-            <li>
-                <!-- restaurant profiles -->
-            </li>
+        <p>Name: { restaurant.restaurantName }</p>
+        <p>Rating: </p> <!--Star Rating Functionality-->
+        <p>Description: { restaurant.category }, { restaurant.address } </p> 
+        <!-- Review Links -->
+        {% endfor %}
     </ul>
 
 {% endblock %}
