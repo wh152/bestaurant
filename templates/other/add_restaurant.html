@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block title_block %}
+    Add Restaurant
+{% endblock %}
+{% block body_block %}
+    <form id="restaurant_form" method="post" action="." enctype="multipart/form-data">
+        {% csrf_token %}
+        {{form.as_p}}
+        <input type="submit" name="submit" value="Create" />
+    </form>
+{% endblock %}
