@@ -1,5 +1,5 @@
 from django.contrib import admin
-from accounts.models import UserAccount, Restaurant, Advertisement
+from .models import *
 
 # Register your models here.
 admin.site.register(UserAccount)

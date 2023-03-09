@@ -17,14 +17,13 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+import accounts.views as acc_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('accounts/',  include('accounts.urls')),
-    # path('accounts/', include('registration.backends.simple.urls')),
-    path('user/', include('user.urls')),
-    path('managerestaurants/', include('managerestaurants.urls')),
-    path('advertise/', include('advertise.urls')),
-    # path('user/<str:username>', views.viewOneUser, name='viewOneUser'),
-    # path('search', include('search.urls')), add in when has valid patterns
+    path('', include('other.urls')),
+    path('accounts/register/', acc_views.register, name="register"),
+    path('accounts/login/', acc_views.login, name="login"),
+    path('accounts/', include('registration.backends.simple.urls')),
+    path('search/', include('search.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

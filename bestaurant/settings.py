@@ -24,7 +24,7 @@ MEDIA_URL = '/media/'
 # variables for the registration-redux package
 REGISTRATION_OPEN = True
 REGISTRATION_AUTO_LOGIN = True
-LOGIN_REDIRECT_URL = 'search:index'
+LOGIN_REDIRECT_URL = 'other:index'
 LOGIN_URL = 'auth_login'
 
 
@@ -51,9 +51,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'accounts',
     'search',
-    'user',
-    'managerestaurants',
-    'advertise',
+    'other',
     'registration',  # registration-redux package
 ]
 

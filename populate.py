@@ -17,14 +17,7 @@ def populate():
     populate_restaurants()
     populate_advertisements()
     populate_reviews()
-
-
-def upload_image(image_dir, image_name):
-    image_path = os.path.join(settings.BASE_DIR, "population_data", image_dir, image_name+".jpg")
-    if not os.path.exists(image_path):
-        image_path = "".join(image_path.split(".")[:-1] + [".jpeg"])
-    image_file = open(image_path, "rb")
-    return image_file
+    populate_categories()
 
 
 def populate_accounts():
@@ -108,25 +101,14 @@ def populate_reviews():
         review.save()
 
 
+def populate_categories():
+    for category in ["Casual Dining", "Fine Dining", "Fast Food", "Cafe", "Coffeehouse"]:
+        Category.objects.create(name=category)
+
+
 def read_data(filename):
     with open(os.path.join(settings.BASE_DIR, "population_data", filename+".json")) as f:
         return json.load(f)
-
-    
-def get_image(images_dir, image_name, image_exists):
-    if image_exists:
-        image_name += ".jpg"
-        image_path = os.path.join(settings.BASE_DIR, "population_data", images_dir, image_name)
-        # sometimes the photo file extensions are .jpeg instead of .jpg
-        if not os.path.exists(image_path):
-            image_path = "".join(image_path.split(".")[:-1] + [".jpeg"])
-        # to avoid an error on Windows where C:\\ is appended to the end of upload_to
-        if image_path.startswith("C:\\"):
-            image_path = image_path[2:]
-        image = ImageFile(open(image_path, "rb"))
-    else:
-        image = None
-    return image
 
 
 def get_image_path(images_dir, image_name, image_exists):
@@ -136,6 +118,14 @@ def get_image_path(images_dir, image_name, image_exists):
     else:
         image_path = None
     return image_path
+
+
+def upload_image(image_dir, image_name):
+    image_path = os.path.join(settings.BASE_DIR, "population_data", image_dir, image_name+".jpg")
+    if not os.path.exists(image_path):
+        image_path = "".join(image_path.split(".")[:-1] + [".jpeg"])
+    image_file = open(image_path, "rb")
+    return image_file
 
 
 if __name__ == '__main__':

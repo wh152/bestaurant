@@ -1,7 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from accounts.forms import RegistrationForm, UserAccountForm, RestaurantRegistrationForm, LoginForm
 from django.contrib.auth.models import User
 from django.contrib.auth.hashers import check_password
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import logout
+from .models import *
 
 # Create your views here.
 
@@ -35,7 +38,6 @@ def register(request):
             if restaurant_owner_form.is_valid():
                 #set commit to false to avoid integrity problems
                 restaurant = restaurant_owner_form.save(commit=False)
-                print(user_account)
                 restaurant.owner = user_account
 
                 #if the user provided a profile picture, we need to get it from the input form and put it in 
@@ -61,7 +63,7 @@ def register(request):
         restaurant_owner_form = RestaurantRegistrationForm()
 
     #render the template depending on the context.
-    return render(request, 'accounts/register.html', context = {'user_form': customer_form, 'user_account_form':user_account_form, 'profile_form': restaurant_owner_form, 'registered': registrationSuccess})
+    return render(request, 'registration/registration_form.html', context = {'user_form': customer_form, 'user_account_form':user_account_form, 'profile_form': restaurant_owner_form, 'registered': registrationSuccess})
 
 
 def login(request):
@@ -101,5 +103,20 @@ def login(request):
     else:
         login_form = LoginForm()
 
-    return render(request, 'accounts/login.html', context = {'login_form': login_form, 'logged_in': loginSuccess, 'login_failed' : loginFailed})
+    return render(request, 'registration/login.html', context = {'login_form': login_form, 'logged_in': loginSuccess, 'login_failed' : loginFailed})
 
+
+@login_required
+def logout(request):
+    logout(request)
+    return redirect('accounts: logout')
+
+
+def index(request):
+    
+    restaurant_rating_list = Restaurant.objects.order_by('-averageRating')[:3]
+
+    context_dict = {}
+    context_dict['restaurants'] = restaurant_rating_list
+
+    return render(request, 'accounts/index.html', context=context_dict)

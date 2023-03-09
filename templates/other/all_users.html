@@ -11,7 +11,7 @@
         <h1>List of all users</h1>
         <div>
             <ul>
-                {% for user in allUsers %}
+                {% for user in users %}
                     <li><a href="/user/{{ user.user.username }}">{{ user.user.username }}</a></li>
                 {% endfor %}
             </ul>

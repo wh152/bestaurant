@@ -1,0 +1,25 @@
+{% extends 'accounts/base.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+  {{ category.name }}
+{% endblock %}
+
+{% block body_block %}
+<h1>{{ category.name }}</h1>
+
+{% if restaurants %}
+
+<ul>
+  {% for restaurant in restaurants %}
+  <p>Name: { restaurant.restaurantName }</p>
+  <p>Rating: </p> <!--Star Rating Functionality-->
+  <p>Description: { restaurant.category }, { restaurant.address } </p> 
+  <!-- Review Links -->
+  {% endfor %}
+</ul>
+{% else %}
+<strong>No restaurants currently in category.</strong>
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+
+{%load staticfiles %}
+{% load search_template_tags %}
+
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>
+        Bestaurant - {% block title_block %}{% endblock %}
+    </title>
+</head>
+
+<body>
+
+
+{% block search_bar_block %}
+    <form action="{% url 'search:search_results' %}" method="get">
+        <input name="q" type="text" placeholder="Search">
+        <input type="submit" name="submit" value="Search">
+    </form>
+
+{% endblock %}
+
+<div>
+    {% block sidebar_block %}
+        <h2>Restaurant Categories</h2>
+
+        {% get_category_list category %}
+
+
+        <h2>Sort All Restaurants</h2>
+
+    {% endblock %}
+</div>
+
+<div>
+    <!-- testing log out-->
+    <a href="{% url 'auth_logout' %}">Logout</a>
+    
+</div>
+<br><br>
+
+<div>
+    <!-- links -->
+</div>
+
+</body>
+</html>
