@@ -79,3 +79,24 @@ def advertise(request):
             return render("other/create_advert.html", {"form": form})
     except:
         return HttpResponse("You must log in to see this page.")
+
+@login_required
+def addRestaurant(request):
+    userAccount = UserAccount.objects.get(user=request.user)
+    if not userAccount.restaurantOwner:
+        return HttpResponse("You are not a restaurant owner.")
+    if request.method == "POST":
+        form = RestaurantRegistrationForm(request.POST)
+        if form.is_valid():
+            restaurant = form.save(commit=False)
+            restaurant.restaurantName = request.post["restaurantName"]
+            restaurant.category = request.post["category"]
+            restaurant.address = request.post["address"]
+            if 'logo' in request.FILES:
+                restaurant.logo = request.FILES['logo']
+            restaurant.save()
+        else:
+            return ("other/add_restaurant.html", {"form":form,"errors":form.errors})
+    else:
+        form = RestaurantRegistrationForm(user=request.user)
+        return ("other/add_restaurant.html", {"form":form,"errors":None})
