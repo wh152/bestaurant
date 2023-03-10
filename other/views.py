@@ -79,3 +79,7 @@ def advertise(request):
             return render("other/create_advert.html", {"form": form})
     except:
         return HttpResponse("You must log in to see this page.")
+
+
+def temp(request):
+    return HttpResponse("At least it's not a 404")
