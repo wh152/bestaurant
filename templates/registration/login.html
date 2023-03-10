@@ -9,7 +9,7 @@
 {% if logged_in  %}
     <strong>Thank you for logging in to Bestaurant!</strong>
 {% else %}
-    <form id="login_form" method="post" action="{% url 'login' %}" enctype="multipart/form-data">
+    <form id="login_form" method="post" action="." enctype="multipart/form-data">
         {% csrf_token %}
 
         {% if login_failed %}
