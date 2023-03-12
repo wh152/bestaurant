@@ -1,9 +1,11 @@
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
+from django.urls import reverse
 
 from accounts.models import *
 from accounts.forms import AdvertiseForm, RestaurantForm
+from search.forms import *
 
 def index(request):
     return HttpResponse("At least it's not a 404")
@@ -36,7 +38,6 @@ def viewAllUsers(request):
 def viewOneUser(request, username_slug):
     try:
         user_account = UserAccount.objects.get(username_slug=username_slug)
-        print("user_account", user_account)
         context = {}
         context["username"] = user_account.user.username
         context["restaurantOwner"] = user_account.restaurantOwner
@@ -54,7 +55,6 @@ def viewOneUser(request, username_slug):
             context["restaurants"] = restaurants if len(restaurants) > 0 else None
         else:
             context["restaurants"] = None
-        print("context", context)
         return render(request, 'other/one_user.html', context=context)
     except User.DoesNotExist:
         return HttpResponse("Requested user does not exist")
@@ -78,10 +78,11 @@ def advertise(request):
             restaurant = Restaurant.objects.get(restaurantID=int(form.cleaned_data['restaurant']))
             description = form.cleaned_data['description']
             advertImage = request.FILES['advertImage']
-            # assignment needed if using create()?
+            image_extension = request.FILES['advertImage']._name.split(".")[-1]
+            request.FILES['advertImage']._name = ".".join([restaurant.restaurantNameSlugged, image_extension])
             Advertisement.objects.create(restaurant=restaurant, description=description, 
                                         advertImage=advertImage)
-            return redirect("success/")
+            return redirect(reverse('other:advertiseSuccess'))
         else:
             return render(request, "other/create_advertisement.html", {"form": form})
     else:
@@ -112,7 +113,7 @@ def addRestaurant(request):
                 request.FILES['logo']._name = ".".join([slugify(restaurant.restaurantName), logo_extension])
                 restaurant.logo = request.FILES['logo']
             restaurant.save()
-            return redirect('done/')
+            return redirect(reverse('other:addRestaurantDone'))
         else:
             return render(request, "other/add_restaurant.html", context={"form":form, "errors":form.errors})
     else:
@@ -123,3 +124,45 @@ def addRestaurant(request):
 @login_required
 def addRestaurantDone(request):
     return render(request, 'other/add_restaurant_done.html')
+
+
+@login_required
+def viewRestaurantReviews(request, restaurantNameSlugged):
+    # TODO
+    return redirect(reverse('other:index'), kwargs={})
+
+
+@login_required
+def reviewRestaurant(request, restaurantNameSlugged):
+    try:
+        user_account = UserAccount.objects.get(user=request.user)
+        restaurant = Restaurant.objects.get(restaurantNameSlugged=restaurantNameSlugged)
+        if restaurant.owner == user_account:
+            return redirect(reverse('other:viewRestaurantReviews', kwargs={
+                'restaurantNameSlugged':restaurantNameSlugged
+            }))
+        if request.method == "POST":
+            form = ReviewForm(request.POST)
+            if form.is_valid():
+                rating = form.cleaned_data['rating']
+                if rating < 1 or rating > 10:
+                    form.errors['rating'] = ["Rating must be between 1 and 10"]
+                    return render(request, 'other/review_restaurant.html', context={
+                        'form': form, 'errors': form.errors, 'restaurant': restaurant
+                    })
+                Review.objects.create(reviewer=user_account, restaurant=restaurant,
+                rating=form.cleaned_data['rating'], comment=form.cleaned_data['comment'])
+                return redirect(reverse('other:viewRestaurantReviews', kwargs={
+                    'restaurantNameSlugged':restaurantNameSlugged
+                }))
+            else:
+                return render(request, 'other/review_restaurant.html', context={
+                    'form': form, 'errors': form.errors, 'restaurant': restaurant
+                })
+        else:
+            form = ReviewForm()
+            return render(request, 'other/review_restaurant.html', context={
+                    'form': form, 'errors': None, 'restaurant': restaurant
+                })
+    except Restaurant.DoesNotExist:
+        return redirect(reverse('other:index'), kwargs={})

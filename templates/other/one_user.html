@@ -35,7 +35,7 @@
                 <ul>
                     {% for restaurant in restaurants %}
                         <li>
-                            <a href="/restaurant/{{ restaurant.1 }}">
+                            <a href="{% url 'other:viewRestaurantReviews' restaurant.1 %}">
                                 {{ restaurant.0.restaurantName }}
                             </a>
                         </li>

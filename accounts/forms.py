@@ -1,9 +1,6 @@
 from django import forms
 from accounts.models import *
 from django.contrib.auth.models import User
-from django.http import HttpResponseRedirect
-from django.views.generic import TemplateView
-from django.urls import reverse_lazy
 
 class RegistrationForm(forms.ModelForm):
     
