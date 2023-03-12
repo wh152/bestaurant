@@ -1,6 +1,9 @@
 from django import forms
 from accounts.models import *
 from django.contrib.auth.models import User
+from django.http import HttpResponseRedirect
+from django.views.generic import TemplateView
+from django.urls import reverse_lazy
 
 class RegistrationForm(forms.ModelForm):
     
@@ -22,7 +25,15 @@ class UserAccountForm(forms.ModelForm):
         fields = ('photo','about')
 
 
-class RestaurantRegistrationForm(forms.ModelForm):
+class RegistrationRestaurantOwnerForm(forms.ModelForm):
+
+    restaurantOwner = forms.BooleanField(label=" Restaurant Owner Account")
+    class Meta:
+        model = UserAccount
+        fields = ('restaurantOwner',)
+
+
+class RestaurantForm(forms.ModelForm):
     categoryChoices = (
         ("Casual Dining", "Casual Dining"),
         ("Fine Dining", "Fine Dining"),
@@ -47,19 +58,35 @@ class LoginForm (forms.Form):
 
 class AdvertiseForm(forms.ModelForm):
     def __init__(self, user, *args, **kwargs):
+        print("in advertisementform")
         super(AdvertiseForm, self).__init__(*args, **kwargs)
         restaurantsOwned = Restaurant.objects.filter(owner=user)
         notAdvertised = []
         for restaurant in restaurantsOwned:
             if not Advertisement.objects.filter(restaurant=restaurant):
-                notAdvertised.append((restaurant, restaurant.restaurantName))
+                notAdvertised.append((restaurant.restaurantID, restaurant.restaurantName))
+        print("notAdvertised", notAdvertised)
         self.fields["restaurant"] = forms.ChoiceField(
             widget=forms.RadioSelect, choices=notAdvertised
         )
-        self.fields["description"] = forms.CharField(
-            max_length=1024, label="Advert text", help_text="Sell you brand!"
-        )
-        self.fields["advertImage"] = forms.ImageField()
+        self.fields["description"] = forms.CharField(max_length=1024, label="Advert text")
+        self.fields["advertImage"] = forms.ImageField(label="Advertisement image")
+
     class Meta:
         model = Advertisement
-        fields = ('description', 'advertImage')
+        fields = ('restaurant', 'description', 'advertImage')
+
+
+class ChangeDescriptionForm(forms.ModelForm):
+    about = forms.CharField(max_length=1024, help_text="Change your account description")
+
+    class Meta:
+        model = UserAccount
+        fields = ('about',)
+
+
+
+class ChangeImageForm(forms.ModelForm):
+    class Meta:
+        model = UserAccount
+        fields = ('photo',)

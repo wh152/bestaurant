@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'accounts',
     'search',
     'other',
+    'django_cleanup.apps.CleanupConfig',
     'registration',  # registration-redux package
 ]
 
