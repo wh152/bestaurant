@@ -13,9 +13,25 @@
 <ul>
   {% for restaurant in restaurants %}
   <p>Name: { restaurant.restaurantName }</p>
-  <p>Rating: </p> <!--Star Rating Functionality-->
-  <p>Description: The restaurant is in the { restaurant.category } category and is located at { restaurant.address } </p> 
-  <!-- Review Links -->
+    <!--Star Rating Functionality-->
+    <p  class="card-title">Average Rating: 
+        <span class="fa fa-star {% if post.average_rating > 0 %} checked {% endif %}"></span>
+        <span class="fa fa-star {% if post.average_rating > 1 %} checked {% endif %}"></span>
+        <span class="fa fa-star {% if post.average_rating > 2 %} checked {% endif %}"></span>
+        <span class="fa fa-star {% if post.average_rating > 3 %} checked {% endif %}" ></span>
+        <span class="fa fa-star {% if post.average_rating > 4 %} checked {% endif %}"></span>
+        <span class="fa fa-star {% if post.average_rating > 5 %} checked {% endif %}"></span>
+        <span class="fa fa-star {% if post.average_rating > 6 %} checked {% endif %}"></span>
+        <span class="fa fa-star {% if post.average_rating > 7 %} checked {% endif %}"></span>
+        <span class="fa fa-star {% if post.average_rating > 8 %} checked {% endif %}"></span>
+        <span class="fa fa-star {% if post.average_rating > 9 %} checked {% endif %}"></span>
+        <span class="fa fa-star {% if post.average_rating > 10 %} checked {% endif %}"></span>
+    ></p> 
+    <p>Category: { restaurant.category }</p>
+    <p>Description: The restaurant is located at { restaurant.address } </p> 
+    <!-- Review Links -->
+    <li><a href="/reviews/{{ restaurant.restaurantName }}">Rate and Review!</a></li>
+    <li><a href="">See Reviews</a></li>
   {% endfor %}
 </ul>
 {% else %}

@@ -2,6 +2,7 @@ from django.shortcuts import render
 from accounts.models import *
 from django.db.models import Q, Count
 from search.models import Category, Review
+from accounts.models import *
 
 
 def index(request):
