@@ -3,6 +3,7 @@ from accounts.models import *
 from django.db.models import Q
 from search.models import Category
 from accounts.models import Restaurant
+from other.models import Review
 
 # Create your views here.
 def index(request):
@@ -44,6 +45,8 @@ def show_category(request, category_name_slug):
 
 # def most_reviewed(request):
     
+    
+    
 #     restaurant_list = Restaurant.objects.order_by('-averageRating')[:3]
 
 #     context_dict = {}
@@ -53,19 +56,19 @@ def show_category(request, category_name_slug):
     
 # def most_recently_reviewed(request):
     
-#     restaurant_list = Restaurant.objects.order_by('-averageRating')[:3]
+#     restaurant_list = Review.objects.order_by('-averageRating')[:3]
 
 #     context_dict = {}
 #     context_dict['restaurants'] = restaurant_list
 
 #     return render(request, 'search/index.html', context=context_dict)
     
-# def recently_added(request):
+def recently_added(request):
     
-#     restaurant_list = Restaurant.objects.order_by('-averageRating')[:3]
+    restaurant_list = Restaurant.objects.order_by('-dateAdded')
 
-#     context_dict = {}
-#     context_dict['restaurants'] = restaurant_list
+    context_dict = {}
+    context_dict['restaurants'] = restaurant_list
 
-#     return render(request, 'search/index.html', context=context_dict)
+    return render(request, 'sort_recently_added/index.html', context=context_dict)
     
