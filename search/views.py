@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from accounts.models import *
-from django.db.models import Q
+from django.db.models import Q, Count
 from search.models import Category, Review
 
 
@@ -41,20 +41,21 @@ def show_category(request, category_name_slug):
 
     return render(request, 'search/category.html', context=context_dict)
 
-# def most_reviewed(request):
-    
-    
-    
-#     restaurant_list = Restaurant.objects.order_by('-averageRating')[:3]
 
-#     context_dict = {}
-#     context_dict['restaurants'] = restaurant_list
+def most_reviewed(request):
+    
+    restaurant_list = Restaurant.objects.all().annotate(num_reviews=Count('review')).order_by('-num_reviews')
 
-#     return render(request, 'search/index.html', context=context_dict)
+    context_dict = {}
+    context_dict['restaurants'] = restaurant_list
+
+    return render(request, 'search/most_reviewed.html', context=context_dict)
+    
+    
     
 def most_recently_reviewed(request):
     
-    review_list = Review.objects.order_by('-date')[:3]
+    review_list = Review.objects.order_by('-date')
     restaurant_list = Restaurant.objects.all()
     
     restaurant_list.union(review_list, all-True)
@@ -63,6 +64,8 @@ def most_recently_reviewed(request):
     context_dict['restaurants'] = restaurant_list
 
     return render(request, 'search/sort_most_recently_reviewed.html', context=context_dict)
+    
+    
     
 def recently_added(request):
     
