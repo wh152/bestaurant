@@ -1,7 +1,8 @@
 from django.shortcuts import render
 from accounts.models import *
 from django.db.models import Q
-from search.models import Category
+from search.models import Category, Review
+
 
 def index(request):
     restaurant_list = Restaurant.objects.order_by('-averageRating')[:3]
@@ -51,14 +52,17 @@ def show_category(request, category_name_slug):
 
 #     return render(request, 'search/index.html', context=context_dict)
     
-# def most_recently_reviewed(request):
+def most_recently_reviewed(request):
     
-#     restaurant_list = Review.objects.order_by('-averageRating')[:3]
+    review_list = Review.objects.order_by('-date')[:3]
+    restaurant_list = Restaurant.objects.all()
+    
+    restaurant_list.union(review_list, all-True)
 
-#     context_dict = {}
-#     context_dict['restaurants'] = restaurant_list
+    context_dict = {}
+    context_dict['restaurants'] = restaurant_list
 
-#     return render(request, 'search/index.html', context=context_dict)
+    return render(request, 'search/sort_most_recently_reviewed.html', context=context_dict)
     
 def recently_added(request):
     
@@ -67,5 +71,5 @@ def recently_added(request):
     context_dict = {}
     context_dict['restaurants'] = restaurant_list
 
-    return render(request, 'sort_recently_added/index.html', context=context_dict)
+    return render(request, 'search/sort_recently_added.html', context=context_dict)
 
