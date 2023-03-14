@@ -8,6 +8,26 @@
 
 {% block body_block %}
 <h1>Most Recently Reviewed Restaurants</h1>
-<!-- Sorted restaurant list -->
+<ul>
+    {% for restaurant in results_list %}
+    <p>Name: { restaurant.restaurantName }</p>
+    <!--Star Rating Functionality-->
+    <p  class="card-title">Average Rating: 
+        <span class="fa fa-star {% if post.average_rating > 0 %} checked {% endif %}"></span>
+        <span class="fa fa-star {% if post.average_rating > 1 %} checked {% endif %}"></span>
+        <span class="fa fa-star {% if post.average_rating > 2 %} checked {% endif %}"></span>
+        <span class="fa fa-star {% if post.average_rating > 3 %} checked {% endif %}" ></span>
+        <span class="fa fa-star {% if post.average_rating > 4 %} checked {% endif %}"></span>
+        <span class="fa fa-star {% if post.average_rating > 5 %} checked {% endif %}"></span>
+        <span class="fa fa-star {% if post.average_rating > 6 %} checked {% endif %}"></span>
+        <span class="fa fa-star {% if post.average_rating > 7 %} checked {% endif %}"></span>
+        <span class="fa fa-star {% if post.average_rating > 8 %} checked {% endif %}"></span>
+        <span class="fa fa-star {% if post.average_rating > 9 %} checked {% endif %}"></span>
+        <span class="fa fa-star {% if post.average_rating > 10 %} checked {% endif %}"></span>
+    ></p> 
+    <p>Description: The restaurant is in the { restaurant.category } category and is located at { restaurant.address } </p> 
+    <!-- Review Links -->
+    {% endfor %}
+</ul>
 
 {% endblock %}

@@ -20,7 +20,7 @@
         {% for restaurant in Restaurants %} 
         <p>Name: {{restaurant.restaurantName}}</p>
         <p>Rating: </p>
-        <p>Description: {{restaurant.category}}, {{restaurant.address}}</p>
+        <p>Description: The restaurant is in the { restaurant.category } category and is located at { restaurant.address } </p> 
         {% endfor %}
     </ul>
 

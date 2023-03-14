@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
+from search.models import *
+from django.db.models import Avg
 
 
 # Can't have the same name as the built-in model User 
@@ -28,6 +30,9 @@ class Restaurant(models.Model):
 
     def __str__(self):
         return str(self.restaurantID) + ': ' + self.restaurantName
+    
+    def average_rating(self) -> float:
+        return Review.objects.filter(restaurant=self).aggregate(Avg("rating"))["rating__avg"] or 0
 
 
 class Advertisement(models.Model):
