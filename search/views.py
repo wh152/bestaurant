@@ -5,6 +5,15 @@ from search.models import Category
 
 # Create your views here.
 def index(request):
+    category_list = Restaurant.objects.order_by('-averageRating')[:3]
+
+    context_dict = {}
+    context_dict['categories'] = category_list
+
+
+    response = render(request, 'search/index.html', context=context_dict)
+    
+    return response
 
 
 def search_results(search_request):
