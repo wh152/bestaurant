@@ -4,8 +4,8 @@ from django.db.models import Q
 from search.models import Category
 
 # Create your views here.
-# def index(request):
-# homepage view
+def index(request):
+
 
 def search_results(search_request):
 
@@ -16,8 +16,7 @@ def search_results(search_request):
         query = search_request.Get.get('search')
         if query:
             restaurant_list = model.filter(
-                Q(owner__icontains=query) | Q(restaurantName__icontains=query) |
-                Q(category__icontains=query) | Q(address__icontains=query)
+                Q(owner__icontains=query) | Q(restaurantName__icontains=query) | Q(address__icontains=query)
             )
 
     return render(search_request, 'search/search_results.html', {'restaurant_list': restaurant_list})
