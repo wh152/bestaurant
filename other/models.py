@@ -1,3 +1,7 @@
 from django.db import models
+from accounts.models import Restaurant
 
-# Create your models here.
+class Review(models.Model):
+    restaurantID = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
+
+#Base review model for foreign key field

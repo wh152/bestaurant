@@ -2,14 +2,14 @@ from django.shortcuts import render
 from accounts.models import *
 from django.db.models import Q
 from search.models import Category
+from accounts.models import Restaurant
 
 # Create your views here.
 def index(request):
-    category_list = Restaurant.objects.order_by('-averageRating')[:3]
+    restaurant_list = Restaurant.objects.order_by('-averageRating')[:3]
 
     context_dict = {}
-    context_dict['categories'] = category_list
-
+    context_dict['restaurants'] = restaurant_list
 
     response = render(request, 'search/index.html', context=context_dict)
     
@@ -42,3 +42,30 @@ def show_category(request, category_name_slug):
 
     return render(request, 'search/category.html', context=context_dict)
 
+# def most_reviewed(request):
+    
+#     restaurant_list = Restaurant.objects.order_by('-averageRating')[:3]
+
+#     context_dict = {}
+#     context_dict['restaurants'] = restaurant_list
+
+#     return render(request, 'search/index.html', context=context_dict)
+    
+# def most_recently_reviewed(request):
+    
+#     restaurant_list = Restaurant.objects.order_by('-averageRating')[:3]
+
+#     context_dict = {}
+#     context_dict['restaurants'] = restaurant_list
+
+#     return render(request, 'search/index.html', context=context_dict)
+    
+# def recently_added(request):
+    
+#     restaurant_list = Restaurant.objects.order_by('-averageRating')[:3]
+
+#     context_dict = {}
+#     context_dict['restaurants'] = restaurant_list
+
+#     return render(request, 'search/index.html', context=context_dict)
+    
