@@ -34,6 +34,18 @@
 
         <h2>Sort All Restaurants</h2>
 
+        <form actions="{% url 'most_reviewed' %}" method="get">
+            <input type="submit" name="most_reviewed" value="Most Reviewed">
+        </form>
+
+        <form actions="{% url 'recently_reviewed' %}" method="get">
+            <input type="submit" name="recently_reviewed" value="Recently Reviewed">
+        </form>
+
+        <form actions="{% url 'recently_added' %}" method="get">
+            <input type="submit" name="recently_added" value="Recently Added">
+        </form>
+
     {% endblock %}
 </div>
 

@@ -6,7 +6,7 @@ from accounts.models import *
 class Review(models.Model):
     reviewID = models.AutoField(primary_key=True)
     reviewer = models.ForeignKey(UserAccount, on_delete=models.CASCADE)
-    restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
+    restaurantID = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
     rating = models.IntegerField()
     comment = models.CharField(max_length=1024)
     date = models.DateField(auto_now_add=True)

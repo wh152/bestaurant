@@ -1,0 +1,32 @@
+{% extends 'base.html' %} 
+{% load staticfiles %} 
+
+{% block title_block %} 
+    Bestaurant Home Page
+{% endblock %} 
+
+{% block body_block %} 
+<div>
+    {% if user.is_authenticated %} 
+        Welcome {{user.username}}
+    {% endif %}
+</div>
+
+<div>
+    <h2>Top Rate Restaurants</h2>
+
+    {% if Restaurants %} 
+    <ul>
+        {% for restaurant in Restaurants %} 
+        <p>Name: {{restaurant.restaurantName}}</p>
+        <p>Rating: </p>
+        <p>Description: {{restaurant.category}}, {{restaurant.address}}</p>
+        {% endfor %}
+    </ul>
+
+    {% else %} 
+        <strong> There are no restaurants present.</strong>
+    {% endif %}
+</div>
+
+{% endblock %}
