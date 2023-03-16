@@ -6,6 +6,12 @@
 <html>
 <head lang="en">
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="https://maxcdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
     <title>
         Bestaurant - 
         {% block title_block %}
@@ -16,51 +22,67 @@
 
 <body>
 
-
 {% block search_bar_block %}
     <form action="{% url 'search:search_results' %}" method="get">
-        <input name="q" type="text" placeholder="Search">
-        <input type="submit" name="submit" value="Search">
+        <div class="input-group">
+            <div class="form-outline">
+                <input name="q" type="text" placeholder="Search" class="form-control">
+            </div>
+            <input type="submit" class="btn btn-default" name="submit" value="Search">
+        </div>
     </form>
-
 {% endblock %}
 
-<div>
-    {% block sidebar_block %}
-        <h2>Restaurant Categories</h2>
-
-        {% get_category_list category %}
-
-
-        <h2>Sort All Restaurants</h2>
-
-        <form actions="{% url 'most_reviewed' %}" method="get">
-            <input type="submit" name="most_reviewed" value="Most Reviewed">
-        </form>
-
-        <form actions="{% url 'recently_reviewed' %}" method="get">
-            <input type="submit" name="recently_reviewed" value="Recently Reviewed">
-        </form>
-
-        <form actions="{% url 'recently_added' %}" method="get">
-            <input type="submit" name="recently_added" value="Recently Added">
-        </form>
-
-    {% endblock %}
+<div class="container-fluid">
+    <div class="row">
+        <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+            <div class="sidebar-sticky">
+                {% block sidebar_block %}
+                <h2>Restaurant Categories</h2>
+        
+                {% get_category_list category %}
+        
+        
+                <h2>Sort All Restaurants</h2>
+                
+                <form actions="{% url 'most_reviewed' %}" method="get">
+                    <input type="submit" class="btn btn-default" name="most_reviewed" value="Most Reviewed">
+                </form>
+        
+                <form actions="{% url 'recently_reviewed' %}" method="get">
+                    <input type="submit" class="btn btn-default" name="recently_reviewed" value="Recently Reviewed">
+                </form>
+        
+                <form actions="{% url 'recently_added' %}" method="get">
+                    <input type="submit" class="btn btn-default" name="recently_added" value="Recently Added">
+                </form>
+                
+        
+            {% endblock %}
+            </div>
+        </nav>
+        
+        <main role="main" class="col-md-9  ml-sm-auto col-lg-10 px-4">		
+            {% block body_block %}
+            <div>
+                <!-- testing log out-->
+                <a href="{% url 'auth_logout' %}">Logout</a>
+                
+            </div>
+            <br><br>
+            <div>
+                <!-- links -->
+            </div>
+            {% endblock %}
+            
+            <!-- FOOTER -->
+            <!-- <footer>
+                <p class="float-right"><a href="#">Back to top</a></p>
+                <p>&copy; Bestaurant &middot;</p>
+            </footer> -->
+        </main>
+    </div>
 </div>
-
-<div>
-    <!-- testing log out-->
-    <a href="{% url 'auth_logout' %}">Logout</a>
-    
-</div>
-<br><br>
-
-{% block body_block %}
-<div>
-    <!-- links -->
-</div>
-{% endblock %}
 
 </body>
 </html>
