@@ -3,7 +3,7 @@ from accounts.models import *
 from django.db.models import Q
 from search.models import Category
 from accounts.models import Restaurant
-from other.models import Review
+from search.models import Review
 
 # Create your views here.
 def index(request):
