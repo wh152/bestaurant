@@ -4,10 +4,15 @@
     Register
 {% endblock %}
 
+{% block sidebar_block %}
+{% endblock %}
+
 {% block body_block %}
+
     {% if registered %}
         <strong>thank you for registering for Bestaurant!</strong>
     {% else %}
+        <h4>Please enter your username and password.</h4>
         <strong>Register here!</strong><br />
         <!--enctype="multipart/form-data" tells the HTTP client to package and send data accordingly.-->
         <form id="registration_form" method="post" action="." enctype="multipart/form-data">
