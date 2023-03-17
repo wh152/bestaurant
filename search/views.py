@@ -22,7 +22,7 @@ def search_results(search_request):
     restaurant_list = []
 
     if search_request.method == 'GET':
-        query = search_request.Get.get('search')
+        query = search_request.Get.get('q')
         if query:
             restaurant_list = model.filter(
                 Q(owner__icontains=query) | Q(restaurantName__icontains=query) | Q(address__icontains=query)
