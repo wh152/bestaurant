@@ -6,24 +6,40 @@
 <html>
 <head lang="en">
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>
         Bestaurant - 
         {% block title_block %}
             Rate Glasgow Restaurants!
         {% endblock %}
     </title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
 </head>
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
 <body>
 
-
-{% block search_bar_block %}
+<!-- block to represent the nav bar -->
+<div class="navbar" background-colour="red">
+     
+    <img src="{% static 'images/logo.jpeg' %}" alt="Bestaurant Logo" width=150, height=50 />
+    {% block search_bar_block %}
     <form action="{% url 'search:search_results' %}" method="get">
         <input name="q" type="text" placeholder="Search">
         <input type="submit" name="submit" value="Search">
     </form>
+    {% endblock %}
 
-{% endblock %}
+    {% block account_buttons_block %}
+        {% if user.is_authenticated %}
+            <button onclick = "location.href = '/other/viewOneUser/{{ username_slug }}/'">My Account</a>
+            <button onclick = "location.href = '{% url 'auth_logout' %}'">Sign out</button>
+        {% else %}
+            <button onclick ="location.href = '{% url 'register' %}'">Register</button>
+            <button onclick ="location.href = '{% url 'login' %}'">Log In</button>
+        {% endif %}
+    {% endblock %}
+</div>
 
 <div>
     {% block sidebar_block %}
@@ -37,11 +53,6 @@
     {% endblock %}
 </div>
 
-<div>
-    <!-- testing log out-->
-    <a href="{% url 'auth_logout' %}">Logout</a>
-    
-</div>
 <br><br>
 
 {% block body_block %}

@@ -8,7 +8,8 @@ from accounts.forms import AdvertiseForm, RestaurantForm
 from search.forms import *
 
 def index(request):
-    return HttpResponse("At least it's not a 404")
+    return render(request, 'index.html')
+   # return HttpResponse("At least it's not a 404")
 
 
 @login_required

@@ -1,9 +1,10 @@
 from django.shortcuts import render, redirect
+from django.http import HttpResponse
 from accounts.forms import *
 from django.contrib.auth.models import User
 from django.contrib.auth.hashers import check_password
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import logout
+from django.contrib.auth import logout, login
 from django.urls import reverse
 from .models import *
 from django.conf import settings
@@ -67,7 +68,7 @@ def register(request):
     })
 
 
-def login(request):
+def user_login(request):
     loginSuccess = False
     loginFailed = False
     if request.method == 'POST':
@@ -101,11 +102,19 @@ def login(request):
         if not loginSuccess:
             loginFailed = True
 
+        if loginSuccess:
+            if not user_object.is_active:
+                return HttpResponse("You cannot log in as your account has been disabled.")
+            else:
+                login(request, user_object)
+                return redirect('other:index')
+        else:
+            login_form = LoginForm()
     else:
         login_form = LoginForm()
+       
 
-    return render(request, 'registration/login.html', context = {'login_form': login_form, 'logged_in': loginSuccess, 'login_failed' : loginFailed})
-
+    return render(request, 'registration/login.html', context = {'login_form': login_form, 'logged_in': loginSuccess, 'login_failed': loginFailed})
 
 @login_required
 def logout(request):
