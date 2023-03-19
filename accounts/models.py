@@ -37,6 +37,9 @@ class Restaurant(models.Model):
 
     def __str__(self):
         return str(self.restaurantID) + ': ' + self.restaurantName
+    
+    def average_rating(self) -> float:
+        return Review.objects.filter(restaurant=self).aggregate(Avg("rating"))["rating__avg"] or 0
 
 
 class Advertisement(models.Model):
