@@ -1,22 +1,11 @@
-<!DOCTYPE html>
-{% load staticfiles %}
-
-<html>
-    
-    <head>
-        <title>
-            Create advertisement for {{ restaurantName }}
-        </title>
-    </head>
-
-    <body>
-        <div class="form-group">
-            <form method="POST" enctype="multipart/form-data">
-                {% csrf_token %}
-                {{ form.media }}
-                {{ form.as_p }}
-                <button class="btn btn-secondary">Create</button>
-            </form>
-        </div>
-    </body>
-</html>
+{% extends 'base.html' %}
+{% block title_block %}
+    Create Advertisement
+{% endblock %}
+{% block body_block %}
+    <form id="advertisement_form" method="post" action="." enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" name="submit" value="Create" />
+    </form>
+{% endblock %}

@@ -4,10 +4,15 @@
     Register
 {% endblock %}
 
+{% block sidebar_block %}
+{% endblock %}
+
 {% block body_block %}
+
     {% if registered %}
         <strong>thank you for registering for Bestaurant!</strong>
     {% else %}
+        <h4>Please enter your username and password.</h4>
         <strong>Register here!</strong><br />
         <!--enctype="multipart/form-data" tells the HTTP client to package and send data accordingly.-->
         <form id="registration_form" method="post" action="." enctype="multipart/form-data">
@@ -16,7 +21,7 @@
             <!-- Display each form-->
             {{ user_form.as_p }}
             {{ user_account_form.as_p }}
-            <!--use javascript only show restaurant owner when check box is checked-->
+            {{ is_restaurant_owner_form.as_p }}
             
             Restaurant Owner Account <input id="owner" class="checkbox" type="checkbox" name ="is_restaurant_owner" value=""/>
 
@@ -25,20 +30,5 @@
             <!--provide a button to click to submit the form.-->
             <input type="submit" class="btn btn-default" name="submit" value="Register" />
         </form>
-
-        <script>
-            let registration_form = document.getElementById("registration_form");
-            let owner_checkbox = document.getElementById("owner");
-            console.log("registration_form", registration_form);
-            console.log("owner_checkbox", owner_checkbox);
-            console.log("checked", owner_checkbox.checked);
-            owner_checkbox.addEventListener("change", function() {
-                if (this.checked) {
-                    console.log("checked");
-                } else {
-                    console.log("unchecked");
-                }
-            });
-        </script>
     {% endif %}
 {% endblock %}

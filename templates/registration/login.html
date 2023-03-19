@@ -4,24 +4,41 @@
     Login
 {% endblock %}
 
+{% block search_bar_block %}
+{% endblock %}
+
+{% block sidebar_block %}
+{% endblock %}
+
 {% block body_block %}
 
-{% if logged_in  %}
-    <strong>Thank you for logging in to Bestaurant!</strong>
-{% else %}
-    <form id="login_form" method="post" action="." enctype="multipart/form-data">
-        {% csrf_token %}
+<div class="text-center">
 
-        {% if login_failed %}
-            <strong>Invalid login details provided</strong>
-        {% endif %}
+    {% if logged_in %}
+        <strong> Thanks for signing in </strong>
+    {% else %}
+        
 
-        Display the login form
-        {{ login_form.as_p }}
+    <strong>Please enter your username and password.</strong>
+
+        <form id="login_form" method="post" action="." enctype="multipart/form-data">
+        
+            {% csrf_token %}
+ 
+            {% if login_failed %}
+                <strong>Invalid login details provided</strong>
+            {% endif %}
+
+            <br/><br/>
+
+            {{ login_form.as_p }}
 
         <input type="submit" class="btn btn-default" name="submit" value="Log In"/>
 
-    </form>
+        </form>
 
-{% endif %}
+    {% endif %}
+
+</div>
+
 {% endblock %}

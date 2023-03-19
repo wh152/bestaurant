@@ -1,14 +1,36 @@
-<!DOCTYPE html> 
-{% load staticfiles %}
+{% extends "base.html" %}
 
-<html>
-    <head>
-        <title>
-            All Restaurants
-        </title>
-    </head>
+{% block title_block %}
+    Description Changed
+{% endblock %}
 
-    <body>
-        <h1>{{ a.b }}</h1>
-    </body>
-</html>
+{% block body_block %}
+    <div>
+        {% for restaurant in restaurants %}
+            {% if restaurant.logo_path %}
+                <img src="{{ MEDIA_URL }}{{ logo_path }}" width="100" height="100">
+            {% endif %}
+            <ul>
+                <li>
+                    Name: {{ restaurant.restaurantName }}
+                </li>
+                <li>
+                    Category: {{ restaurant.category }}
+                </li>
+                <li>
+                    Address: {{ restaurant.address}}
+                
+                {% if restaurant.averageRating %}
+                    <li>
+                        {{ restaurant.averageRating }}
+                    </li>
+                {% else %}
+                    <li>
+                        Not yet rated
+                    </li>
+                {% endif %}
+            </ul>
+        {% endfor %}
+    </div>
+    <a href="{% url 'other:addRestaurant' %}">Add a restaurant</a>
+{% endblock %}
