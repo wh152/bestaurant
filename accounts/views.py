@@ -96,6 +96,7 @@ def user_login(request):
             user_objects = User.objects.filter(email = username_or_email)
             for current_user in user_objects:
                 if check_password(password, current_user.password):
+                    user_object = current_user
                     loginSuccess = True
                     break
         
