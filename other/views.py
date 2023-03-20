@@ -9,6 +9,7 @@ from search.forms import *
 
 def index(request):
     return render(request, 'index.html')
+   # return HttpResponse("At least it's not a 404")
 
 
 @login_required

@@ -11,4 +11,8 @@ urlpatterns = [
     path('user/', views.viewAllUsers, name='viewAllUsers'),
     path('user/<str:username_slug>', views.viewOneUser, name='viewOneUser'),
     path('advertise/', views.advertise, name='advertise'),
+    path('advertise/success/', views.advertiseSuccess, name='advertiseSuccess'),
+    path('restaurant/<str:restaurantNameSlugged>/', views.viewRestaurantReviews, name='viewRestaurantReviews'),
+    path('restaurant/<str:restaurantNameSlugged>/review/', views.reviewRestaurant, name='reviewRestaurant'),
+    path('reviews/', views.reviewRestuarant, name='reviewRestaurant')
 ]

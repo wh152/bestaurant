@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.template.defaultfilters import slugify
+from search.models import *
+from django.db.models import Avg
 
 
 # Can't have the same name as the built-in model User 
@@ -12,7 +14,7 @@ class UserAccount(models.Model):
     about = models.CharField(max_length=1024, blank=True)
     photo = models.ImageField(upload_to='profile_images', null=True, blank=True)
     # To reference a model not yet defined you must put its name as a string
-    recentlyReviewed = models.ForeignKey('Restaurant', on_delete=models.SET_NULL, null=True, blank=True)
+    #recentlyReviewed = models.ForeignKey('Restaurant', on_delete=models.SET_NULL, null=True, blank=True)
 
     def __str__(self):
         return self.user.username
@@ -35,10 +37,9 @@ class Restaurant(models.Model):
 
     def __str__(self):
         return str(self.restaurantID) + ': ' + self.restaurantName
-
-    def save(self, *args, **kwargs):
-        self.restaurantNameSlugged = slugify(self.restaurantName)
-        super(Restaurant, self).save(*args, **kwargs)
+    
+    def average_rating(self) -> float:
+        return Review.objects.filter(restaurant=self).aggregate(Avg("rating"))["rating__avg"] or 0
 
 
 class Advertisement(models.Model):

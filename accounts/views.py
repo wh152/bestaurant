@@ -110,12 +110,11 @@ def user_login(request):
                 return redirect('other:index')
         else:
             login_form = LoginForm()
-
     else:
         login_form = LoginForm()
+       
 
-    return render(request, 'registration/login.html', context = {'login_form': login_form, 'logged_in': loginSuccess, 'login_failed' : loginFailed})
-
+    return render(request, 'registration/login.html', context = {'login_form': login_form, 'logged_in': loginSuccess, 'login_failed': loginFailed})
 
 @login_required
 def logout(request):
@@ -123,14 +122,6 @@ def logout(request):
     return redirect('accounts: logout')
 
 
-def index(request):
-    
-    restaurant_rating_list = Restaurant.objects.order_by('-averageRating')[:3]
-
-    context_dict = {}
-    context_dict['restaurants'] = restaurant_rating_list
-
-    return render(request, 'accounts/index.html', context=context_dict)
 
 
 @login_required

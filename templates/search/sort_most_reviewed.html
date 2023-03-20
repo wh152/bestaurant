@@ -3,11 +3,53 @@
 
 
 {% block title_block %}
-    Search Results
+    Most Reviewed
 {% endblock %}
 
 {% block body_block %}
 <h1>Most Reviewed Restaurants</h1>
-<!-- Sorted restaurant list -->
+<ul>
+    {% for restaurant in restaurants %}
+
+    <table class="table table-bordered table-sm">
+
+      <tr scope="row">
+
+        {% if restaurant.logo_path %}
+          <td scope="col">
+              <img src="{{ MEDIA_URL }}{{ logo_path }}" class="img-thumbnail" width="100" height="100">
+          </td>
+        {% endif %}
+
+        <td scope="col">
+          <p>Name: {{ restaurant.restaurantName }}</p>
+          <!--Star Rating Functionality-->
+          <p  class="card-title">Average Rating: 
+              <span class="fa fa-star {% if post.average_rating > 0 %} checked {% endif %}"></span>
+              <span class="fa fa-star {% if post.average_rating > 1 %} checked {% endif %}"></span>
+              <span class="fa fa-star {% if post.average_rating > 2 %} checked {% endif %}"></span>
+              <span class="fa fa-star {% if post.average_rating > 3 %} checked {% endif %}" ></span>
+              <span class="fa fa-star {% if post.average_rating > 4 %} checked {% endif %}"></span>
+              <span class="fa fa-star {% if post.average_rating > 5 %} checked {% endif %}"></span>
+              <span class="fa fa-star {% if post.average_rating > 6 %} checked {% endif %}"></span>
+              <span class="fa fa-star {% if post.average_rating > 7 %} checked {% endif %}"></span>
+              <span class="fa fa-star {% if post.average_rating > 8 %} checked {% endif %}"></span>
+              <span class="fa fa-star {% if post.average_rating > 9 %} checked {% endif %}"></span>
+              <span class="fa fa-star {% if post.average_rating > 10 %} checked {% endif %}"></span>
+          </p> 
+          <p>Category: {{ restaurant.category }}</p>
+          <p>Description: The restaurant is located at {{ restaurant.address }} </p> 
+
+          <!-- Review Links -->
+          <li><a href="/reviews/{{ restaurant.restaurantName }}">Rate and Review!</a></li>
+          <!-- Need to add in link to the reviews of the restaurant/ profile of restaurant???? -->
+          <li><a href="">See Reviews</a></li>
+
+        </td>
+      </tr>
+  </table>
+  <br><br>
+    {% endfor %}
+</ul>
 
 {% endblock %}

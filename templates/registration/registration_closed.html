@@ -1,14 +1,17 @@
 {% extends 'base.html' %}
+{% load staticfiles %}
 
 {% block title_block %}
     Registration Closed
 {% endblock %}
 
 {% block body_block %}
+<div class="text-center">
     <h1>Registration Closed</h1>
     
     <p>
         Registration is currently closed.
-        Return <a href="{% url 'other:index' %}">home</a>
+        Return <a href="{% url 'other:index' %}">Home</a>
     </p>
+</div>
 {% endblock %}
