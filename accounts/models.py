@@ -13,8 +13,6 @@ class UserAccount(models.Model):
     restaurantOwner = models.BooleanField(default=False)
     about = models.CharField(max_length=1024, blank=True)
     photo = models.ImageField(upload_to='profile_images', null=True, blank=True)
-    # To reference a model not yet defined you must put its name as a string
-    #recentlyReviewed = models.ForeignKey('Restaurant', on_delete=models.SET_NULL, null=True, blank=True)
 
     def __str__(self):
         return self.user.username
@@ -33,7 +31,7 @@ class Restaurant(models.Model):
     address = models.CharField(max_length=256, unique=True)
     logo = models.ImageField(upload_to='restaurant_logos', null=True, blank=True)
     averageRating = models.FloatField(null=True, blank=True)
-    dateAdded = models.DateField(null=False)
+    dateAdded = models.DateField(auto_now_add=True)
 
     def __str__(self):
         return str(self.restaurantID) + ': ' + self.restaurantName

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
 {%load staticfiles %}
-
+{% load socialaccount %}
 {% load search_template_tags %}
 
 <html>
@@ -45,11 +45,12 @@
         {% block account_buttons_block %}
             {% if user.is_authenticated %}
                 <ul class ="navbar-nav">
-                    <li class = "nav-item"><button class = "nav-link" onclick = "location.href = '/other/viewOneUser/{{ username_slug }}/'">My Account</a></button></li>
+                    <li class = "nav-item"><button class = "nav-link" onclick = "location.href = '/user/{{ user }}'">My Account</a></button></li>
                     <li class = "nav-item"><button class = "nav-link" onclick = "location.href = '{% url 'auth_logout' %}'">Sign out</button></li>
                 </ul>
             {% else %}
                 <ul class="navbar-nav">
+                    <li class = "nav-item"><button class = "nav-link" onclick ="location.href = '{% provider_login_url 'google' %}'">Google</button></li>
                     <li class = "nav-item"><button class = "nav-link" onclick ="location.href = '{% url 'register' %}'">Register</button></li>
                     <li class = "nav-item"><button class = "nav-link" onclick ="location.href = '{% url 'login' %}'">Log In</button></li>
                 </ul>
@@ -102,7 +103,7 @@
                 
                 <!-- FOOTER -->
                 <footer>
-                    <p class="float-right"><a href="#">Back to top</a></p>
+                    <!-- <p class="float-right"><a href="#">Back to top</a></p> -->
                     <p>&copy; Bestaurant &middot;</p>
                 </footer>
             </div>

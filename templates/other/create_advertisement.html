@@ -5,8 +5,9 @@
 {% block body_block %}
     <form id="advertisement_form" method="post" action="." enctype="multipart/form-data">
         {% csrf_token %}
+        {{ form.errors }}
+        {{ form.media }}
         {{ form.as_p }}
-
         <div class="form-group row">
             <input type="submit" class="btn btn-default" name="submit" value="Create" />
         </div>

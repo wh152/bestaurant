@@ -55,14 +55,12 @@ class LoginForm (forms.Form):
 
 class AdvertiseForm(forms.ModelForm):
     def __init__(self, user, *args, **kwargs):
-        print("in advertisementform")
         super(AdvertiseForm, self).__init__(*args, **kwargs)
         restaurantsOwned = Restaurant.objects.filter(owner=user)
         notAdvertised = []
         for restaurant in restaurantsOwned:
             if not Advertisement.objects.filter(restaurant=restaurant):
                 notAdvertised.append((restaurant.restaurantID, restaurant.restaurantName))
-        print("notAdvertised", notAdvertised)
         self.fields["restaurant"] = forms.ChoiceField(
             widget=forms.RadioSelect, choices=notAdvertised
         )

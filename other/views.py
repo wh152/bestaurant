@@ -48,7 +48,6 @@ def viewOneUser(request, username_slug):
             context["photo_path"] = context["photo"].__str__() 
         else:
             context["photo_path"] = "profile_images/default.jpg"
-        context["recentlyReviewed"] = user_account.recentlyReviewed
         if user_account.restaurantOwner:
             owned = Restaurant.objects.filter(owner=user_account)
             # include the restaurant names with underscores for URL compatibility

@@ -107,7 +107,7 @@ def user_login(request):
             if not user_object.is_active:
                 return HttpResponse("You cannot log in as your account has been disabled.")
             else:
-                login(request, user_object)
+                login(request, user_object, backend='django.contrib.auth.backends.ModelBackend')
                 return redirect('other:index')
         else:
             login_form = LoginForm()
