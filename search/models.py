@@ -1,12 +1,12 @@
 from django.db import models
 from django.template.defaultfilters import slugify
-from accounts.models import UserAccount, Restaurant
+import accounts
 
 
 class Review(models.Model):
     reviewID = models.AutoField(primary_key=True)
-    reviewer = models.ForeignKey(UserAccount, on_delete=models.CASCADE)
-    restaurantID = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
+    reviewer = models.ForeignKey(accounts.models.UserAccount, on_delete=models.CASCADE)
+    restaurant = models.ForeignKey(accounts.models.Restaurant, on_delete=models.CASCADE)
     rating = models.IntegerField()
     comment = models.CharField(max_length=1024)
     date = models.DateField(auto_now_add=True)

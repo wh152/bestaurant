@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.template.defaultfilters import slugify
-from search.models import *
+import search
 from django.db.models import Avg
 
 
@@ -33,13 +33,13 @@ class Restaurant(models.Model):
     address = models.CharField(max_length=256, unique=True)
     logo = models.ImageField(upload_to='restaurant_logos', null=True, blank=True)
     averageRating = models.FloatField(null=True, blank=True)
-    dateAddedd = models.DateField(null=False)
+    dateAdded = models.DateField(null=False)
 
     def __str__(self):
         return str(self.restaurantID) + ': ' + self.restaurantName
     
     def average_rating(self) -> float:
-        return Review.objects.filter(restaurant=self).aggregate(Avg("rating"))["rating__avg"] or 0
+        return search.models.Review.objects.filter(restaurant=self).aggregate(Avg("rating"))["rating__avg"] or 0
 
 
 class Advertisement(models.Model):

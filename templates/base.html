@@ -71,15 +71,15 @@
         
                 <h2>Sort All Restaurants</h2>
                 
-                <form actions="{% url 'most_reviewed' %}" method="get">
+                <form actions="{% url 'search:most_reviewed' %}" method="get">
                     <input type="submit" class="btn btn-default" name="most_reviewed" value="Most Reviewed">
                 </form>
         
-                <form actions="{% url 'recently_reviewed' %}" method="get">
+                <form actions="{% url 'search:most_recently_reviewed' %}" method="get">
                     <input type="submit" class="btn btn-default" name="most_recently_reviewed" value="Recently Reviewed">
                 </form>
         
-                <form actions="{% url 'recently_added' %}" method="get">
+                <form actions="{% url 'search:recently_added' %}" method="get">
                     <input type="submit" class="btn btn-default" name="recently_added" value="Recently Added">
                 </form>
                 
