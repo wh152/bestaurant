@@ -30,29 +30,34 @@
     <div class="container-fluid">
 
         <img src="{% static 'images/logo.jpeg' %}" alt="Bestaurant Logo" width=150, height=50 />
+
         {% block search_bar_block %}
-        <form action="{% url 'search:search_results' %}" method="get">
-            <div class="input-group">
-            <div class="form-outline">
-                <input name="q" type="text" placeholder="Search" class="form-control">
-            </div>
-                <input type="submit" class="btn btn-default" name="submit" value="Search">
-            </div>
-    </form>
+            <form action="{% url 'search:search_results' %}" method="get">
+                <div class="input-group">
+                    <div class="form-outline">
+                        <input name="q" type="text" placeholder="Search" class="form-control">
+                    </div>
+                    <input type="submit" class="btn btn-default" name="submit" value="Search">
+                </div>
+            </form>
         {% endblock %}
-                {% block account_buttons_block %}
-        {% if user.is_authenticated %}
-            <ul class ="navbar-nav">
-                <li class = "nav-item"><button class = "nav-link" onclick = "location.href = '/other/viewOneUser/{{ username_slug }}/'">My Account</a></button></li>
-                <li class = "nav-item"><button class = "nav-link" onclick = "location.href = '{% url 'auth_logout' %}'">Sign out</button></li>
-            </ul>
-        {% else %}
-            <ul class="navbar-nav">
-                <li class = "nav-item"><button class = "nav-link" onclick ="location.href = '{% url 'register' %}'">Register</button></li>
-                <li class = "nav-item"><button class = "nav-link" onclick ="location.href = '{% url 'login' %}'">Log In</button></li>
-            </ul>
+
+        {% block account_buttons_block %}
+            {% if user.is_authenticated %}
+                <ul class ="navbar-nav">
+                    <li class = "nav-item"><button class = "nav-link" onclick = "location.href = '/other/viewOneUser/{{ username_slug }}/'">My Account</a></button></li>
+                    <li class = "nav-item"><button class = "nav-link" onclick = "location.href = '{% url 'auth_logout' %}'">Sign out</button></li>
+                </ul>
+            {% else %}
+                <ul class="navbar-nav">
+                    <li class = "nav-item"><button class = "nav-link" onclick ="location.href = '{% url 'register' %}'">Register</button></li>
+                    <li class = "nav-item"><button class = "nav-link" onclick ="location.href = '{% url 'login' %}'">Log In</button></li>
+                </ul>
         {% endif %}
         {% endblock %}
+
+    </div>
+</div>
 
 <div class="container-fluid">
     <div class="row">
@@ -83,24 +88,24 @@
             </div>
         </nav>
         
-        <main role="main" class="col-md-9  ml-sm-auto col-lg-10 px-4">		
-            {% block body_block %}
-            <div>
-                <!-- testing log out-->
-                <a href="{% url 'auth_logout' %}">Logout</a>
+        <main role="main" class="col-md-9  ml-sm-auto col-lg-10 px-4">	
+            <div class = "body">	
+                {% block body_block %}
+                <!-- Edit block on individual pages -->
+                <div>
+                    <!-- testing log out-->
+                    <a href="{% url 'auth_logout' %}">Logout</a>
+                    
+                </div>
                 
+                {% endblock %}
+                
+                <!-- FOOTER -->
+                <footer>
+                    <p class="float-right"><a href="#">Back to top</a></p>
+                    <p>&copy; Bestaurant &middot;</p>
+                </footer>
             </div>
-            <br><br>
-            <div>
-                <!-- links -->
-            </div>
-            {% endblock %}
-            
-            <!-- FOOTER -->
-            <footer>
-                <p class="float-right"><a href="#">Back to top</a></p>
-                <p>&copy; Bestaurant &middot;</p>
-            </footer>
         </main>
     </div>
 </div>
