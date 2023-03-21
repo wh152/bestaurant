@@ -12,44 +12,51 @@
 
 <ul>
   {% for restaurant in restaurants %}
-  <table class="table table-bordered table-sm">
+  
+  <div class = "restaurant">
+    <table>
+      <tr>
+          {% if restaurant.logo %}
 
-      <tr scope="row">
+          <td>
+              <img src="{{ MEDIA_URL }}{{ restaurant.logo }}" class="img-thumbnail" width="300" height="300">
+          </td>
 
-        {% if restaurant.logo_path %}
-                <td scope="col">
-                    <img src="{{ MEDIA_URL }}{{ logo_path }}" class="img-thumbnail" width="100" height="100">
-                </td>
-        {% endif %}
+          {% endif %}
 
-        <td scope="col">
-          <p>Name: {{ restaurant.restaurantName }}</p>
-          <!--Star Rating Functionality-->
-          <p  class="card-title">Average Rating: 
-              <span class="fa fa-star {% if post.average_rating > 0 %} checked {% endif %}"></span>
-              <span class="fa fa-star {% if post.average_rating > 1 %} checked {% endif %}"></span>
-              <span class="fa fa-star {% if post.average_rating > 2 %} checked {% endif %}"></span>
-              <span class="fa fa-star {% if post.average_rating > 3 %} checked {% endif %}" ></span>
-              <span class="fa fa-star {% if post.average_rating > 4 %} checked {% endif %}"></span>
-              <span class="fa fa-star {% if post.average_rating > 5 %} checked {% endif %}"></span>
-              <span class="fa fa-star {% if post.average_rating > 6 %} checked {% endif %}"></span>
-              <span class="fa fa-star {% if post.average_rating > 7 %} checked {% endif %}"></span>
-              <span class="fa fa-star {% if post.average_rating > 8 %} checked {% endif %}"></span>
-              <span class="fa fa-star {% if post.average_rating > 9 %} checked {% endif %}"></span>
-              <span class="fa fa-star {% if post.average_rating > 10 %} checked {% endif %}"></span>
-          </p> 
-          <p>Category: {{ restaurant.category }}</p>
-          <p>Description: The restaurant is located at {{ restaurant.address }} </p> 
-
-          <!-- Review Links -->
-          <li><a href="/reviews/{{ restaurant.restaurantName }}">Rate and Review!</a></li>
-          <!-- Need to add in link to the reviews of the restaurant/ profile of restaurant???? -->
-          <li><a href="">See Reviews</a></li>
-
+          <td>
+              <h5>{{ restaurant.restaurantName }} </h5>
+              
+              owned by 
+              <a href="{% url 'other:viewOneUser' restaurant.owner.username_slug %}">
+                  {{ restaurant.owner.user.username }}
+              </a>
+          
+              <p  class="card-title"><strong>Average Rating: </strong>
+                  {% if restaurant.averageRating %}
+                      <!--Star Rating Functionality-->
+                          {% for i in '0123456789' %}
+                              {% if restaurant.averageRating >= forloop.counter %}
+                                  <img src="{% static 'images/star.png' %}" width="25" height="25">
+                              {% endif %}
+                          {% endfor %}
+                  {% else %}
+                      Not Yet Reviewed
+                  {% endif %}
+              </p>
+              <strong>Category: </strong>{{ restaurant.category }}
+              <br />
+              <strong>Address: </strong>{{ restaurant.address }}
+              <br />
+              <!-- Review Links -->
+              <a href="{% url 'other:reviewRestaurant' restaurant.restaurantNameSlugged %}">Rate and Review!</a>
+              <br />
+              <a href="{% url 'other:viewRestaurantReviews' restaurant.restaurantNameSlugged %}">See Reviews</a>
         </td>
       </tr>
-  </table>
-  <br><br>
+    </table>
+</div>
+<br /> <br />
   {% endfor %}
 </ul>
 

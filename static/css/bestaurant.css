@@ -2,8 +2,26 @@
     margin-left:10px;
 }
 
+.container-fluid-sidebar{
+    background-color: white;
+    border-right-style: solid;
+    border-color: black;
+    padding: 10px;
+    border-width: 3px;
+}
+
+.restaurant{
+    background-color: whitesmoke;
+    padding: 10px;
+}
+
+.restaurant:hover{
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
 .container-fluid{
     background-color: darkred;
+
 }
 
 .login-para{
@@ -11,7 +29,57 @@
 }
 
 .body{
-    background-color: antiquewhite;
+    background-color: white;
 }
 
+.footer{
+    background-color: lightcoral;
+    text-align: center;
+}
 
+.button-border{
+    align-items: center;
+    background-color: lightgray; 
+    border: none;
+    color: black;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    width: 250px;
+
+}
+
+.button-border:hover{
+    background-color: lightslategray;
+    font-weight: bold;
+}
+
+.category-text{
+    font-size: 20px;
+    text-align: left;
+    padding: 8px;
+    color: black;
+}
+
+.category-text-selected{
+    font-size: 20px;
+    text-align: left;
+    padding: 10px;
+    background-color: lightgrey;
+    color: black;
+}
+
+.category-list{
+    list-style-type: none; /* Remove bullets */
+    padding: 0; /* Remove padding */
+    margin: 0; /* Remove margins */
+    font-size: 20px;
+    margin-left: 15px;
+}
+
+.sort-buttons {
+    display: inline-block;
+    margin: 0 10px;
+  }

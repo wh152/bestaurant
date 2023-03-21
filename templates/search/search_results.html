@@ -7,48 +7,103 @@
 {% endblock %}
 
 {% block body_block %}
-    <h1 style="text-align: center;">Results for '{{ query }}'</h1>
+    <br/>
+    <h1 style="text-align: left;">Results for '{{ query }}'</h1>
     <br />
-    <ul>
-        {% for restaurant in restaurant_list %}
-        <div>
-            <tr scope="row">
-                {% if restaurant.logo %}
-                <td scope="col">
-                    <img src="{{ MEDIA_URL }}{{ restaurant.logo }}" class="img-thumbnail" width="100" height="100">
-                    {{ restaurant.restaurantName }} owned by 
-                    <a href="{% url 'other:viewOneUser' restaurant.owner.username_slug %}">
-                        {{ restaurant.owner.user.username }}
-                    </a>
-                </td>
-                {% else %}
-                <td scope="col">
-                    {{ restaurant.restaurantName }}
-                </td>
-                {% endif %}
 
-              <td scope="col">
-                <p  class="card-title">Average Rating: 
-                    {% if restaurant.averageRating %}
-                        <!--Star Rating Functionality-->
-                            {% for i in '0123456789' %}
-                                {% if restaurant.averageRating >= forloop.counter %}
-                                    <img src="{% static 'images/star.png' %}" width="25" height="25">
-                                {% endif %}
-                            {% endfor %}
-                    {% else %}
-                        Not Yet Reviewed
+    <div id = "sort row">
+        <li class="sort-buttons"><button onclick ="sortListAlphabetically()">Name Alphabetically</button></li>
+        <li class="sort-buttons"><button onclick ="sortMostReviewed()">Most Reviewed</button></li>
+        <li class="sort-buttons"><button onclick ="sortMostRecentlyReviewed()">Most Recently Reviewed</button></li>
+        <li class="sort-buttons"><button onclick ="sortRecentlyAdded()">Recently Added</button></li>
+    </div>
+
+
+    <ul id="restaurant_list">
+        {% for restaurant in restaurant_list %}
+        <div class = "restaurant">
+            <table>
+                <tr>
+                    {% if restaurant.logo %}
+          
+                    <td>
+                        <img src="{{ MEDIA_URL }}{{ restaurant.logo }}" class="img-thumbnail" width="300" height="300">
+                    </td>
+          
                     {% endif %}
-                </p>
-                <p>Category: {{ restaurant.category }}</p>
-                <p>Description: The restaurant is located at {{ restaurant.address }} </p> 
-                <!-- Review Links -->
-                <li><a href="{% url 'other:reviewRestaurant' restaurant.restaurantNameSlugged %}">Rate and Review!</a></li>
-                <li><a href="{% url 'other:viewRestaurantReviews' restaurant.restaurantNameSlugged %}">See Reviews</a></li>
-              </td>
-            </tr>
+          
+                    <td>
+                        <h5>{{ restaurant.restaurantName }} </h5>
+                        
+                        owned by 
+                        <a href="{% url 'other:viewOneUser' restaurant.owner.username_slug %}">
+                            {{ restaurant.owner.user.username }}
+                        </a>
+                    
+                        <p  class="card-title"><strong>Average Rating: </strong>
+                            {% if restaurant.averageRating %}
+                                <!--Star Rating Functionality-->
+                                    {% for i in '0123456789' %}
+                                        {% if restaurant.averageRating >= forloop.counter %}
+                                            <img src="{% static 'images/star.png' %}" width="25" height="25">
+                                        {% endif %}
+                                    {% endfor %}
+                            {% else %}
+                                Not Yet Reviewed
+                            {% endif %}
+                        </p>
+                        <strong>Category: </strong>{{ restaurant.category }}
+                        <br />
+                        <strong>Address: </strong>{{ restaurant.address }}
+                        <br />
+                        <!-- Review Links -->
+                        <a href="{% url 'other:reviewRestaurant' restaurant.restaurantNameSlugged %}">Rate and Review!</a>
+                        <br />
+                        <a href="{% url 'other:viewRestaurantReviews' restaurant.restaurantNameSlugged %}">See Reviews</a>
+                  </td>
+                </tr>
+              </table>
         </div>
         {% endfor %}
     </ul>
 
 {% endblock %}
+
+<!-- Writing just now, commented out to avoid bugs -->
+<!-- <script>
+    function sortListAlphabetically(){
+        var list, sorting, items, counter, flag;
+        list = document.getElementById("restaurant_list");
+        sorting = true;
+        while(sorting){
+            sorting = false;
+            items = list.getElementsByTagName("DIV");
+            for (counter=0; counter<(sortedList.length - 1); counter++){
+                flag = false;
+                if(items[counter].innerHTML.toLowerCase() > b[counter+1].innerHTML.toLowerCase()){
+                    flag=true;
+                    break;
+                }
+            }
+            if (flag){
+                items[counter].parentNode.insertBefore(items[counter+1], items[counter]);
+                sorting = true;
+            }
+        }
+    }
+
+
+    function sortMostReviewed(){
+        var list, sorting, items, counter, flag;
+        list = document.getElementById("restaurant_list");
+        sorting = true;
+    }
+
+    function sortMostRecentlyReviewed(){
+        var list, sorting, items, counter, flag;
+    }
+
+    function sortRecentlyAdded(){
+        var list, sorting, items, counter, flag;
+    }
+</script> -->
