@@ -15,6 +15,11 @@
     padding: 10px;
 }
 
+
+.restaurant:hover{
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
 .container-fluid{
     background-color: darkred;
     padding: 5px;
@@ -39,4 +44,8 @@
     border-color: black;
     padding: 2px;
     border-width: 2px;
+}
+
+.category-text{
+    font-size: medium;
 }

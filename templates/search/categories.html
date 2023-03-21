@@ -2,13 +2,13 @@
     {% if categories %}
         {% for c in categories %}
             {% if c == current_category %}
-                <li>
+                <li class="category-text">
                     <strong>
                         <a href="{% url 'search:show_category' c.slug %}">{{ c.name }}</a>
                     </strong>
                 </li>
             {% else %}
-                <li>
+                <li class="category-text">
                     <a href="{% url 'search:show_category' c.slug %}">{{ c.name }}</a>
                 </li>
             {% endif %}
