@@ -7,9 +7,9 @@ from accounts.models import *
 from accounts.forms import AdvertiseForm, RestaurantForm
 from search.forms import *
 
+
 def index(request):
     return render(request, 'index.html')
-   # return HttpResponse("At least it's not a 404")
 
 
 @login_required
@@ -49,8 +49,13 @@ def viewOneUser(request, username_slug):
         else:
             context["photo_path"] = "profile_images/default.jpg"
         if user_account.restaurantOwner:
-            owned = Restaurant.objects.filter(owner=user_account)
-            # include the restaurant names with underscores for URL compatibility
+            owned = []
+            for restaurant in Restaurant.objects.filter(owner=user_account):
+                try:
+                    Advertisement.objects.get(restaurant=restaurant)
+                    owned.append(restaurant)
+                except Advertisement.DoesNotExist:
+                    pass
             restaurants = [(r, r.restaurantNameSlugged) for r in owned]
             context["restaurants"] = restaurants if len(restaurants) > 0 else None
         else:
@@ -128,8 +133,28 @@ def addRestaurantDone(request):
 
 @login_required
 def viewRestaurantReviews(request, restaurantNameSlugged):
-    # TODO
-    return redirect(reverse('other:index'), kwargs={})
+    try:
+        restaurant = Restaurant.objects.get(restaurantNameSlugged=restaurantNameSlugged)
+        context = {}
+        context['restaurant'] = restaurant
+        if restaurant.averageRating:
+            context['averageRating'] = round(restaurant.averageRating, 2)
+        else:
+            context['averageRating'] = None
+        context['photo_path'] = restaurant.logo.__str__()
+        context['reviews'] = []
+        for review in Review.objects.filter(restaurant=restaurant):
+            context['reviews'].append({
+                'profile_photo_path': review.reviewer.photo.__str__(),
+                'reviewer': review.reviewer,
+                'rating': review.rating,
+                'comment': review.comment,
+                'date': review.date,
+            })
+        return render(request, 'other/view_restaurant.html', context=context)
+    except Restaurant.DoesNotExist:
+        print("Failed to find", restaurantNameSlugged)
+        return redirect(reverse('other:index'), kwargs={})
 
 
 @login_required
@@ -152,6 +177,8 @@ def reviewRestaurant(request, restaurantNameSlugged):
                     })
                 Review.objects.create(reviewer=user_account, restaurant=restaurant,
                 rating=form.cleaned_data['rating'], comment=form.cleaned_data['comment'])
+                restaurant.averageRating = restaurant.average_rating()
+                restaurant.save()
                 return redirect(reverse('other:viewRestaurantReviews', kwargs={
                     'restaurantNameSlugged':restaurantNameSlugged
                 }))

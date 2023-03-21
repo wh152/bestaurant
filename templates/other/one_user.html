@@ -1,29 +1,34 @@
 {% extends 'base.html' %}
+{% load staticfiles %}
 
 {% block title_block %}
     User: {{ username }}
 {% endblock %}
 
 {% block body_block %}
-    <h1>User: {{ username }}</h1>
+    <h1>
+        {% if restaurantOwner %}
+            {{ username }}
+            <img src="{% static 'images/tick.png' %}" width="50" height="50">
+        {% else %}
+            <h1>{{ username }}</h1>
+        {% endif %}
+    </h1>
+    <img src="{{ MEDIA_URL }}{{ photo_path }}" width="100" height="100">  
     <div>
-        <img src="{{ MEDIA_URL }}{{ photo_path }}" width="100" height="100">
-        <ul>
-            <li>
-                {% if restaurantOwner %}
-                    Restaurant owner
-                {% else %}
-                    Regular reviewer
-                {% endif %}
-            </li>
-            {% if about %}
-                <li>
-                    About: {{ about }}
-                </li>
-            {% endif %}
-        </ul>
+        <br />
+        {% if about %}
+            <h5>
+                {{ about }}
+            </h5>
+        {% endif %}
+        <br />
+    </div>
+    <div>
         {% if restaurants %}
-        <h3>Restaurants owned by {{ username }}</h3>
+        <h5>
+            Restaurants advertised by {{ username }}:
+        </h5>
             <ul>
                 {% for restaurant in restaurants %}
                     <li>

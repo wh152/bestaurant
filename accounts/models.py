@@ -35,6 +35,10 @@ class Restaurant(models.Model):
 
     def __str__(self):
         return str(self.restaurantID) + ': ' + self.restaurantName
+
+    def save(self, *args, **kwargs):
+        self.restaurantNameSlugged = slugify(self.restaurantName)
+        super(Restaurant, self).save(*args, **kwargs)
     
     def average_rating(self) -> float:
         return search.models.Review.objects.filter(restaurant=self).aggregate(Avg("rating"))["rating__avg"] or 0

@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block title_block %}
+    {{ restaurant.restaurantName }}
+{% endblock %}
+
+{% block body_block %}
+    <img src="{{ MEDIA_URL }}{{ photo_path }}" width="100" height="100">
+    <br /> 
+    {{ restaurant.restaurantName }} owned by {{ restaurant.owner }}
+    <ul>
+        {% if reviews %}
+            <li>
+                Average rating: {{ averageRating }}/10 stars
+            </li>
+        {% else %}
+            <li>
+                Average rating: N/A
+            </li>
+        {% endif %}
+        <li>
+            Address: {{ restaurant.address }}
+        </li>
+        <li>
+            Category: {{ restaurant.category }}
+        </li>
+    </ul>
+    <h5>
+        <a href="{% url 'other:reviewRestaurant' restaurant.restaurantNameSlugged %}">Rate</a>
+    </h5>
+    {% if reviews %}
+        <h3>
+            Reviews
+        </h3>
+        <li>
+            {% for review in reviews %}
+                <hr>
+                    {% if review.profile_photo_path %}
+                        <img src="{{ MEDIA_URL }}{{ review.profile_photo_path }}" width="100" height="100">
+                    {% else %}
+                        <img src="{{ MEDIA_URL }}profile_images/default.jpg" width="100" height="100">
+                    {% endif %}
+                    <a href="{% url 'other:viewOneUser' review.reviewer.username_slug %}">
+                        {{ review.reviewer.user.username }}
+                    </a> rated {{ review.rating }}/10 stars on {{ review.date }}
+                    <br />
+                    Comment: {{ review.comment }}
+                <hr />
+            {% endfor %}
+        </li>
+    {% else %}
+        <h3>
+            No reviews yet. Be the first!
+        </h3>
+    {% endif %}
+{% endblock %}
