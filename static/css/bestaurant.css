@@ -2,8 +2,23 @@
     margin-left:10px;
 }
 
+.container-fluid-sidebar{
+    background-color: white;
+    border-right-style: solid;
+    border-color: black;
+    padding: 10px;
+    border-width: 3px;
+}
+
+.restaurant{
+    background-color: whitesmoke;
+    padding: 10px;
+}
+
 .container-fluid{
     background-color: darkred;
+    padding: 5px;
+    box-shadow: 2px 2px;
 }
 
 .login-para{
@@ -11,5 +26,17 @@
 }
 
 .body{
-    background-color: antiquewhite;
+    background-color: white;
+}
+
+.footer{
+    background-color: lightcoral;
+    text-align: center;
+}
+
+.button-border{
+    border-style: solid;
+    border-color: black;
+    padding: 2px;
+    border-width: 2px;
 }

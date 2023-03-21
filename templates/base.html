@@ -62,26 +62,26 @@
 
 <div class="container-fluid">
     <div class="row">
-        <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+        <nav class="col-md-2 d-none d-md-block bg-light sidebar container-fluid-sidebar">
             <div class="sidebar-sticky">
                 {% block sidebar_block %}
-                <h2>Restaurant Categories</h2>
+                <h4>Restaurant Categories</h4>
         
                 {% get_category_list category %}
         
         
-                <h2>Sort All Restaurants</h2>
+                <h4>Sort All Restaurants</h4>
                 
                 <form actions="{% url 'search:most_reviewed' %}" method="get">
-                    <input type="submit" class="btn btn-default" name="most_reviewed" value="Most Reviewed">
+                    <input type="submit" class="btn btn-default button-border" name="most_reviewed" value="Most Reviewed">
                 </form>
         
                 <form actions="{% url 'search:most_recently_reviewed' %}" method="get">
-                    <input type="submit" class="btn btn-default" name="most_recently_reviewed" value="Recently Reviewed">
+                    <input type="submit" class="btn btn-default button-border" name="most_recently_reviewed" value="Recently Reviewed">
                 </form>
         
                 <form actions="{% url 'search:recently_added' %}" method="get">
-                    <input type="submit" class="btn btn-default" name="recently_added" value="Recently Added">
+                    <input type="submit" class="btn btn-default button-border" name="recently_added" value="Recently Added">
                 </form>
                 
         
@@ -89,10 +89,11 @@
             </div>
         </nav>
         
-        <main role="main" class="col-md-9  ml-sm-auto col-lg-10 px-4">	
-            <div class = "body">	
+        <main role="main" class="col-md-9  ml-sm-auto col-lg-10 px-4 body">	
                 {% block body_block %}
-                <!-- Edit block on individual pages -->
+                
+                
+
                 <div>
                     <!-- testing log out-->
                     <a href="{% url 'auth_logout' %}">Logout</a>
@@ -102,11 +103,11 @@
                 {% endblock %}
                 
                 <!-- FOOTER -->
-                <footer>
-                    <!-- <p class="float-right"><a href="#">Back to top</a></p> -->
+                <footer class = "footer">
+                    <p><a href="#">BACK TO TOP</a></p>
                     <p>&copy; Bestaurant &middot;</p>
                 </footer>
-            </div>
+            <!-- </div> -->
         </main>
     </div>
 </div>

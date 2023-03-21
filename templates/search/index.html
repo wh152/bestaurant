@@ -24,7 +24,7 @@
                 {% if restaurant.logo %}
                 <td scope="col">
                     <img src="{{ MEDIA_URL }}{{ restaurant.logo }}" class="img-thumbnail" width="100" height="100">
-                    {{ restaurant.restaurantName }} owned by 
+                    <strong>{{ restaurant.restaurantName }} </strong>owned by
                     <a href="{% url 'other:viewOneUser' restaurant.owner.username_slug %}">
                         {{ restaurant.owner.user.username }}
                     </a>
@@ -36,7 +36,7 @@
                 {% endif %}
 
               <td scope="col">
-                <p  class="card-title">Average Rating: 
+                <p  class="card-title"><strong>Average Rating: </strong>
                     {% if restaurant.averageRating %}
                         <!--Star Rating Functionality-->
                             {% for i in '0123456789' %}
@@ -48,9 +48,9 @@
                         Not Yet Reviewed
                     {% endif %}
                 </p>
-                Category: {{ restaurant.category }}
+                <strong>Category: </strong>{{ restaurant.category }}
                 <br />
-                Address: {{ restaurant.address }}
+                <strong>Address: </strong>{{ restaurant.address }}
                 <br />
                 <!-- Review Links -->
                 <a href="{% url 'other:reviewRestaurant' restaurant.restaurantNameSlugged %}">Rate and Review!</a>
