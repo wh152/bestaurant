@@ -1,8 +1,8 @@
-<ul>
+<ul class = "category-list">
     {% if categories %}
         {% for c in categories %}
             {% if c == current_category %}
-                <li class="category-text">
+                <li class="category-text-selected">
                     <strong>
                         <a href="{% url 'search:show_category' c.slug %}">{{ c.name }}</a>
                     </strong>
