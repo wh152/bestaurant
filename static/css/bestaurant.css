@@ -15,15 +15,13 @@
     padding: 10px;
 }
 
-
 .restaurant:hover{
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .container-fluid{
     background-color: darkred;
-    padding: 5px;
-    box-shadow: 2px 2px;
+
 }
 
 .login-para{
@@ -49,3 +47,8 @@
 .category-text{
     font-size: medium;
 }
+
+.sort-buttons {
+    display: inline-block;
+    margin: 0 10px;
+  }
