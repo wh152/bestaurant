@@ -19,8 +19,10 @@ from django.conf import settings
 from django.conf.urls.static import static
 from allauth.account.views import LoginView
 import accounts.views as acc_views
+import search.views as search_views
 
 urlpatterns = [
+    path('', search_views.index, name='index'),
     path('admin/', admin.site.urls),
     path('', include('other.urls')),
     path('accounts/register/', acc_views.register, name="register"),

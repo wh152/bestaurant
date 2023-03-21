@@ -91,6 +91,28 @@
         
         <main role="main" class="col-md-9  ml-sm-auto col-lg-10 px-4 body">	
                 {% block body_block %}
+
+                {% if user.is_authenticated %}
+                    {% if user.restaurantOwner %}
+
+                    <div style="display: inline-block;">
+
+                        <div style="float: right"> 
+                            <ul class="navbar-nav">
+                                <li><a href="{% url 'other:viewRestaurantReviews' %}">Recently Reviewed by You</a></li>
+                                <li><a href="{% url 'other:advertise' %}">Make an Advertisement</a></li>
+                                <li><a href="{% url 'other:viewOwnRestaurants' %}">Manage Your Restaurants</a></li>
+                              </ul>
+                        </div>
+                    </div>
+
+                        <div style="float: right"> 
+                            <ul class="navbar-nav">
+                                <li><a href="{% url 'other:viewRestaurantReviews' %}">Recently Reviewed by You</a></li>
+                              </ul>
+                        </div>
+                    {% endif %}
+                {% endif %}
                 
                 
 

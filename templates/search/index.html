@@ -8,18 +8,31 @@
 {% block body_block %} 
 <h1 style="text-align: center; color: goldenrod;">
     <div>
-        {% if user.is_authenticated %} 
-            Welcome {{user.username}}
+        {% if user.is_authenticated %}
+            {% if user.restaurantOwner %}
+
+            <div style="display: inline-block;">
+                <h2>Welcome {{ username }} &#2713</h2>
+            </div>
+
+            {% else %}
+
+                <h2>Welcome {{ username }}</h2>
+
+            {% endif %}
+        {% else %}
+
+            <h2>Welcome to Bestaurant!</h2>
         {% endif %}
     </div>
 </h1>
-<br />
+
 <div>
     <h2>Top Rated Restaurants</h2>
     <br />
     <ul>
         {% for restaurant in restaurants %}
-        <div>
+        <div class = "restaurant">
             <tr scope="row">
                 {% if restaurant.logo %}
                 <td scope="col">
