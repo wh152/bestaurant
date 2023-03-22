@@ -61,6 +61,7 @@ class AdvertiseForm(forms.ModelForm):
         for restaurant in restaurantsOwned:
             if not Advertisement.objects.filter(restaurant=restaurant):
                 notAdvertised.append((restaurant.restaurantID, restaurant.restaurantName))
+
         self.fields["restaurant"] = forms.ChoiceField(
             widget=forms.RadioSelect, choices=notAdvertised
         )
