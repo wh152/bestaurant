@@ -6,10 +6,10 @@ from .models import *
 
 
 class ReviewForm(forms.ModelForm):
-    rating = models.IntegerField(
+    rating = forms.IntegerField(
         validators=[MinValueValidator(0), MaxValueValidator(10)],
     )
-    comment = models.CharField(max_length=1024)
+    comment = forms.CharField(max_length=1024)
     
     class Meta:
         model = Review

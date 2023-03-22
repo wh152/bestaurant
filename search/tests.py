@@ -6,6 +6,7 @@ from search.models import Review, Category
 from django.template.defaultfilters import slugify
 from django.urls import path, reverse
 from datetime import datetime
+from search.forms import ReviewForm
 
 # Create your tests here.
 
@@ -214,3 +215,41 @@ class SearchViewTests(TestCase):
         self.assertContains(response, test_restaurant_four.restaurantName)
         self.assertNotContains(response, test_restaurant_one.restaurantName)
 
+
+#forms tests
+class SearchFormTest(TestCase):
+
+    def test_review_form(self):
+        form_data = {
+            'rating': 9,
+            'comment': 'great place',
+        }
+
+        form_data_no_comment = {
+            'rating' : 5,
+        }
+
+        form_data_invalid_rating_high ={
+            'rating' : 168,
+            'comment' : 'top quality'
+        }
+
+        form_data_invalid_rating_low ={
+            'rating' : -8,
+            'comment' : 'bad'
+        }
+
+        empty_data = {}
+
+        
+        form_one = ReviewForm(data=form_data)
+        form_two = ReviewForm(data=form_data_no_comment)
+        form_three = ReviewForm(data=form_data_invalid_rating_high)
+        form_four = ReviewForm(data=form_data_invalid_rating_low)
+        form_five = ReviewForm(data=empty_data)
+
+        self.assertTrue(form_one.is_valid())
+        self.assertFalse(form_two.is_valid())
+        self.assertFalse(form_three.is_valid())
+        self.assertFalse(form_four.is_valid())
+        self.assertFalse(form_five.is_valid())
