@@ -20,6 +20,7 @@ class Category(models.Model):
     slug = models.SlugField(unique=True)
 
     def save(self, *args, **kwargs):
+        # have to make the slug manually by overriding save() method
         self.slug = slugify(self.name)
         super(Category, self).save(*args, **kwargs)
 

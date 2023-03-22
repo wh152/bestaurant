@@ -9,8 +9,7 @@ from search.forms import *
 
 @login_required
 def viewOwnRestaurants(request):
-    if request.user.is_anonymous:
-        return render(reverse('other:index'))
+
     user = User.objects.get(username=request.user.username)
     userAccount = UserAccount.objects.get(user=user)
     if not userAccount.restaurantOwner:
@@ -18,16 +17,20 @@ def viewOwnRestaurants(request):
             "username_slug": userAccount.username_slug
         }))
     restaurants = Restaurant.objects.filter(owner=userAccount)
+    # the restaurants owned that have not yet been advertised - 
+    # these will be needed to decide whether to show the advertise button
     notAdvertised = list(set(restaurants) - set(removeNotAdvertised(restaurants)))
     context = {"restaurants": restaurants, "notAdvertised": notAdvertised}
     return render(request, 'other/all_owned_restaurants.html', context=context)
 
 
 def viewAllUsers(request):
+
     return render(request, 'other/all_users.html', context={"users": UserAccount.objects.all()})
 
 
 def viewOneUser(request, username_slug):
+
     try:
         user_account = UserAccount.objects.get(username_slug=username_slug)
         context = {}
@@ -37,6 +40,7 @@ def viewOneUser(request, username_slug):
         context["about"] = user_account.about if len(user_account.about) > 0 else None
         context["photo"] = user_account.photo
         if context["photo"]:
+            # get the profile photo path so it can be displayed
             context["photo_path"] = context["photo"].__str__() 
         else:
             context["photo_path"] = "profile_images/default.jpg"
@@ -45,6 +49,7 @@ def viewOneUser(request, username_slug):
         else:
             context["own_accounts"] = False
         if user_account.restaurantOwner:
+            # only want other users to view restaurants you are advertising
             owned = removeNotAdvertised(Restaurant.objects.filter(owner=user_account))
             restaurants = [(r, r.restaurantNameSlugged) for r in owned]
             context["restaurants"] = restaurants if len(restaurants) > 0 else None
@@ -58,6 +63,7 @@ def viewOneUser(request, username_slug):
 
 @login_required
 def becomeRestaurantOwner(request, username_slug):
+    
     if request.user.is_authenticated:
         try:
             userAccount = UserAccount.objects.get(username_slug=username_slug)
@@ -72,6 +78,7 @@ def becomeRestaurantOwner(request, username_slug):
 
 @login_required
 def advertise(request):
+
     userAccount = UserAccount.objects.get(user=request.user)
     if not userAccount.restaurantOwner:
         return redirect(reverse('other:viewOneUser', kwargs={
@@ -82,6 +89,7 @@ def advertise(request):
     for restaurant in restaurantsOwned:
         if not Advertisement.objects.filter(restaurant=restaurant):
             notAdvertised.append((restaurant.restaurantID, restaurant.restaurantName))
+    # can't advertise if you have no restaurants that haven't already got an advert
     if len(notAdvertised) == 0:
         return redirect(reverse('other:viewOneUser', kwargs={
             "username_slug": userAccount.username_slug
@@ -92,7 +100,9 @@ def advertise(request):
             restaurant = Restaurant.objects.get(restaurantID=int(form.cleaned_data['restaurant']))
             description = form.cleaned_data['description']
             advertImage = request.FILES['advertImage']
+            # gets the file extensions (for compatability) by getting the letters after the last dot
             image_extension = request.FILES['advertImage']._name.split(".")[-1]
+            # create the advertisement image path
             request.FILES['advertImage']._name = ".".join([restaurant.restaurantNameSlugged, image_extension])
             Advertisement.objects.create(restaurant=restaurant, description=description, 
                                         advertImage=advertImage)
@@ -107,6 +117,7 @@ def advertise(request):
 
 @login_required
 def addRestaurant(request):
+
     userAccount = UserAccount.objects.get(user=request.user)
     if not userAccount.restaurantOwner:
         return render(reverse('other:index'))
@@ -133,10 +144,12 @@ def addRestaurant(request):
 
 @login_required
 def deleteRestaurant(request, restaurantNameSlugged):
+
     userAccount = UserAccount.objects.get(user=request.user)
     if not userAccount.restaurantOwner:
         return render(reverse('other:index'))
     restaurant = Restaurant.objects.get(restaurantNameSlugged=restaurantNameSlugged)
+    # only owners of restaurants should be able to delete their own restaurants
     if not (restaurant.owner == userAccount):
         return redirect(reverse('other:viewOneUser'), kwargs={
             "username_slug": userAccount.username_slug
@@ -148,6 +161,7 @@ def deleteRestaurant(request, restaurantNameSlugged):
 
 @login_required
 def viewRestaurantReviews(request, restaurantNameSlugged):
+
     try:
         restaurant = Restaurant.objects.get(restaurantNameSlugged=restaurantNameSlugged)
         context = {}
@@ -158,6 +172,7 @@ def viewRestaurantReviews(request, restaurantNameSlugged):
             context['averageRating'] = None
         context['photo_path'] = restaurant.logo.__str__()
         context['reviews'] = []
+        # get the reviews for the restaurant and their data
         for review in Review.objects.filter(restaurant=restaurant):
             context['reviews'].append({
                 'profile_photo_path': review.reviewer.photo.__str__(),
@@ -174,9 +189,11 @@ def viewRestaurantReviews(request, restaurantNameSlugged):
 
 @login_required
 def reviewRestaurant(request, restaurantNameSlugged):
+
     try:
         user_account = UserAccount.objects.get(user=request.user)
         restaurant = Restaurant.objects.get(restaurantNameSlugged=restaurantNameSlugged)
+        # restaurant owners can't review their own restaurants
         if restaurant.owner == user_account:
             return redirect(reverse('other:viewRestaurantReviews', kwargs={
                 'restaurantNameSlugged':restaurantNameSlugged
@@ -185,6 +202,7 @@ def reviewRestaurant(request, restaurantNameSlugged):
             form = ReviewForm(request.POST)
             if form.is_valid():
                 rating = form.cleaned_data['rating']
+                # checking if the rating scale has been abided by
                 if rating < 1 or rating > 10:
                     form.errors['rating'] = ["Rating must be between 1 and 10"]
                     return render(request, 'other/review_restaurant.html', context={
@@ -212,6 +230,7 @@ def reviewRestaurant(request, restaurantNameSlugged):
     
 # helper func to remove restaurants without an advertisement
 def removeNotAdvertised(restaurants):
+
     containsAdvertisement = []
     for restaurant in restaurants:
         try:

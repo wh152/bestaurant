@@ -21,14 +21,14 @@ import accounts.views as acc_views
 import search.views as search_views
 
 urlpatterns = [
-    path('', search_views.index, name='index'),
     path('admin/', admin.site.urls),
     path('', include('other.urls')),
+    # the accounts url namespace is taken by registration-redux and allauth
+    # so accounts urls that don't rely on those two apps that are fundamental
+    # to registering on the platform are specified directly here
     path('accounts/register/', acc_views.register, name="register"),
     path('accounts/register/closed/', acc_views.registrationClosed, name="registrationClosed"),
     path('accounts/login/', acc_views.user_login, name="login"),
-    path('accounts/description/change/', acc_views.change_description, name='change_description'),
-    path('accounts/image/change/', acc_views.change_image, name='change_image'),
     path('accounts/', include('registration.backends.simple.urls')),
     path('accounts/', include('allauth.urls')),
     path('search/', include('search.urls')),

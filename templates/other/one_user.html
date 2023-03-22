@@ -11,6 +11,7 @@
 
 {% block body_block %}
     <h1>
+        <!-- Restaurant owners get a tick beside their name -->
         {% if restaurantOwner %}
             {{ username }}
             <img src="{% static 'images/tick.png' %}" width="25" height="25">
@@ -29,7 +30,9 @@
         <br />
     </div>
     <div>
+        <!-- If this user profile page is of the logged in user, show more options -->
         {% if own_account %}
+            <!-- If they are an owner show options relating to managing their restaurants -->
             {% if restaurantOwner %}
                 <a href="{% url 'other:viewOwnRestaurants' %}">
                     <button class="account-setting">
@@ -62,6 +65,7 @@
                 </button>
             </a>
         {% else %}
+            <!-- If it's not the user's account show any advertised restaurants -->
             {% if restaurants %}
             <h5>
                 Restaurants advertised by {{ username }}:
@@ -69,6 +73,7 @@
                 <ul>
                     {% for restaurant in restaurants %}
                         <li>
+                            <!-- The link itself is the slugged name -->
                             <a href="{% url 'other:viewRestaurantReviews' restaurant.1 %}">
                                 {{ restaurant.0.restaurantName }}
                             </a>

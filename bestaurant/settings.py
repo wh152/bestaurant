@@ -54,11 +54,11 @@ INSTALLED_APPS = [
     'other',
     'django_cleanup.apps.CleanupConfig',
     'django.contrib.sites',
-    'oauth_app',
+    'oauth_app',  # django-allauth required apps 
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
-    'allauth.socialaccount.providers.google',
+    'allauth.socialaccount.providers.google',  # google specific app for the login API
     'registration',  # registration-redux package
 ]
 
@@ -173,6 +173,7 @@ SOCIALACCOUNT_PROVIDERS = {
     }
 }
 
+# the website's ID for the Google Login API 
 SITE_ID = 2
 
 LOGIN_REDIRECT_URL = '/'

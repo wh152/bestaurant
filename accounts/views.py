@@ -10,10 +10,12 @@ from django.conf import settings
 
 
 def registrationClosed(request):
+
     return render(request, 'registration/registration_closed.html')
 
 
 def register(request):
+
     if not settings.REGISTRATION_OPEN:
         return redirect('registrationClosed')
     if request.user.is_authenticated:
@@ -72,6 +74,7 @@ def register(request):
 
 
 def user_login(request):
+
     loginSuccess = False
     loginFailed = False
     if request.method == 'POST':
@@ -110,6 +113,7 @@ def user_login(request):
                 login(request, user_object, backend='django.contrib.auth.backends.ModelBackend')
                 return redirect('other:index')
         else:
+            # if the credentials entered are not a match give the user the form again
             login_form = LoginForm()
     else:
         login_form = LoginForm()
@@ -120,6 +124,7 @@ def user_login(request):
 
 @login_required
 def change_description(request):
+
     if request.method == 'POST':
         form = ChangeDescriptionForm(request.POST)
         if form.is_valid():
@@ -135,6 +140,7 @@ def change_description(request):
         else:
             print("form.errors", form.errors)
             return render(request, "other/change_description.html", {'form': form, 'errors': form.errors})
+
     else:
         form = ChangeDescriptionForm()
         return render(request, 'other/change_description.html', {'form': form, 'errors': None})
@@ -145,14 +151,15 @@ def change_image(request):
     if request.method == 'POST':
         form = ChangeImageForm(request.POST, request.FILES)
         user_account = UserAccount.objects.get(user=request.user)
-        if form.is_valid():
+        if form.is_valid() and form.changed_data:
             user_account.photo.delete(save=False)
             user_account.photo.save(user_account.username_slug + ".jpg", request.FILES['photo'])
             return redirect(reverse('other:viewOneUser', kwargs={
             "username_slug": user_account.username_slug
         }))
         else:
-            return render(reverse('other:change_image', kwargs={'form': form, 'errors': form.errors}))
+            return redirect(reverse('other:change_image'))
+
     else:
         form = ChangeImageForm()
         return render(request, 'other/change_image.html', {'form': form})

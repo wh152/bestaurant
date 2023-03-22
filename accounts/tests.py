@@ -1,18 +1,18 @@
-from django.test import TestCase, Client
-from django.db import models
 from django.contrib.auth.models import User
-from accounts.models import UserAccount, Restaurant, Advertisement
-from search.models import Review
-from django.urls import reverse, path
-from django.template.defaultfilters import slugify
-from accounts.forms import RegistrationForm, RestaurantForm, LoginForm, AdvertiseForm
 from django.core.files.uploadedfile import SimpleUploadedFile
+from django.db import models
+from django.template.defaultfilters import slugify
+from django.test import Client, TestCase
+from django.urls import path, reverse
+
+from accounts.forms import (AdvertiseForm, LoginForm, RegistrationForm,
+                            RestaurantForm)
+from accounts.models import Advertisement, Restaurant, UserAccount
 from other import views as other_views
+from search.models import Review
 
 
-# Create your tests here.
-
-#model tests
+# model tests
 class TestUserAccountModel(TestCase):
     def test_user_instance(self):
         test_user = User.objects.create(email="test@mail.com",username="usertest", password="testpass")
@@ -100,9 +100,10 @@ class TestAdvertisementModel(TestCase):
         self.assertEquals(str(test_advert), "The Bestaurant: We have food")
 
 
-#view tests
+# view tests
 class ViewTests(TestCase):
     def test_register_view(self):
+        # tests if the appropriate header buttons are present for non-logged in
         client = Client()
         response = self.client.get(reverse('register'))
         self.assertContains(response, 'Register here!')
@@ -123,6 +124,7 @@ class ViewTests(TestCase):
         self.assertNotContains(response, 'Sign Out')
 
     def my_account_view(self):
+        # test if a user's personal account page has their username and accounts description
         client = Client()
         test_user = User.objects.create(email="test@mail.com",username="usertest", password="testpass")
         test_account = UserAccount.objects.create(user=test_user, username_slug = models.SlugField )
@@ -133,7 +135,7 @@ class ViewTests(TestCase):
         self.assertContains(response, test_account.about)
 
     
-#forms tests 
+# forms tests used with both valid and invalid data
 class AccountsForms(TestCase):
     def test_registration_form(self):
 
@@ -206,6 +208,7 @@ class AccountsForms(TestCase):
 
 
     def test_advertisement_form(self):
+        # tests that all fields are required to make an advertisement
         test_user = User.objects.create(email="test@mail.com",username="usertest", password="testpass")
         test_account = UserAccount.objects.create(user=test_user, username_slug = models.SlugField )
         test_restaurant = Restaurant.objects.create(restaurantID = 1, restaurantName="The Bestaurant", owner=test_account)

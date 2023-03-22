@@ -1,7 +1,10 @@
+<!-- Provides an extension of 'base.html' for templates that show advertisements -->
+
 {% extends 'base.html' %}
 {% load staticfiles %}
 
 {% block body_block %}
+    <!-- Allows extending templates to put content above the advertisements -->
     {% block above_block %} 
     {% endblock %}
     <ul id="restaurant_list">
@@ -9,6 +12,7 @@
         <div class = "restaurant">
             <table>
                 <tr>
+                    <!-- Gets the restaurant logo if there is one -->
                     {% if restaurant.logo %}
         
                     <td>
@@ -17,6 +21,7 @@
         
                     {% endif %}
         
+                    <!-- Provides a link to the owner's account page -->
                     <td>
                         <a href="{% url 'other:viewRestaurantReviews' restaurant.restaurantNameSlugged %}">
                             <button id="restaurant-name">
@@ -31,6 +36,7 @@
                             </a>
                         </strong>
                     
+                        <!-- Shows the rating out of 10 with stars -->
                         <p  class="card-title"><strong>Average Rating: </strong>
                             {% if restaurant.averageRating %}
                                 <!--Star Rating Functionality-->
@@ -43,13 +49,14 @@
                                 Not Yet Reviewed
                             {% endif %}
                         </p>
+                        <!-- Also shows the category, address and date added -->
                         <strong>Category: </strong>{{ restaurant.category }}
                         <br />
                         <strong>Address: </strong>{{ restaurant.address }}
                         <br />
                         <strong>Date added: </strong>{{ restaurant.dateAdded }}
                         <br />
-                        <!-- Review Links -->
+                        <!-- If the user is the owner they can delete the restaurant -->
                         {% if restaurant.owner.user.username == user.username %}
                             <a href="{% url 'other:deleteRestaurant' restaurant.restaurantNameSlugged %}">
                                 <button class="btn-confirm-delete">
@@ -57,9 +64,10 @@
                                 </button>
                             </a> 
                         {% else %}
+                            <!-- Otherwise they can review it -->
                             <a href="{% url 'other:reviewRestaurant' restaurant.restaurantNameSlugged %}">
                                 <button id="btn-rate">
-                                    Rate
+                                    Review
                                 </button>
                             </a>
                         {% endif %}
@@ -69,6 +77,7 @@
         </div>
         {% endfor %}
     </ul>
+    <!-- And allows extending templates to put content below  -->
     {% block below_block %}
     {% endblock %}
 {% endblock %}
