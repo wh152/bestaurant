@@ -34,27 +34,24 @@
 
 
         </tr>
-        {% if restaurants %}
-        <h5>
-            Restaurants advertised by {{ username }}:
-        </h5>
-            <ul>
-                {% for restaurant in restaurants %}
-                    <li>
-                        <a href="{% url 'other:viewRestaurantReviews' restaurant.1 %}">
-                            {{ restaurant.0.restaurantName }}
-                        </a>
-                    </li>
-                {% endfor %}
-            </ul>
-        {% endif %}
-        <tr>
-
-
-        </tr>
 
 
     </table>
+
+    {% if restaurants %}
+            <h5>
+                Restaurants advertised by {{ username }}:
+            </h5>
+                <ul>
+                    {% for restaurant in restaurants %}
+                        <li>
+                            <a href="{% url 'other:viewRestaurantReviews' restaurant.1 %}">
+                                {{ restaurant.0.restaurantName }}
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
 <!-- 
 
 
