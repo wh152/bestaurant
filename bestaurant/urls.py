@@ -29,7 +29,9 @@ urlpatterns = [
     path('accounts/register/', acc_views.register, name="register"),
     path('accounts/register/closed/', acc_views.registrationClosed, name="registrationClosed"),
     path('accounts/login/', acc_views.user_login, name="login"),
+    # this covers /accounts/password/change and /accounts/logout
     path('accounts/', include('registration.backends.simple.urls')),
+    # this includes the url /accounts/google/login/ which leads to Google's API
     path('accounts/', include('allauth.urls')),
     path('search/', include('search.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
