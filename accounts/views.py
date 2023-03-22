@@ -117,13 +117,6 @@ def user_login(request):
 
     return render(request, 'registration/login.html', context = {'login_form': login_form, 'logged_in': loginSuccess, 'login_failed': loginFailed})
 
-@login_required
-def logout(request):
-    logout(request)
-    return redirect('accounts: logout')
-
-
-
 
 @login_required
 def change_description(request):
