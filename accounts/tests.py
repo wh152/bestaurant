@@ -3,10 +3,11 @@ from django.db import models
 from django.contrib.auth.models import User
 from accounts.models import UserAccount, Restaurant, Advertisement
 from search.models import Review
-from django.urls import reverse
+from django.urls import reverse, path
 from django.template.defaultfilters import slugify
 from accounts.forms import RegistrationForm, RestaurantForm, LoginForm, AdvertiseForm
 from django.core.files.uploadedfile import SimpleUploadedFile
+from other import views as other_views
 
 
 # Create your tests here.
@@ -126,10 +127,10 @@ class ViewTests(TestCase):
         test_user = User.objects.create(email="test@mail.com",username="usertest", password="testpass")
         test_account = UserAccount.objects.create(user=test_user, username_slug = models.SlugField )
         test_account.save()
-        path('user/<str:username_slug>', views.viewOneUser, name='viewOneUser'),
-        repsonse = self.client.get(reverse('viewOneUser', args =[test_account.username_slug]))
+        path('user/<str:username_slug>', other_views.viewOneUser, name='viewOneUser'),
+        response = self.client.get(reverse('viewOneUser', args =[test_account.username_slug]))
         self.assertContains(response, test_account.user.username)
-        self.assertContains(responsee, test_account.about)
+        self.assertContains(response, test_account.about)
 
     
 #forms tests 
