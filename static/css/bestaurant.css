@@ -10,6 +10,11 @@
     border-width: 3px;
 }
 
+.user{
+    background-color: whitesmoke;
+    padding: 10px;
+}
+
 .restaurant{
     background-color: whitesmoke;
     padding: 10px;
@@ -84,4 +89,21 @@
     margin: 0 10px;
   }
 
- 
+
+  .form-buttons{
+
+    background-color: lightgray; 
+    border: none;
+    color: black;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    /* position: 45%; */
+    font-size: 16px;
+    width: 300px;
+  }
+
+  .form-buttons:hover{
+    background-color: lightslategray;
+    font-weight: bold;
+}

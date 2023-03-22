@@ -12,7 +12,7 @@
             {% if user.restaurantOwner %}
 
             <div style="display: inline-block;">
-                <h2>Welcome {{ username }} &#2713</h2>
+                <h2>Welcome {{ username }}</h2> <img src="{% static 'images/tick.png' %}" width="50" height="50">
             </div>
 
             {% else %}
@@ -40,7 +40,7 @@
                     {% if restaurant.logo %}
           
                     <td>
-                        <img src="{{ MEDIA_URL }}{{ restaurant.logo }}" class="img-thumbnail" width="300" height="300">
+                        <img src="{{ MEDIA_URL }}{{ restaurant.logo }}" class="img-thumbnail" width="200" height="200">
                     </td>
           
                     {% endif %}
