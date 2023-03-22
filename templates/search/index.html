@@ -1,3 +1,4 @@
+<!-- Extends search_base to avoid repeating advert template code -->
 {% extends './search_base.html' %}
 {% load staticfiles %} 
 
@@ -8,6 +9,7 @@
 {% block above_block %} 
 <h1 class="notice">
     <div>
+        <!-- Welcomes the user and gives them a tick if they are an owner -->
         {% if user.is_authenticated %}
             {% if userAccount.restaurantOwner %}
 

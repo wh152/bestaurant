@@ -6,7 +6,8 @@
 
 {% block body_block %}
     <h1>Review {{ restaurant.restaurantName }}</h1>
-    <form id="review_form" method="post" action="." enctype="multipart/form-data">
+    <br />
+    <form style="margin-left: 25%;" id="review_form" method="post" action="." enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.as_p }}
 

@@ -1,17 +1,18 @@
-import os
 import json
+import os
+
 from django.conf import settings
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'bestaurant.settings')
 
 import django
+
 django.setup()
-from accounts.models import *
-from search.models import *
-from django.core.files import File
-from django.core.files.images import ImageFile
 from django.template.defaultfilters import slugify
 from PIL import Image
+
+from accounts.models import *
+from search.models import *
 
 
 def populate():

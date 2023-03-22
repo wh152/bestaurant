@@ -1,13 +1,13 @@
-from django.db import models
 from django.contrib.auth.models import User
-from django.template.defaultfilters import slugify
-import search
+from django.db import models
 from django.db.models import Avg
+from django.template.defaultfilters import slugify
+
+import search
 
 
-# Can't have the same name as the built-in model User 
 class UserAccount(models.Model):
-    # User gives an id, email, username, password and other irrelevent fields
+    # User gives an id, email, username, password and other fields
     user = models.OneToOneField(User, on_delete=models.CASCADE, unique=True, primary_key=True)
     username_slug = models.SlugField(unique=True)
     restaurantOwner = models.BooleanField(default=False)
@@ -18,6 +18,7 @@ class UserAccount(models.Model):
         return self.user.username
 
     def save(self, *args, **kwargs):
+        # slug must be set in save() manually
         self.username_slug = slugify(self.user.username)
         super(UserAccount, self).save(*args, **kwargs)
 
@@ -31,6 +32,7 @@ class Restaurant(models.Model):
     address = models.CharField(max_length=256, unique=True)
     logo = models.ImageField(upload_to='restaurant_logos', null=True, blank=True)
     averageRating = models.FloatField(null=True, blank=True)
+    # automatically adds the date of the object's creation
     dateAdded = models.DateField(auto_now_add=True)
 
     def __str__(self):
@@ -41,6 +43,7 @@ class Restaurant(models.Model):
         super(Restaurant, self).save(*args, **kwargs)
     
     def average_rating(self) -> float:
+        # calculates average rating of a Restaurant object
         return search.models.Review.objects.filter(restaurant=self).aggregate(Avg("rating"))["rating__avg"] or 0
 
 
