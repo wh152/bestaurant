@@ -87,7 +87,7 @@ def most_reviewed(request):
     
 def most_recently_reviewed(request):
     
-    # sorts all reviews by date descending (earliest first)
+    # sorts all reviews by date descending (latest first)
     review_list = Review.objects.order_by('-date')
     restaurant_list = []
     for review in review_list:
