@@ -110,6 +110,8 @@ def populate_reviews():
         review = Review.objects.create(reviewer=reviewer, restaurant=restaurant, 
                                         rating=rating, comment=comment)
         review.save()
+        restaurant.averageRating = restaurant.average_rating()
+        restaurant.save()
 
 
 def populate_categories():

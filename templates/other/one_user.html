@@ -28,32 +28,32 @@
         {% if own_account %}
             {% if restaurantOwner %}
                 <a href="{% url 'other:viewOwnRestaurants' %}">
-                    <button style="color: green;">
+                    <button class="account-setting">
                         Manage restaurants
                     </button>
                 </a>
             {% else %}
                 <a href="{% url 'other:becomeRestaurantOwner' username_slug %}">
-                    <button class="btn btn-confirm-owner" style="color: red;">
+                    <button id="become-owner" class="btn btn-confirm-owner">
                         Become restaurant owner
                     </button>
                 </a>
             {% endif %}
             <br />
             <a href="{% url 'other:change_image' %}">
-                <button style="color: green;">
+                <button class="account-setting">
                     Change image
                 </button>
             </a>
             <br />
             <a href="{% url 'other:change_description' %}">
-                <button style="color: green;">
+                <button class="account-setting">
                     Change description
                 </button>
             </a>
             <br />
             <a href="{% url 'auth_password_change' %}">
-                <button style="color: green;">
+                <button class="account-setting">
                     Change password
                 </button>
             </a>
@@ -78,7 +78,7 @@
     <script>
         $(document).ready(function() {
             $('.btn-confirm-owner').click(function() {
-                return confirm("Are you sure? Once you become an owner you can't change.");
+                return confirm("Are you sure? Becoming an owner is permanent.");
             });
         });
     </script>

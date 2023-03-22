@@ -1,5 +1,4 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
 from accounts.forms import *
 from django.contrib.auth.models import User
 from django.contrib.auth.hashers import check_password
@@ -70,14 +69,10 @@ def register(request):
 
 
 def user_login(request):
-    print("in user_login")
     loginSuccess = False
     loginFailed = False
     if request.method == 'POST':
         login_form= LoginForm(request.POST)
-
-        print("request.POST", request.POST)
-
         username_or_email = request.POST.get('username_or_email')
         password = request.POST.get('password')
 
@@ -86,26 +81,18 @@ def user_login(request):
 
         #filter objects first by username, if an object is returned check if password matches. If an empty query set is returned, filter 
         # by email, email is not unique so if a non empty query set is returned loop over each object and see if password matches for any. 
-        print("username_or_email", username_or_email)
-        print("password", password)
         try:
-            print("in try block")
             #try to get the user with the given email, if nothing is returned we go to the except block
             user_object = User.objects.get(username = username_or_email)
-            print("got a user_object, it is", user_object, dir(user_object))
 
             if check_password(password, user_object.password):
-                print("PASSWORDS MATCH")
                 loginSuccess = True
         except:
-            print("exception occured")
             #it is possible for more than one user to have the same email, so we use filter and loop over 
             #all the objects returned and see if there is a password match
             user_objects = User.objects.filter(email = username_or_email)
-            print("user_objects", user_objects)
             for current_user in user_objects:
                 if check_password(password, current_user.password):
-                    print("A PASSWORD MATCHES, current_user:", current_user)
                     user_object = current_user
                     loginSuccess = True
                     break
@@ -114,11 +101,9 @@ def user_login(request):
             loginFailed = True
 
         if loginSuccess:
-            print("login was a success")
             if not user_object.is_active:
-                return HttpResponse("You cannot log in as your account has been disabled.")
+                return render(reverse('other:index'))
             else:
-                print("calling login function and going to other:index")
                 login(request, user_object, backend='django.contrib.auth.backends.ModelBackend')
                 return redirect('other:index')
         else:
@@ -139,8 +124,9 @@ def change_description(request):
                 user_account = UserAccount.objects.get(user=request.user)
                 user_account.about = request.POST.get('about')
                 user_account.save()
-                return redirect('done/')
-                return render(request, 'other/change_description_done.html')
+                return redirect(reverse('other:viewOneUser', kwargs={
+                    "username_slug": user_account.username_slug
+                }))
             except User.DoesNotExist:
                 return render(request, 'account/login.html')
         else:
@@ -152,11 +138,6 @@ def change_description(request):
 
 
 @login_required
-def change_description_done(request):
-    return render(request, 'other/change_description_done.html')
-
-
-@login_required
 def change_image(request):
     if request.method == 'POST':
         form = ChangeImageForm(request.POST, request.FILES)
@@ -164,16 +145,11 @@ def change_image(request):
         if form.is_valid():
             user_account.photo.delete(save=False)
             user_account.photo.save(user_account.username_slug + ".jpg", request.FILES['photo'])
-            return redirect('done/')
+            return redirect(reverse('other:viewOneUser', kwargs={
+            "username_slug": user_account.username_slug
+        }))
         else:
             return render(reverse('other:change_image', kwargs={'form': form, 'errors': form.errors}))
     else:
         form = ChangeImageForm()
         return render(request, 'other/change_image.html', {'form': form})
-
-
-@login_required
-def change_image_done(request):
-    return render(request, 'other/change_description_done.html')
-
-

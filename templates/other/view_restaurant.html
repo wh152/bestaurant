@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load staticfiles %}
 
 {% block title_block %}
     {{ restaurant.restaurantName }}
@@ -30,6 +31,9 @@
         <li>
             Category: {{ restaurant.category }}
         </li>
+        <li>
+            Date added: {{ restaurant.dateAdded }}
+        </li>
     </ul>
     <h5>
         <a href="{% url 'other:reviewRestaurant' restaurant.restaurantNameSlugged %}">
@@ -53,9 +57,17 @@
                     {% endif %}
                     <a href="{% url 'other:viewOneUser' review.reviewer.username_slug %}">
                         {{ review.reviewer.user.username }}
-                    </a> rated {{ review.rating }}/10 stars on {{ review.date }}
+                    </a> 
                     <br />
-                    Comment: {{ review.comment }}
+                    {% for i in '0123456789' %}
+                        {% if review.rating >= forloop.counter %}
+                            <img src="{% static 'images/star.png' %}" width="25" height="25">
+                        {% endif %}
+                    {% endfor %}
+                    <br />
+                    {{ review.date }}
+                    <br />
+                    {{ review.comment }}
                 <hr />
             {% endfor %}
         </li>

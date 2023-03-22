@@ -1,4 +1,3 @@
-from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
@@ -11,12 +10,16 @@ from search.forms import *
 @login_required
 def viewOwnRestaurants(request):
     if request.user.is_anonymous:
-        return HttpResponse("You are not logged in.")
+        return render(reverse('other:index'))
     user = User.objects.get(username=request.user.username)
     userAccount = UserAccount.objects.get(user=user)
     if not userAccount.restaurantOwner:
-        return HttpResponse("You are not a restaurant owner.")
-    context = {"restaurants": Restaurant.objects.filter(owner=userAccount)}
+        return redirect(reverse('other:viewOneUser', kwargs={
+            "username_slug": userAccount.username_slug
+        }))
+    restaurants = Restaurant.objects.filter(owner=userAccount)
+    notAdvertised = list(set(restaurants) - set(removeNotAdvertised(restaurants)))
+    context = {"restaurants": restaurants, "notAdvertised": notAdvertised}
     return render(request, 'other/all_owned_restaurants.html', context=context)
 
 
@@ -42,13 +45,7 @@ def viewOneUser(request, username_slug):
         else:
             context["own_accounts"] = False
         if user_account.restaurantOwner:
-            owned = []
-            for restaurant in Restaurant.objects.filter(owner=user_account):
-                try:
-                    Advertisement.objects.get(restaurant=restaurant)
-                    owned.append(restaurant)
-                except Advertisement.DoesNotExist:
-                    pass
+            owned = removeNotAdvertised(Restaurant.objects.filter(owner=user_account))
             restaurants = [(r, r.restaurantNameSlugged) for r in owned]
             context["restaurants"] = restaurants if len(restaurants) > 0 else None
         else:
@@ -56,7 +53,7 @@ def viewOneUser(request, username_slug):
         print("context", context)
         return render(request, 'other/one_user.html', context=context)
     except User.DoesNotExist:
-        return HttpResponse("Requested user does not exist")
+        return render(reverse('other:index'))
 
 
 @login_required
@@ -77,14 +74,18 @@ def becomeRestaurantOwner(request, username_slug):
 def advertise(request):
     userAccount = UserAccount.objects.get(user=request.user)
     if not userAccount.restaurantOwner:
-        return HttpResponse("You are not a restaurant owner.")
+        return redirect(reverse('other:viewOneUser', kwargs={
+            "username_slug": userAccount.username_slug
+        }))
     restaurantsOwned = Restaurant.objects.filter(owner=userAccount)
     notAdvertised = []
     for restaurant in restaurantsOwned:
         if not Advertisement.objects.filter(restaurant=restaurant):
             notAdvertised.append((restaurant.restaurantID, restaurant.restaurantName))
     if len(notAdvertised) == 0:
-        return HttpResponse("All your restaurants already have advertisements")
+        return redirect(reverse('other:viewOneUser', kwargs={
+            "username_slug": userAccount.username_slug
+        }))
     if request.method == "POST":
         form = AdvertiseForm(userAccount, request.POST, request.FILES)
         if form.is_valid():
@@ -95,24 +96,20 @@ def advertise(request):
             request.FILES['advertImage']._name = ".".join([restaurant.restaurantNameSlugged, image_extension])
             Advertisement.objects.create(restaurant=restaurant, description=description, 
                                         advertImage=advertImage)
-            return redirect(reverse('other:advertiseSuccess'))
+            return redirect(reverse('other:viewOneUser', kwargs={
+                "username_slug": userAccount.username_slug
+            }))
         else:
             return render(request, "other/create_advertisement.html", {"form": form})
     else:
         form = AdvertiseForm(userAccount)
         return render(request, "other/create_advertisement.html", {"form": form})
 
-
-@login_required
-def advertiseSuccess(request):
-    return render(request, 'other/advert_success.html')
-
-
 @login_required
 def addRestaurant(request):
     userAccount = UserAccount.objects.get(user=request.user)
     if not userAccount.restaurantOwner:
-        return HttpResponse("You are not a restaurant owner.")
+        return render(reverse('other:index'))
     if request.method == "POST":
         form = RestaurantForm(request.POST)
         if form.is_valid():
@@ -126,7 +123,7 @@ def addRestaurant(request):
                 request.FILES['logo']._name = ".".join([slugify(restaurant.restaurantName), logo_extension])
                 restaurant.logo = request.FILES['logo']
             restaurant.save()
-            return redirect(reverse('other:addRestaurantDone'))
+            return redirect(reverse('other:viewOwnRestaurants'))
         else:
             return render(request, "other/add_restaurant.html", context={"form":form, "errors":form.errors})
     else:
@@ -136,28 +133,17 @@ def addRestaurant(request):
 
 @login_required
 def deleteRestaurant(request, restaurantNameSlugged):
-    print("in deleteRestaurant")
     userAccount = UserAccount.objects.get(user=request.user)
     if not userAccount.restaurantOwner:
-        return HttpResponse("You are not a restaurant owner.")
+        return render(reverse('other:index'))
     restaurant = Restaurant.objects.get(restaurantNameSlugged=restaurantNameSlugged)
-    print(restaurant.owner, userAccount, restaurant.owner == userAccount)
     if not (restaurant.owner == userAccount):
-        print("WILL NOT DELETE")
         return redirect(reverse('other:viewOneUser'), kwargs={
             "username_slug": userAccount.username_slug
         })
     else:
-        print("DELETING")
         restaurant.delete()
-    return redirect(reverse('other:viewOneUser', kwargs={
-        "username_slug": userAccount.username_slug
-    }))
-
-
-@login_required
-def addRestaurantDone(request):
-    return render(request, 'other/add_restaurant_done.html')
+    return redirect(reverse('other:viewOwnRestaurants'))
 
 
 @login_required
@@ -222,3 +208,15 @@ def reviewRestaurant(request, restaurantNameSlugged):
                 })
     except Restaurant.DoesNotExist:
         return redirect(reverse('other:index'), kwargs={})
+
+    
+# helper func to remove restaurants without an advertisement
+def removeNotAdvertised(restaurants):
+    containsAdvertisement = []
+    for restaurant in restaurants:
+        try:
+            Advertisement.objects.get(restaurant=restaurant)
+            containsAdvertisement.append(restaurant)
+        except Advertisement.DoesNotExist:
+            pass
+    return containsAdvertisement

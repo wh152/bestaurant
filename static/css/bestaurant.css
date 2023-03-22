@@ -35,25 +35,30 @@
 
 .body{
     background-color: white;
+    min-height: 95vh;
 }
 
 .footer{
-    background-color: lightcoral;
+    background-color: white;
     text-align: center;
+    /* min-height: 10vh; */
+    display: flex;
+    flex-direction: column;
 }
 
 .button-border{
     align-items: center;
-    background-color: lightgray; 
+    background-color: whitesmoke; 
     border: none;
     color: black;
-    padding: 15px 32px;
+    padding: 15px 0px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 16px;
-    width: 250px;
-
+    font-size: medium;
+    width: max-content;
+    margin: auto;
+    display: flex;
 }
 
 .button-border:hover{
@@ -106,4 +111,46 @@
   .form-buttons:hover{
     background-color: lightslategray;
     font-weight: bold;
+}
+
+.sticky-top {
+    background-color: darkred;
+}
+
+#search-btn {
+    color: white;
+    background-color: darkgreen;
+    font-weight: bold;
+    border-color:green;
+}
+
+#search-btn:hover {
+    background-color: green;
+}
+
+.notice {
+    text-align: center;
+    color: goldenrod;
+}
+
+#categories {
+    align-items: center;
+    text-align: center;
+    margin: 0 auto;
+    display: table;
+}
+
+.account-setting {
+    color: darkgreen;
+    background-color: lightgray;
+}
+
+#become-owner {
+    color: red;
+    background-color: lightgray;
+    margin-bottom: 10px;
+}
+
+.btn-confirm-delete {
+    color: red;
 }

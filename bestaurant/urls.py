@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+import other.views as other_views
 import accounts.views as acc_views
 import search.views as search_views
 
@@ -27,9 +28,7 @@ urlpatterns = [
     path('accounts/register/', acc_views.register, name="register"),
     path('accounts/login/', acc_views.user_login, name="login"),
     path('accounts/description/change/', acc_views.change_description, name='change_description'),
-    path('accounts/description/change/done/', acc_views.change_description_done, name='change_description_done'),
     path('accounts/image/change/', acc_views.change_image, name='change_image'),
-    path('accounts/image/change/done/', acc_views.change_image_done, name='change_image_done'),
     path('accounts/', include('registration.backends.simple.urls')),
     path('accounts/', include('allauth.urls')),
     path('search/', include('search.urls')),

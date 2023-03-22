@@ -5,9 +5,6 @@
     Register
 {% endblock %}
 
-{% block sidebar_block %}
-{% endblock %}
-
 {% block body_block %}
 
 <div class="text-center">
@@ -17,11 +14,7 @@
 
     {% else %}
 
-        <h4>Please enter your details to register for Bestaurant.</h4>
-
-        <strong>Register here!</strong><br />
-
-        <h4>Register here!</h4>
+        <h3 class="notice">Register for Bestaurant!</h3>
         <br/>
         <!--enctype="multipart/form-data" tells the HTTP client to package and send data accordingly.-->
         <form role = "form" id="registration_form" method="post" action="." enctype="multipart/form-data">

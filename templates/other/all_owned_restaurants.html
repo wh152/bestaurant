@@ -12,11 +12,13 @@
                 Add
             </button>
         </a>
-        <a href="{% url 'other:advertise' %}">
-            <button style="color: green;">
-                Advertise
-            </button>
-        </a>
+        {% if notAdvertised %}
+            <a href="{% url 'other:advertise' %}">
+                <button style="color: green;">
+                    Advertise
+                </button>
+            </a>
+        {% endif %}
     </h5>
     <br /> <br />
     <div>
@@ -33,12 +35,14 @@
                     {% endif %}
         
                 <td scope="col">
-                    <h5 style="color: goldenrod;">
+                    <h5 class="notice">
                         {{ restaurant.restaurantName }}
                     </h5>
                     Category: {{ restaurant.category }}
                     <br />
                     Address: {{ restaurant.address }}
+                    <br />
+                    Date added: {{ restaurant.dateAdded }}
                     <br />
                     {% if restaurant.averageRating %}
                             {% for i in '0123456789' %}
@@ -51,7 +55,7 @@
                     {% endif %}
                     <br />
                     <a href="{% url 'other:deleteRestaurant' restaurant.restaurantNameSlugged %}">
-                        <button class="btn btn-confirm-delete" style="color: red;">
+                        <button class="btn-confirm-delete">
                             Delete
                         </button>
                     </a>
@@ -68,7 +72,7 @@
         <script>
             $(document).ready(function() {
                 $('.btn-confirm-delete').click(function() {
-                    return confirm('Are you sure you want to delete this?');
+                    return confirm('Are you sure? Deleting restaurants is permanent!');
                 });
             });
         </script>

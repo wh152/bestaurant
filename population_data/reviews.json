@@ -74,25 +74,49 @@
     {
         "reviewer": "coffee_addict",
         "restaurant": "Absolute Roasters Hyndland Street",
-        "rating": 8,
+        "rating": 7,
         "comment": "Very modern and vibrant atmosphere here, the amount of coffee could sometimes be a tad too small for me though"
     },
     {
         "reviewer": "magicpie",
         "restaurant": "Absolute Roasters Hyndland Street",
-        "rating": 5,
+        "rating": 4,
         "comment": "Very expensive but they do know how to make your coffee at the perfect pressure and temperature!"
     },
     {
         "reviewer": "angrycupcake",
         "restaurant": "Absolute Roasters Hyndland Street",
-        "rating": 8,
+        "rating": 7,
         "comment": "Love coming across the road here before I open my shop at lunchtime, always wakes me up very well :)"
     },
     {
         "reviewer": "MeganMcKredis",
         "restaurant": "Dakota Bar and Grill",
-        "rating": 6,
+        "rating": 4,
         "comment": "The food smelled great, they did give me too many onions though. Just a couple of slices would have been fine."
+    },
+    {
+        "reviewer": "MeganMcKredis",
+        "restaurant": "Suissi Vegan Kitchen",
+        "rating": 9,
+        "comment": "Favourite vegan place!"
+    },
+    {
+        "reviewer": "MeganMcKredis",
+        "restaurant": "Scran",
+        "rating": 2,
+        "comment": "Absolutely vile! Never go there"
+    },
+    {
+        "reviewer": "magicpie",
+        "restaurant": "Scran",
+        "rating": 5,
+        "comment": "Mid tier restaurant, don't recommend to be honest."
+    },
+    {
+        "reviewer": "boris",
+        "restaurant": "The Piper Bar",
+        "rating": 6,
+        "comment": "Great atmosphere, they did charge a lot for that and the beer though..."
     }
 ]

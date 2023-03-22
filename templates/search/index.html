@@ -6,23 +6,21 @@
 {% endblock %} 
 
 {% block body_block %} 
-<h1 style="text-align: left; color: goldenrod;">
+<h1 style="text-align: center; color: goldenrod;">
     <div>
         {% if user.is_authenticated %}
-            {% if user.restaurantOwner %}
+            {% if userAccount.restaurantOwner %}
 
             <div style="display: inline-block;">
-                <h2>Welcome {{ username }}</h2> <img src="{% static 'images/tick.png' %}" width="50" height="50">
+                <h1>Welcome {{ username }} <img src="{% static 'images/tick.png' %}" width="25" height="25"></h1>
             </div>
 
             {% else %}
-
-                <h2>Welcome {{ username }}</h2>
+                <h1>Welcome {{ username }}</h1>
 
             {% endif %}
         {% else %}
-
-            <h2>Welcome to Bestaurant!</h2>
+            <h1>Welcome to Bestaurant!</h1>
         {% endif %}
     </div>
 </h1>
@@ -68,6 +66,8 @@
                         <strong>Category: </strong>{{ restaurant.category }}
                         <br />
                         <strong>Address: </strong>{{ restaurant.address }}
+                        <br />
+                        <strong>Date added: </strong>{{ restaurant.dateAdded }}
                         <br />
                         <!-- Review Links -->
                         <a href="{% url 'other:reviewRestaurant' restaurant.restaurantNameSlugged %}">Rate and Review!</a>

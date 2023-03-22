@@ -22,7 +22,7 @@
                 {% endif %}
       
                 <td>
-                    <h4 style="color: goldenrod;">{{ restaurant.restaurantName }} </h4>
+                    <h4 class="notice">{{ restaurant.restaurantName }} </h4>
                     
                     owned by 
                     <a href="{% url 'other:viewOneUser' restaurant.owner.username_slug %}">
@@ -44,6 +44,8 @@
                     <strong>Category: </strong>{{ restaurant.category }}
                     <br />
                     <strong>Address: </strong>{{ restaurant.address }}
+                    <br />
+                    <strong>Date added: </strong>{{ restaurant.dateAdded }}
                     <br />
                     <!-- Review Links -->
                     <a href="{% url 'other:reviewRestaurant' restaurant.restaurantNameSlugged %}">Rate and Review!</a>
