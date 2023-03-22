@@ -1,17 +1,17 @@
-{% extends 'base.html' %} 
+{% extends './search_base.html' %}
 {% load staticfiles %} 
 
 {% block title_block %} 
     Bestaurant Home Page
 {% endblock %} 
 
-{% block body_block %} 
-<h1 style="text-align: center; color: goldenrod;">
+{% block above_block %} 
+<h1 class="notice">
     <div>
         {% if user.is_authenticated %}
             {% if userAccount.restaurantOwner %}
 
-            <div style="display: inline-block;">
+            <div>
                 <h1>Welcome {{ username }} <img src="{% static 'images/tick.png' %}" width="25" height="25"></h1>
             </div>
 
@@ -30,56 +30,5 @@
 <div>
     <h2>Top Rated Restaurants</h2>
     <br />
-    <ul>
-        {% for restaurant in restaurants %}
-        <div class = "restaurant">
-            <table>
-                <tr>
-                    {% if restaurant.logo %}
-          
-                    <td>
-                        <img src="{{ MEDIA_URL }}{{ restaurant.logo }}" class="img-thumbnail" width="200" height="200">
-                    </td>
-          
-                    {% endif %}
-          
-                    <td>
-                        <h5>{{ restaurant.restaurantName }} </h5>
-                        
-                        owned by 
-                        <a href="{% url 'other:viewOneUser' restaurant.owner.username_slug %}">
-                            {{ restaurant.owner.user.username }}
-                        </a>
-                    
-                        <p  class="card-title"><strong>Average Rating: </strong>
-                            {% if restaurant.averageRating %}
-                                <!--Star Rating Functionality-->
-                                    {% for i in '0123456789' %}
-                                        {% if restaurant.averageRating >= forloop.counter %}
-                                            <img src="{% static 'images/star.png' %}" width="25" height="25">
-                                        {% endif %}
-                                    {% endfor %}
-                            {% else %}
-                                Not Yet Reviewed
-                            {% endif %}
-                        </p>
-                        <strong>Category: </strong>{{ restaurant.category }}
-                        <br />
-                        <strong>Address: </strong>{{ restaurant.address }}
-                        <br />
-                        <strong>Date added: </strong>{{ restaurant.dateAdded }}
-                        <br />
-                        <!-- Review Links -->
-                        <a href="{% url 'other:reviewRestaurant' restaurant.restaurantNameSlugged %}">Rate and Review!</a>
-                        <br />
-                        <a href="{% url 'other:viewRestaurantReviews' restaurant.restaurantNameSlugged %}">See Reviews</a>
-                  </td>
-                </tr>
-              </table>
-        </div>
-        <br /> <br />
-        {% endfor %}
-    </ul>
 </div>
-
 {% endblock %}

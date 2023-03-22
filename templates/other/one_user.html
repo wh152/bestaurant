@@ -1,6 +1,10 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
 
+{% block script_block %}
+    <script src="{% static 'js/owner_confirmation.js' %}"></script>
+{% endblock %}
+
 {% block title_block %}
     User: {{ username }}
 {% endblock %}
@@ -74,12 +78,4 @@
             {% endif %}
         {% endif %}
     </div>
-
-    <script>
-        $(document).ready(function() {
-            $('.btn-confirm-owner').click(function() {
-                return confirm("Are you sure? Becoming an owner is permanent.");
-            });
-        });
-    </script>
 {% endblock %}

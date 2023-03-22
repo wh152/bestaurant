@@ -12,6 +12,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script src="{% static 'js/search_blocking.js' %}"></script>
+
+    {% block script_block %}
+    {% endblock %}
     
     <title>
         Bestaurant - 
@@ -82,21 +86,21 @@
                     {% get_category_list category %}
                 </div>
 
-                <br />
-                <h4 class="notice">Filter</h4>
-                
-                <a class="button-border" href="{% url 'other:most_reviewed' %}">
-                    Most Reviewed
-                </a>
-        
-                <a class="button-border" href="{% url 'other:most_recently_reviewed' %}">
-                    Recently Reviewed
-                </a>
-        
-                <a class="button-border" href="{% url 'other:recently_added' %}">
-                    Recently Added
-                </a>
-                
+                <hr>
+                    <h4 class="notice">Filter</h4>
+                    
+                    <a class="button-border" href="{% url 'other:most_reviewed' %}">
+                        Most Reviewed
+                    </a>
+            
+                    <a class="button-border" href="{% url 'other:most_recently_reviewed' %}">
+                        Recently Reviewed
+                    </a>
+            
+                    <a class="button-border" href="{% url 'other:recently_added' %}">
+                        Recently Added
+                    </a>
+                </hr>
         
             {% endblock %}
             </div>
@@ -108,9 +112,9 @@
                 {% if user.is_authenticated %}
                     {% if user.restaurantOwner %}
 
-                    <div style="display: inline-block;">
+                    <div class="sort-buttons">
 
-                        <div style="float: right"> 
+                        <div class="sort-buttons"> 
                             <ul class="navbar-nav">
                                 <li><a href="{% url 'other:viewRestaurantReviews' %}">Recently Reviewed by You</a></li>
                                 <li><a href="{% url 'other:advertise' %}">Make an Advertisement</a></li>
@@ -121,7 +125,7 @@
                     {% else %}
 
 
-                        <div style="float: right"> 
+                        <div class="sort-buttons"> 
                             <ul class="navbar-nav">
                                 <li><a href="{% url 'other:viewRestaurantReviews' %}">Recently Reviewed by You</a></li>
                               </ul>
@@ -139,42 +143,16 @@
                 
                 {% endblock %}
                 
+                {% block restaurant_block %}
+                {% endblock %}
+                
                 <!-- FOOTER -->
                 <footer class = "footer">
                     <p>&copy; Bestaurant &middot;</p>
                 </footer>
-            <!-- </div> -->
         </main>
     </div>
 </div>
 
 </body>
-
-<script>
-    let first_attempt = true;
-    let disabled = $("#search-btn").prop("disabled");
-
-    $(document).ready(function() {
-        $("#search-btn").click(function() {
-            let search_bar = document.getElementById("search-bar");
-            let query = search_bar.value;
-            if (query.length < 3 && !disabled) {
-                $("#search-bar").focus();
-                $("#search-btn").prop("disabled", true);
-                alert("Your search must be at least 3 characters long");
-                first_attempt = false;
-            }
-        });
-    });
-
-    $(document).ready(function() {
-        $("#search-bar").on("input", function() {
-            if (this.value.length >= 3) {
-                $("#search-btn").prop("disabled", false);
-            } else if (!first_attempt) {
-                $("#search-btn").prop("disabled", true);
-            }
-        });
-    });
-</script>
 </html>

@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block body_block %}
+    {% block above_block %} 
+    {% endblock %}
+    <ul id="restaurant_list">
+        {% for restaurant in restaurants %}
+        <div class = "restaurant">
+            <table>
+                <tr>
+                    {% if restaurant.logo %}
+        
+                    <td>
+                        <img src="{{ MEDIA_URL }}{{ restaurant.logo }}" class="img-thumbnail" width="200" height="200">
+                    </td>
+        
+                    {% endif %}
+        
+                    <td>
+                        <a href="{% url 'other:viewRestaurantReviews' restaurant.restaurantNameSlugged %}">
+                            <button id="restaurant-name">
+                                {{ restaurant.restaurantName }}
+                            </button>
+                        </a>
+                        <br />
+                        <strong>
+                            Owner: 
+                            <a href="{% url 'other:viewOneUser' restaurant.owner.username_slug %}">
+                                {{ restaurant.owner.user.username }}
+                            </a>
+                        </strong>
+                    
+                        <p  class="card-title"><strong>Average Rating: </strong>
+                            {% if restaurant.averageRating %}
+                                <!--Star Rating Functionality-->
+                                    {% for i in '0123456789' %}
+                                        {% if restaurant.averageRating >= forloop.counter %}
+                                            <img src="{% static 'images/star.png' %}" width="25" height="25">
+                                        {% endif %}
+                                    {% endfor %}
+                            {% else %}
+                                Not Yet Reviewed
+                            {% endif %}
+                        </p>
+                        <strong>Category: </strong>{{ restaurant.category }}
+                        <br />
+                        <strong>Address: </strong>{{ restaurant.address }}
+                        <br />
+                        <strong>Date added: </strong>{{ restaurant.dateAdded }}
+                        <br />
+                        <!-- Review Links -->
+                        {% if restaurant.owner.user.username == user.username %}
+                            <a href="{% url 'other:deleteRestaurant' restaurant.restaurantNameSlugged %}">
+                                <button class="btn-confirm-delete">
+                                    Delete
+                                </button>
+                            </a> 
+                        {% else %}
+                            <a href="{% url 'other:reviewRestaurant' restaurant.restaurantNameSlugged %}">
+                                <button id="btn-rate">
+                                    Rate
+                                </button>
+                            </a>
+                        {% endif %}
+                </td>
+                </tr>
+            </table>
+        </div>
+        {% endfor %}
+    </ul>
+    {% block below_block %}
+    {% endblock %}
+{% endblock %}

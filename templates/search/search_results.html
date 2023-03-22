@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'search/search_base.html' %}
 {% load staticfiles %}
 
 
@@ -6,9 +6,9 @@
     Search Results
 {% endblock %}
 
-{% block body_block %}
+{% block above_block %}
     <br/>
-    <h1 style="text-align: left;">Results for '{{ query }}'</h1>
+    <!-- <h1>Results for '{{ query }}'</h1> -->
     <br />
 
     <div id = "sort row">
@@ -19,56 +19,7 @@
     </div>
 
 
-    <ul id="restaurant_list">
-        {% for restaurant in restaurants %}
-        <div class = "restaurant">
-            <table>
-                <tr>
-                    {% if restaurant.logo %}
-          
-                    <td>
-                        <img src="{{ MEDIA_URL }}{{ restaurant.logo }}" class="img-thumbnail" width="200" height="200">
-                    </td>
-          
-                    {% endif %}
-          
-                    <td>
-                        <h4 class="notice">{{ restaurant.restaurantName }} </h4>
-                        
-                        Owned by 
-                        <a href="{% url 'other:viewOneUser' restaurant.owner.username_slug %}">
-                            {{ restaurant.owner.user.username }}
-                        </a>
-                    
-                        <p  class="card-title"><strong>Average Rating: </strong>
-                            {% if restaurant.averageRating %}
-                                <!--Star Rating Functionality-->
-                                    {% for i in '0123456789' %}
-                                        {% if restaurant.averageRating >= forloop.counter %}
-                                            <img src="{% static 'images/star.png' %}" width="25" height="25">
-                                        {% endif %}
-                                    {% endfor %}
-                            {% else %}
-                                Not Yet Reviewed
-                            {% endif %}
-                        </p>
-                        <strong>Category: </strong>{{ restaurant.category }}
-                        <br />
-                        <strong>Address: </strong>{{ restaurant.address }}
-                        <br />
-                        <strong>Date added: </strong>{{ restaurant.dateAdded }}
-                        <br />
-                        <!-- Review Links -->
-                        <a href="{% url 'other:reviewRestaurant' restaurant.restaurantNameSlugged %}">Rate and Review!</a>
-                        <br />
-                        <a href="{% url 'other:viewRestaurantReviews' restaurant.restaurantNameSlugged %}">See Reviews</a>
-                  </td>
-                </tr>
-              </table>
-        </div>
-        {% endfor %}
-    </ul>
-
+    
 {% endblock %}
 
 <!-- Writing just now, commented out to avoid bugs -->

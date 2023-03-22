@@ -10,7 +10,6 @@ def index(request):
 
     context_dict = {}
     if request.user.is_authenticated:
-        print(request.user.username)
         try:
             UserAccount.objects.get(user=request.user)
             context_dict["google"] = False
@@ -59,9 +58,9 @@ def show_category(request, category_name_slug):
     context_dict = {}
 
     category = Category.objects.get(slug=category_name_slug)
-    context_dict['category'] = category
+    # context_dict['category'] = category
     context_dict['restaurants'] = removeNotAdvertised(Restaurant.objects.filter(category=category))
-    return render(request, 'search/category.html', context=context_dict)
+    return render(request, 'search/search_results.html', context=context_dict)
 
 
 def most_reviewed(request):
@@ -92,7 +91,6 @@ def most_recently_reviewed(request):
     context_dict['restaurants'] = restaurant_list
     context_dict['searching'] = False
     context_dict['query'] = "Most Recently Reviewed"
-    print("context_dict", context_dict)
 
     return render(request, 'search/search_results.html', context=context_dict)
     

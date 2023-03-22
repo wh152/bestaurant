@@ -151,7 +151,7 @@ def viewRestaurantReviews(request, restaurantNameSlugged):
     try:
         restaurant = Restaurant.objects.get(restaurantNameSlugged=restaurantNameSlugged)
         context = {}
-        context['restaurant'] = restaurant
+        context['restaurants'] = [restaurant]
         if restaurant.averageRating:
             context['averageRating'] = round(restaurant.averageRating, 2)
         else:

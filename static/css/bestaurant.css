@@ -41,7 +41,6 @@
 .footer{
     background-color: white;
     text-align: center;
-    /* min-height: 10vh; */
     display: flex;
     flex-direction: column;
 }
@@ -67,7 +66,7 @@
 }
 
 .category-text{
-    font-size: 20px;
+    font-size: 18px;
     text-align: left;
     padding: 8px;
     color: black;
@@ -92,10 +91,10 @@
 .sort-buttons {
     display: inline-block;
     margin: 0 10px;
-  }
+}
 
 
-  .form-buttons{
+.form-buttons{
 
     background-color: lightgray; 
     border: none;
@@ -103,12 +102,11 @@
     padding: 15px 32px;
     text-align: center;
     text-decoration: none;
-    /* position: 45%; */
     font-size: 16px;
     width: 300px;
-  }
+}
 
-  .form-buttons:hover{
+.form-buttons:hover{
     background-color: lightslategray;
     font-weight: bold;
 }
@@ -153,4 +151,31 @@
 
 .btn-confirm-delete {
     color: red;
+}
+
+.btn-user-control {
+    color: green;
+}
+
+#restaurant-name {
+    text-align: left;
+    color: goldenrod;
+    font-size: x-large;
+    background-color: whitesmoke;
+    border: none;
+    font-weight: bolder;
+    width: 100%;
+}
+
+#btn-rate {
+    color: green;
+    font-size: large;
+    width: 25%
+}
+
+.btn-owner-management {
+    font-size: large;
+    text-align: center;
+    color: green;
+    width: min-content;
 }

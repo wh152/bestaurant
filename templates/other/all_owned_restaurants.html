@@ -1,80 +1,26 @@
-{% extends "base.html" %}
+{% extends 'search./search_base.html' %}
 {% load staticfiles %}
+
+{% block script_block %}
+    <script src="{% static 'js/restaurant_deletion_confirmation.js' %}"></script>
+{% endblock %}
+
 
 {% block title_block %}
     Description Changed
 {% endblock %}
 
-{% block body_block %}
-    <h5>
-        <a href="{% url 'other:addRestaurant' %}">
-            <button style="color: green; margin-right:25px;">
-                Add
+{% block above_block %}
+    <a href="{% url 'other:addRestaurant' %}">
+        <button class="btn-owner-management">
+            Add
+        </button>
+    </a>
+    {% if notAdvertised %}
+        <a href="{% url 'other:advertise' %}">
+            <button class="btn-owner-management">
+                Advertise
             </button>
         </a>
-        {% if notAdvertised %}
-            <a href="{% url 'other:advertise' %}">
-                <button style="color: green;">
-                    Advertise
-                </button>
-            </a>
-        {% endif %}
-    </h5>
-    <br /> <br />
-    <div>
-        {% if restaurants %}
-            {% for restaurant in restaurants %}
-            <table class="table table-bordered table-sm">
-
-                <tr scope="row">
-
-                    {% if restaurant.logo %}
-                    <td scope="col">
-                        <img src="{{ MEDIA_URL }}{{ restaurant.logo }}" width="100" height="100">
-                    </td>
-                    {% endif %}
-        
-                <td scope="col">
-                    <h5 class="notice">
-                        {{ restaurant.restaurantName }}
-                    </h5>
-                    Category: {{ restaurant.category }}
-                    <br />
-                    Address: {{ restaurant.address }}
-                    <br />
-                    Date added: {{ restaurant.dateAdded }}
-                    <br />
-                    {% if restaurant.averageRating %}
-                            {% for i in '0123456789' %}
-                                {% if restaurant.averageRating >= forloop.counter %}
-                                    <img src="{% static 'images/star.png' %}" width="25" height="25">
-                                {% endif %}
-                            {% endfor %}
-                    {% else %}
-                        Not Yet Reviewed
-                    {% endif %}
-                    <br />
-                    <a href="{% url 'other:deleteRestaurant' restaurant.restaurantNameSlugged %}">
-                        <button class="btn-confirm-delete">
-                            Delete
-                        </button>
-                    </a>
-                    <br />
-                </td>
-                </tr>
-            </table>
-            {% endfor %}
-        {% else %}
-            <h6>
-                No restaurants yet. Why not make one?
-            </h6>
-        {% endif %}
-        <script>
-            $(document).ready(function() {
-                $('.btn-confirm-delete').click(function() {
-                    return confirm('Are you sure? Deleting restaurants is permanent!');
-                });
-            });
-        </script>
-    </div>
+    {% endif %}
 {% endblock %}

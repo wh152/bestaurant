@@ -3,16 +3,19 @@ from accounts.forms import *
 from django.contrib.auth.models import User
 from django.contrib.auth.hashers import check_password
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import logout, login
+from django.contrib.auth import login
 from django.urls import reverse
 from .models import *
 from django.conf import settings
 
-# Create your views here.
+
+def registrationClosed(request):
+    return render(request, 'registration/registration_closed.html')
+
 
 def register(request):
     if not settings.REGISTRATION_OPEN:
-        return redirect('closed/')
+        return redirect('registrationClosed')
     if request.user.is_authenticated:
         return redirect(reverse('other:index'))
     registrationSuccess = False
