@@ -10,6 +10,8 @@
 
 {% block body_block %}
 
+<div class="text-center">
+
     {% if registered %}
         <strong>thank you for registering for Bestaurant!</strong>
 
@@ -49,7 +51,7 @@
                         <label for="photo">Upload a photo:</label>
                         <input class="form-control" type="file" id="photo" name="photo" type="photo" />
                     </p>
-                    {{ user_account_form.as_p.photo }}
+                    <!-- {{ user_account_form.as_p }} -->
 
                     <p style = "text-align: left;">
                         <label class="required" for="about">About</label>
@@ -86,4 +88,6 @@
 
         </form>
     {% endif %}
+
+</div>
 {% endblock %}

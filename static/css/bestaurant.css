@@ -10,6 +10,11 @@
     border-width: 3px;
 }
 
+.user{
+    background-color: whitesmoke;
+    padding: 10px;
+}
+
 .restaurant{
     background-color: whitesmoke;
     padding: 10px;

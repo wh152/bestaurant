@@ -5,14 +5,29 @@
 {% endblock %}
 
 {% block body_block %}
+
+<div class="text-center">
     <h1>Change Account Description</h1>
     <form id="change_description_form" method="post" action="." enctype="multipart/form-data">
         {% csrf_token %}
-        {{ form.as_p }}
 
-        <div class="form-group row">
-            <input type="submit" class="btn btn-default" name="submit" value="Change" />
+        <div class="form-group">
+            <p style = "text-align: left;">
+                <label class="required" for="about">About</label>
+                <input class="form-control" id="about" name="about" type="about" />
+                <span class="helptext">
+                    Enter a bit about yourself
+                </span>
+            </p>
+
+        </div>
+        <!-- {{ form.as_p }} -->
+
+        <div>
+            <input type="submit" class="form-buttons" name="submit" value="Change" />
         </div>
 
     </form>
+
+</div>
 {% endblock %}

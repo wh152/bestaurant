@@ -5,6 +5,8 @@
 {% endblock %}
 
 {% block body_block %}
+
+<div class="text-center">
     <h1>Change Account Photo</h1>
     <form id="change_photo_form" method="post" action="." enctype="multipart/form-data">
         {% csrf_token %}
@@ -13,11 +15,21 @@
                 {{ error }}
             {% endfor %}
         {% endif %}
-        {{ form.media }}
-        {{ form.as_p }}
 
-        <div class="form-group row">
-            <input type="submit" class="btn btn-default" name="submit" value="Change" />
+        <div class="form-group">
+            <p style = "text-align: left;">
+                <label for="photo">Upload a photo:</label>
+                <input class="form-control" type="file" id="photo" name="photo" type="photo" />
+            </p>
+        </div>
+
+        <!-- {{ form.media }}
+        {{ form.as_p }} -->
+
+        <div>
+            <input type="submit" class="form-buttons" name="submit" value="Change" />
         </div>
     </form>
+
+</div>
 {% endblock %}
