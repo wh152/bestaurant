@@ -105,7 +105,7 @@ class ViewTests(TestCase):
     def test_register_view(self):
         client = Client()
         response = self.client.get(reverse('register'))
-        self.assertContains(response, 'Register here!')
+        self.assertContains(response, 'Register for Bestaurant!')
         self.assertContains(response, 'Register')
         self.assertContains(response, 'Log In')
         self.assertContains(response, 'Google')
