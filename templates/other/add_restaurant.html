@@ -6,6 +6,7 @@
 {% block body_block %}
     <form id="restaurant_form" method="post" action="." enctype="multipart/form-data">
         {% csrf_token %}
+        {{ form.errors }}
         {{form.as_p}}
 
         <div >

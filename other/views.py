@@ -8,10 +8,6 @@ from accounts.forms import AdvertiseForm, RestaurantForm
 from search.forms import *
 
 
-def index(request):
-    return render(request, 'index.html')
-
-
 @login_required
 def viewOwnRestaurants(request):
     if request.user.is_anonymous:
@@ -20,15 +16,7 @@ def viewOwnRestaurants(request):
     userAccount = UserAccount.objects.get(user=user)
     if not userAccount.restaurantOwner:
         return HttpResponse("You are not a restaurant owner.")
-    context = {"restaurants": {}}
-    for restaurant in Restaurant.objects.filter(owner=userAccount):
-        context["restaurants"][restaurant] = {
-            "restaurantName": restaurant.restaurantName,
-            "category": restaurant.category,
-            "address": restaurant.address,
-            "logo_path": restaurant.logo.__str__() if restaurant.logo else None,
-            "averageRating": restaurant.averageRating
-        }
+    context = {"restaurants": Restaurant.objects.filter(owner=userAccount)}
     return render(request, 'other/all_owned_restaurants.html', context=context)
 
 
@@ -41,6 +29,7 @@ def viewOneUser(request, username_slug):
         user_account = UserAccount.objects.get(username_slug=username_slug)
         context = {}
         context["username"] = user_account.user.username
+        context["username_slug"] = user_account.username_slug
         context["restaurantOwner"] = user_account.restaurantOwner
         context["about"] = user_account.about if len(user_account.about) > 0 else None
         context["photo"] = user_account.photo
@@ -48,6 +37,10 @@ def viewOneUser(request, username_slug):
             context["photo_path"] = context["photo"].__str__() 
         else:
             context["photo_path"] = "profile_images/default.jpg"
+        if request.user == user_account.user:
+            context["own_account"] = True
+        else:
+            context["own_accounts"] = False
         if user_account.restaurantOwner:
             owned = []
             for restaurant in Restaurant.objects.filter(owner=user_account):
@@ -60,9 +53,24 @@ def viewOneUser(request, username_slug):
             context["restaurants"] = restaurants if len(restaurants) > 0 else None
         else:
             context["restaurants"] = None
+        print("context", context)
         return render(request, 'other/one_user.html', context=context)
     except User.DoesNotExist:
         return HttpResponse("Requested user does not exist")
+
+
+@login_required
+def becomeRestaurantOwner(request, username_slug):
+    if request.user.is_authenticated:
+        try:
+            userAccount = UserAccount.objects.get(username_slug=username_slug)
+            userAccount.restaurantOwner = True
+            userAccount.save()
+        except UserAccount.DoesNotExist:
+            pass
+    return redirect(reverse('other:viewOneUser', kwargs={
+        "username_slug": userAccount.username_slug
+    }))
 
 
 @login_required
@@ -124,6 +132,27 @@ def addRestaurant(request):
     else:
         form = RestaurantForm()
         return render(request, "other/add_restaurant.html", context={"form":form, "errors":None})
+
+
+@login_required
+def deleteRestaurant(request, restaurantNameSlugged):
+    print("in deleteRestaurant")
+    userAccount = UserAccount.objects.get(user=request.user)
+    if not userAccount.restaurantOwner:
+        return HttpResponse("You are not a restaurant owner.")
+    restaurant = Restaurant.objects.get(restaurantNameSlugged=restaurantNameSlugged)
+    print(restaurant.owner, userAccount, restaurant.owner == userAccount)
+    if not (restaurant.owner == userAccount):
+        print("WILL NOT DELETE")
+        return redirect(reverse('other:viewOneUser'), kwargs={
+            "username_slug": userAccount.username_slug
+        })
+    else:
+        print("DELETING")
+        restaurant.delete()
+    return redirect(reverse('other:viewOneUser', kwargs={
+        "username_slug": userAccount.username_slug
+    }))
 
 
 @login_required

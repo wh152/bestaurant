@@ -24,7 +24,7 @@ class UserAccountForm(forms.ModelForm):
 
 class RegistrationRestaurantOwnerForm(forms.ModelForm):
 
-    restaurantOwner = forms.BooleanField(label=" Restaurant Owner Account")
+    restaurantOwner = forms.BooleanField(label=" Restaurant Owner", required=False)
     class Meta:
         model = UserAccount
         fields = ('restaurantOwner',)

@@ -20,7 +20,7 @@
 
 
     <ul id="restaurant_list">
-        {% for restaurant in restaurant_list %}
+        {% for restaurant in restaurants %}
         <div class = "restaurant">
             <table>
                 <tr>
@@ -33,9 +33,9 @@
                     {% endif %}
           
                     <td>
-                        <h5>{{ restaurant.restaurantName }} </h5>
+                        <h4 style="color: goldenrod;">{{ restaurant.restaurantName }} </h4>
                         
-                        owned by 
+                        Owned by 
                         <a href="{% url 'other:viewOneUser' restaurant.owner.username_slug %}">
                             {{ restaurant.owner.user.username }}
                         </a>

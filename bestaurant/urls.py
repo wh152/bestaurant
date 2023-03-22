@@ -17,7 +17,6 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
-from allauth.account.views import LoginView
 import accounts.views as acc_views
 import search.views as search_views
 
@@ -32,7 +31,6 @@ urlpatterns = [
     path('accounts/image/change/', acc_views.change_image, name='change_image'),
     path('accounts/image/change/done/', acc_views.change_image_done, name='change_image_done'),
     path('accounts/', include('registration.backends.simple.urls')),
-    # path('accounts/google/login/', LoginView.as_view()),
     path('accounts/', include('allauth.urls')),
     path('search/', include('search.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

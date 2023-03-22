@@ -15,7 +15,7 @@ def register(request):
     if not settings.REGISTRATION_OPEN:
         return redirect('closed/')
     if request.user.is_authenticated:
-        return render(request, 'registration/logout.html')
+        return redirect(reverse('other:index'))
     registrationSuccess = False
 
     if request.method == 'POST':
@@ -47,7 +47,8 @@ def register(request):
             user_account.save()
 
             #update variable to indicate that the template registration was successful
-            registrationSuccess = True
+            login(request, customer, backend='django.contrib.auth.backends.ModelBackend')
+            return redirect(reverse('other:index'))
 
         else:
             #invalid form or forms - mistakes or something else. Print problems to the terminal
@@ -69,10 +70,13 @@ def register(request):
 
 
 def user_login(request):
+    print("in user_login")
     loginSuccess = False
     loginFailed = False
     if request.method == 'POST':
         login_form= LoginForm(request.POST)
+
+        print("request.POST", request.POST)
 
         username_or_email = request.POST.get('username_or_email')
         password = request.POST.get('password')
@@ -82,20 +86,26 @@ def user_login(request):
 
         #filter objects first by username, if an object is returned check if password matches. If an empty query set is returned, filter 
         # by email, email is not unique so if a non empty query set is returned loop over each object and see if password matches for any. 
-        
-        
+        print("username_or_email", username_or_email)
+        print("password", password)
         try:
+            print("in try block")
             #try to get the user with the given email, if nothing is returned we go to the except block
             user_object = User.objects.get(username = username_or_email)
+            print("got a user_object, it is", user_object, dir(user_object))
 
             if check_password(password, user_object.password):
+                print("PASSWORDS MATCH")
                 loginSuccess = True
         except:
+            print("exception occured")
             #it is possible for more than one user to have the same email, so we use filter and loop over 
             #all the objects returned and see if there is a password match
             user_objects = User.objects.filter(email = username_or_email)
+            print("user_objects", user_objects)
             for current_user in user_objects:
                 if check_password(password, current_user.password):
+                    print("A PASSWORD MATCHES, current_user:", current_user)
                     user_object = current_user
                     loginSuccess = True
                     break
@@ -104,9 +114,11 @@ def user_login(request):
             loginFailed = True
 
         if loginSuccess:
+            print("login was a success")
             if not user_object.is_active:
                 return HttpResponse("You cannot log in as your account has been disabled.")
             else:
+                print("calling login function and going to other:index")
                 login(request, user_object, backend='django.contrib.auth.backends.ModelBackend')
                 return redirect('other:index')
         else:

@@ -6,10 +6,19 @@ from accounts.models import *
 
 
 def index(request):
-    print("INSIDE INDEX")
-    restaurant_list = Restaurant.objects.order_by('-averageRating')[:3]
 
     context_dict = {}
+    if request.user.is_authenticated:
+        try:
+            UserAccount.objects.get(user=request.user)
+            context_dict["google"] = False
+        except UserAccount.DoesNotExist:
+            UserAccount.objects.create(user=request.user, restaurantOwner=False)
+            context_dict["google"] = True
+    else:
+        context_dict["google"] = False
+    restaurant_list = Restaurant.objects.order_by('-averageRating')[:3]
+
     context_dict['restaurants'] = restaurant_list
 
     response = render(request, 'search/index.html', context=context_dict)
@@ -19,7 +28,7 @@ def index(request):
 
 def search_results(search_request):
 
-    print("INSIDE SEARCH_RESULTS")
+    print("INSIDE SEARCH RESULTS")
 
     context = {}
     restaurant_list = []
@@ -33,14 +42,14 @@ def search_results(search_request):
                 Q(restaurant__address=query) | Q(restaurant__owner__user__username__icontains=query)
             )
             restaurant_list = [Restaurant.objects.get(restaurantID=advert.restaurant.restaurantID) for advert in advertisement_list]
-    context['restaurant_list'] = restaurant_list
+    context['restaurants'] = restaurant_list
+    context['searching'] = True
+    context['query'] = query
 
     return render(search_request, 'search/search_results.html', context=context)
 
 
 def show_category(request, category_name_slug):
-
-    print("INSIDE SHOW_CATEGORY")
 
     context_dict = {}
 
@@ -53,45 +62,43 @@ def show_category(request, category_name_slug):
 
 
 def most_reviewed(request):
-
-    print("INSIDE MOST_REVIEWED")
     
     restaurant_list = Restaurant.objects.all().annotate(num_reviews=Count('review')).order_by('-num_reviews')[:3]
 
     context_dict = {}
-    context_dict['restaurants'] = restaurant_list
+    context_dict['restaurants'] = list(set(restaurant_list))
+    context_dict['searching'] = False
+    context_dict['query'] = "Most Reviewed"
 
-    return render(request, 'search/most_reviewed.html', context=context_dict)
+    return render(request, 'search/search_results.html', context=context_dict)
     
     
     
 def most_recently_reviewed(request):
-
-    print("INSIDE MOST_RECENTLY_REVIEWED")
     
     review_list = Review.objects.order_by('-date')[:3]
     restaurant_list = []
     for review in review_list:
         restaurant = Restaurant.objects.get(restaurantID=review.restaurant.restaurantID)
         restaurant_list.append(restaurant)
-    print("review_list", review_list)
-    print("restaurant_list", restaurant_list)
 
     context_dict = {}
-    context_dict['restaurants'] = restaurant_list
+    context_dict['restaurants'] = list(set(restaurant_list))
+    context_dict['searching'] = False
+    context_dict['query'] = "Most Recently Reviewed"
 
-    return render(request, 'search/sort_most_recently_reviewed.html', context=context_dict)
+    return render(request, 'search/search_results.html', context=context_dict)
     
     
     
 def recently_added(request):
-
-    print("INSIDE RECENTLY ADDED")
     
     restaurant_list = Restaurant.objects.order_by('-dateAdded')[:3]
 
     context_dict = {}
-    context_dict['restaurants'] = restaurant_list
+    context_dict['restaurants'] = list(set(restaurant_list))
+    context_dict['searching'] = False
+    context_dict['query'] = "Recently Added"
 
-    return render(request, 'search/sort_recently_added.html', context=context_dict)
+    return render(request, 'search/search_results.html', context=context_dict)
 

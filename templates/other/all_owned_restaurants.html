@@ -1,56 +1,76 @@
 {% extends "base.html" %}
+{% load staticfiles %}
 
 {% block title_block %}
     Description Changed
 {% endblock %}
 
 {% block body_block %}
+    <h5>
+        <a href="{% url 'other:addRestaurant' %}">
+            <button style="color: green; margin-right:25px;">
+                Add
+            </button>
+        </a>
+        <a href="{% url 'other:advertise' %}">
+            <button style="color: green;">
+                Advertise
+            </button>
+        </a>
+    </h5>
+    <br /> <br />
     <div>
-        {% for restaurant in restaurants %}
-        <div class = "restaurant">
-            <table>
-                <tr>
+        {% if restaurants %}
+            {% for restaurant in restaurants %}
+            <table class="table table-bordered table-sm">
+
+                <tr scope="row">
+
                     {% if restaurant.logo %}
-          
-                    <td>
-                        <img src="{{ MEDIA_URL }}{{ restaurant.logo }}" class="img-thumbnail" width="300" height="300">
+                    <td scope="col">
+                        <img src="{{ MEDIA_URL }}{{ restaurant.logo }}" width="100" height="100">
                     </td>
-          
                     {% endif %}
-          
-                    <td>
-                        <h5>{{ restaurant.restaurantName }} </h5>
-                        
-                        owned by 
-                        <a href="{% url 'other:viewOneUser' restaurant.owner.username_slug %}">
-                            {{ restaurant.owner.user.username }}
-                        </a>
-                    
-                        <p  class="card-title"><strong>Average Rating: </strong>
-                            {% if restaurant.averageRating %}
-                                <!--Star Rating Functionality-->
-                                    {% for i in '0123456789' %}
-                                        {% if restaurant.averageRating >= forloop.counter %}
-                                            <img src="{% static 'images/star.png' %}" width="25" height="25">
-                                        {% endif %}
-                                    {% endfor %}
-                            {% else %}
-                                Not Yet Reviewed
-                            {% endif %}
-                        </p>
-                        <strong>Category: </strong>{{ restaurant.category }}
-                        <br />
-                        <strong>Address: </strong>{{ restaurant.address }}
-                        <br />
-                        <!-- Review Links -->
-                        <a href="{% url 'other:reviewRestaurant' restaurant.restaurantNameSlugged %}">Rate and Review!</a>
-                        <br />
-                        <a href="{% url 'other:viewRestaurantReviews' restaurant.restaurantNameSlugged %}">See Reviews</a>
-                  </td>
+        
+                <td scope="col">
+                    <h5 style="color: goldenrod;">
+                        {{ restaurant.restaurantName }}
+                    </h5>
+                    Category: {{ restaurant.category }}
+                    <br />
+                    Address: {{ restaurant.address }}
+                    <br />
+                    {% if restaurant.averageRating %}
+                            {% for i in '0123456789' %}
+                                {% if restaurant.averageRating >= forloop.counter %}
+                                    <img src="{% static 'images/star.png' %}" width="25" height="25">
+                                {% endif %}
+                            {% endfor %}
+                    {% else %}
+                        Not Yet Reviewed
+                    {% endif %}
+                    <br />
+                    <a href="{% url 'other:deleteRestaurant' restaurant.restaurantNameSlugged %}">
+                        <button class="btn btn-confirm-delete" style="color: red;">
+                            Delete
+                        </button>
+                    </a>
+                    <br />
+                </td>
                 </tr>
-              </table>
-        </div>
-        <br><br>
+            </table>
+            {% endfor %}
+        {% else %}
+            <h6>
+                No restaurants yet. Why not make one?
+            </h6>
+        {% endif %}
+        <script>
+            $(document).ready(function() {
+                $('.btn-confirm-delete').click(function() {
+                    return confirm('Are you sure you want to delete this?');
+                });
+            });
+        </script>
     </div>
-    <a href="{% url 'other:addRestaurant' %}">Add a restaurant</a>
 {% endblock %}
