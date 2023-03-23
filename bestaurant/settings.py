@@ -37,7 +37,7 @@ SECRET_KEY = 'toe($&@i9bif=o0=#=pdlvhk@@yzxa9ono!gq!p5(-!ui8z-fk'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['bestaurant.pythonanywhere.com']
+ALLOWED_HOSTS = ['bestaurant.pythonanywhere.com', '127.0.0.1']
 
 
 # Application definition
