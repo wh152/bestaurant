@@ -2,6 +2,7 @@ from django.contrib.auth.models import User
 from django.db import models
 from django.db.models import Avg
 from django.template.defaultfilters import slugify
+from django.utils import timezone
 
 import search
 
@@ -33,7 +34,7 @@ class Restaurant(models.Model):
     logo = models.ImageField(upload_to='restaurant_logos', null=True, blank=True)
     averageRating = models.FloatField(null=True, blank=True)
     # automatically adds the date of the object's creation
-    dateAdded = models.DateField(auto_now_add=True)
+    dateAdded = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
         return str(self.restaurantID) + ': ' + self.restaurantName
