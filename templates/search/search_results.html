@@ -8,56 +8,7 @@
 {% endblock %}
 
 {% block above_block %}
-    <br/>
-    <!-- <h1>Results for '{{ query }}'</h1> -->
-    <br />
 
-    <div id = "sort row">
-        <li class="sort-buttons"><button onclick ="sortListAlphabetically()">Name Alphabetically</button></li>
-        <li class="sort-buttons"><button onclick ="sortMostReviewed()">Most Reviewed</button></li>
-        <li class="sort-buttons"><button onclick ="sortMostRecentlyReviewed()">Most Recently Reviewed</button></li>
-        <li class="sort-buttons"><button onclick ="sortRecentlyAdded()">Recently Added</button></li>
-    </div>
-
-
-    
 {% endblock %}
 
-<!-- Writing just now, commented out to avoid bugs -->
-<!-- <script>
-    function sortListAlphabetically(){
-        var list, sorting, items, counter, flag;
-        list = document.getElementById("restaurant_list");
-        sorting = true;
-        while(sorting){
-            sorting = false;
-            items = list.getElementsByTagName("DIV");
-            for (counter=0; counter<(sortedList.length - 1); counter++){
-                flag = false;
-                if(items[counter].innerHTML.toLowerCase() > b[counter+1].innerHTML.toLowerCase()){
-                    flag=true;
-                    break;
-                }
-            }
-            if (flag){
-                items[counter].parentNode.insertBefore(items[counter+1], items[counter]);
-                sorting = true;
-            }
-        }
-    }
-
-
-    function sortMostReviewed(){
-        var list, sorting, items, counter, flag;
-        list = document.getElementById("restaurant_list");
-        sorting = true;
-    }
-
-    function sortMostRecentlyReviewed(){
-        var list, sorting, items, counter, flag;
-    }
-
-    function sortRecentlyAdded(){
-        var list, sorting, items, counter, flag;
-    }
-</script> -->
+</script>
