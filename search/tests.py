@@ -253,3 +253,6 @@ class SearchFormTest(TestCase):
         self.assertFalse(form_three.is_valid())
         self.assertFalse(form_four.is_valid())
         self.assertFalse(form_five.is_valid())
+
+
+    
