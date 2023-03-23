@@ -1,5 +1,8 @@
 import json
 import os
+import random
+from datetime import datetime
+import pytz
 
 from django.conf import settings
 
@@ -66,7 +69,8 @@ def populate_restaurants():
 
         restaurant = Restaurant.objects.create(owner=owner, restaurantName=restaurantName,
                                                 restaurantNameSlugged=restaurantNameSlugged, 
-                                                category=category, address=address)
+                                                category=category, address=address,
+                                                dateAdded=get_random_date())
 
         if logo:
             logo_file = upload_image("restaurant_logos", restaurantName)
@@ -109,7 +113,7 @@ def populate_reviews():
         comment = review["comment"]
 
         review = Review.objects.create(reviewer=reviewer, restaurant=restaurant, 
-                                        rating=rating, comment=comment)
+                                        rating=rating, comment=comment, date=get_random_date())
         review.save()
         restaurant.averageRating = restaurant.average_rating()
         restaurant.save()
@@ -140,6 +144,22 @@ def upload_image(image_dir, image_name):
         image_path = "".join(image_path.split(".")[:-1] + [".jpeg"])
     image_file = open(image_path, "rb")
     return image_file
+
+
+def get_random_date():
+    year = random.randint(2022,2023)
+    if year == 2022:
+        month = random.randint(1,12)
+    else:
+        month = random.randint(1,3)
+    if year == 2023 and month == 3:
+        day = random.randint(1,22)
+    else:
+        day = random.randint(1,28)
+    hour = random.randint(1,23)
+    minute = random.randint(1,59)
+    second = random.randint(1,59)
+    return datetime(year, month, day, hour, minute, second, tzinfo=pytz.UTC)
 
 
 if __name__ == '__main__':

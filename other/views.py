@@ -202,7 +202,7 @@ def reviewRestaurant(request, restaurantNameSlugged):
             form = ReviewForm(request.POST)
             if form.is_valid():
                 rating = form.cleaned_data['rating']
-                # checking if the rating scale has been abided by
+                # verify that the rating is between 1 and 10
                 if rating < 1 or rating > 10:
                     form.errors['rating'] = ["Rating must be between 1 and 10"]
                     return render(request, 'other/review_restaurant.html', context={
