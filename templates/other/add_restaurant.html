@@ -4,6 +4,10 @@
 {% endblock %}
 
 {% block body_block %}
+    </br>
+    <h3 class="notice">Add a restaurant!</h3>
+    </br>
+
     <form id="restaurant_form" method="post" action="." enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.errors }}
