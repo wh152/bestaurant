@@ -49,4 +49,3 @@ class TestOtherViews(TestCase):
         response = self.client.get(reverse('other:viewOneUser', args =[user_account.username_slug]))
         self.assertContains(response, user_account)
         self.assertNotContains(response, user_two_account)
-
