@@ -3,6 +3,8 @@ from django.db import models
 from django.urls import reverse, path
 from django.contrib.auth.models import User
 from accounts.models import UserAccount, Restaurant, Advertisement
+from search.models import Review
+from datetime import datetime
 
 # Create your tests here.
 
@@ -11,6 +13,7 @@ from accounts.models import UserAccount, Restaurant, Advertisement
 class TestOtherViews(TestCase):
 
     def test_view_all_users(self):
+        client = Client()
         user_one = User.objects.create(email="userone@mail.com",username="firstuser", password="pass")
         user_one_account = UserAccount.objects.create(user=user_one, username_slug = models.SlugField )
         user_one_account.save()
@@ -34,6 +37,7 @@ class TestOtherViews(TestCase):
         self.assertContains(response, user_four_account)
 
     def test_view_one_user(self):
+        client = Client()
         user = User.objects.create(email="userone@mail.com",username="firstuser", password="pass")
         user_account = UserAccount.objects.create(user=user, username_slug = models.SlugField )
         user_account.save()
