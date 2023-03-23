@@ -6,6 +6,7 @@
 {% block body_block %}
     <!-- Allows extending templates to put content above the advertisements -->
     {% block above_block %} 
+    <br/>
     {% endblock %}
     <ul id="restaurant_list">
         {% for restaurant in restaurants %}
@@ -74,6 +75,7 @@
                 </td>
                 </tr>
             </table>
+            <br/>
         </div>
         {% endfor %}
     </ul>

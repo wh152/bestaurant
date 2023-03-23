@@ -66,7 +66,7 @@ class AdvertiseForm(forms.ModelForm):
             widget=forms.RadioSelect, choices=notAdvertised
         )
         self.fields["description"] = forms.CharField(max_length=1024, label="Advert text")
-        self.fields["advertImage"] = forms.ImageField(label="Advertisement image")
+
 
     class Meta:
         model = Advertisement

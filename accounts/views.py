@@ -21,6 +21,7 @@ def register(request):
     if request.user.is_authenticated:
         return redirect(reverse('other:index'))
     registrationSuccess = False
+    registrationFormValid = True
 
     if request.method == 'POST':
         #attempt to grab information from the raw form information. 
@@ -56,6 +57,7 @@ def register(request):
 
         else:
             #invalid form or forms - mistakes or something else. Print problems to the terminal
+            registrationFormValid = False
             print(customer_form.errors, user_account_form.errors)
     else:
         #not an HTTP POST, so we render our form using two ModelForm instances. These forms will be
@@ -69,7 +71,8 @@ def register(request):
         'user_form': customer_form, 
         'user_account_form':user_account_form, 
         'is_restaurant_owner_form': is_restaurant_owner_form,
-        'registered': registrationSuccess
+        'registered': registrationSuccess,
+        'form_valid': registrationFormValid
     })
 
 

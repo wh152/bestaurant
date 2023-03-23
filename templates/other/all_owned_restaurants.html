@@ -12,6 +12,10 @@
 {% endblock %}
 
 {% block above_block %}
+
+    <h3 class="notice">Manage your Restaurants!</h3>
+    </br>
+
     <a href="{% url 'other:addRestaurant' %}">
         <button class="btn-owner-management">
             Add
@@ -24,4 +28,9 @@
             </button>
         </a>
     {% endif %}
+    </br></br>
+
+    <h4>Your owned restaurants:</h4>
+    </br>
+
 {% endblock %}

@@ -10,7 +10,7 @@
     <form style="margin-left: 25%;" id="review_form" method="post" action="." enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.as_p }}
-
+        
         <div>
             <input type="submit" class="form-buttons" name="submit" value="Review" />
         </div>

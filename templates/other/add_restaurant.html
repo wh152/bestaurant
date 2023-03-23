@@ -4,6 +4,11 @@
 {% endblock %}
 
 {% block body_block %}
+<div class="text-left">
+
+    <h2>Add a Restaurant</h2>
+    </br>
+
     <form id="restaurant_form" method="post" action="." enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.errors }}
@@ -14,4 +19,6 @@
         </div>
         
     </form>
+
+</div>
 {% endblock %}
