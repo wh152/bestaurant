@@ -14,6 +14,10 @@
 
     {% else %}
 
+        {% if not form_valid %}
+            <strong>An error in your form was encountered, ensure passwords match and username not taken.</strong>
+        {% endif %}
+
         <h3 class="notice">Register for Bestaurant!</h3>
         <br/>
         <!--enctype="multipart/form-data" tells the HTTP client to package and send data accordingly.-->
@@ -60,7 +64,7 @@
 
                 <!-- Box to tick if restaurant owner -->
                 <div class="form-group form-check form-check-inline">
-                    Restaurant Owner Account <input id="blankCheckbox" class="form-check-input" type="checkbox" name ="restaurantOwner" value="restaurantOwner"/>
+                    Restaurant Owner Account <input id="is_restaurant_owner" class="form-check-input" type="checkbox" name ="restaurantOwner"/>
                 </div>
 
             <br/>
