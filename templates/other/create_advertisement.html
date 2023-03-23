@@ -9,10 +9,9 @@
     <br />
     <form id="advertisement_form" method="post" action="." enctype="multipart/form-data">
         {% csrf_token %}
-        {{ form.errors }}        
+        {{ form.errors }}       
         {{ form.media }}
         {{ form.as_p }}
-
         <div>
             <input type="submit" class="form-buttons" name="submit" value="Create" />
         </div>
