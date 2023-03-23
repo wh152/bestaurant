@@ -5,8 +5,9 @@ from accounts.models import UserAccount, Restaurant, Advertisement
 from search.models import Review, Category
 from django.template.defaultfilters import slugify
 from django.urls import path, reverse
-from datetime import datetime
 from search.forms import ReviewForm
+from django.utils import timezone
+from pytz import utc
 
 # Create your tests here.
 
@@ -166,19 +167,19 @@ class SearchViewTests(TestCase):
         test_restaurant_four.save()
 
         review_one = Review.objects.create(reviewID =1, reviewer=reviewer_account, restaurant=test_restaurant_one, rating=10, comment="lovely food")
-        review_one.date = datetime(2018, 9, 15)
+        review_one.date = timezone.datetime(2018, 9, 15, tzinfo=utc)
         review_one.save()
 
         review_two = Review.objects.create(reviewID =2, reviewer=reviewer_account, restaurant=test_restaurant_two, rating=5, comment="nice enough")
-        review_two.date = datetime(2017, 5, 7)
+        review_two.date = timezone.datetime(2017, 5, 7, tzinfo=utc)
         review_two.save()
 
         review_three = Review.objects.create(reviewID =3, reviewer=reviewer_account, restaurant=test_restaurant_three, rating=6, comment="good staff")
-        review_three.date = datetime(2012, 10, 30)
+        review_three.date = timezone.datetime(2012, 10, 30, tzinfo=utc)
         review_three.save()
 
         review_four = Review.objects.create(reviewID =4, reviewer=reviewer_account, restaurant=test_restaurant_four, rating=10, comment="wonderful")
-        review_four.date = datetime(2019, 2, 3)
+        review_four.date = timezone.datetime(2019, 2, 3, tzinfo=utc)
         review_four.save()
 
         response = self.client.get(reverse('search:most_recently_reviewed'))
@@ -193,19 +194,19 @@ class SearchViewTests(TestCase):
         owner_account = UserAccount.objects.create(user=owner, username_slug = models.SlugField )
 
         test_restaurant_one = Restaurant.objects.create(restaurantID = 1, restaurantName="The Bestaurant", owner=owner_account, address="72 hillview lane")
-        test_restaurant_one.dateAdded = datetime(2008, 6, 1)
+        test_restaurant_one.dateAdded = timezone.datetime(2008, 6, 1, tzinfo=utc)
         test_restaurant_one.save()
 
         test_restaurant_two = Restaurant.objects.create(restaurantID = 2, restaurantName="The Oak Cafe", owner=owner_account, address="17 newton crescent")
-        test_restaurant_two.dateAdded = datetime(2011, 5, 29) 
+        test_restaurant_two.dateAdded = timezone.datetime(2011, 5, 29, tzinfo=utc) 
         test_restaurant_two.save()
 
         test_restaurant_three = Restaurant.objects.create(restaurantID = 3, restaurantName="Treehouse", owner=owner_account, address="46 main street")
-        test_restaurant_two.dateAdded = datetime(2017, 10, 8) 
+        test_restaurant_two.dateAdded = timezone.datetime(2017, 10, 8, tzinfo=utc) 
         test_restaurant_three.save()
 
         test_restaurant_four = Restaurant.objects.create(restaurantID = 4, restaurantName="Greggs", owner=owner_account, address="289 tennant road")
-        test_restaurant_two.dateAdded = datetime(2015, 12, 9) 
+        test_restaurant_two.dateAdded = timezone.datetime(2015, 12, 9, tzinfo=utc) 
         test_restaurant_four.save()
 
         response = self.client.get(reverse('search:recently_added'))
