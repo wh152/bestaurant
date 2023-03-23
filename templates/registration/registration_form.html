@@ -14,12 +14,14 @@
 
     {% else %}
 
-        {% if not form_valid %}
-            <strong>An error in your form was encountered, ensure passwords match and username not taken.</strong>
-        {% endif %}
-
         <h3 class="notice">Register for Bestaurant!</h3>
         <br/>
+
+        {% if not form_valid %}
+            <strong>An error in your form was encountered, ensure passwords match and username not taken.</strong>
+            <br/><br/>
+        {% endif %}
+        
         <!--enctype="multipart/form-data" tells the HTTP client to package and send data accordingly.-->
         <form role = "form" id="registration_form" method="post" action="." enctype="multipart/form-data">
             {% csrf_token %}

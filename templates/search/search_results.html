@@ -9,6 +9,14 @@
 
 {% block above_block %}
 
+    <div class="text-center">
+        {% if not restaurants %} 
+            </br></br>
+            <strong>Your query returned no results.</strong>
+            </br></br>
+        {% endif %}
+    </div>
+    
 {% endblock %}
 
 </script>
