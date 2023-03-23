@@ -18,8 +18,14 @@
         <li class="sort-buttons"><button onclick ="sortMostRecentlyReviewed()">Most Recently Reviewed</button></li>
         <li class="sort-buttons"><button onclick ="sortRecentlyAdded()">Recently Added</button></li>
     </div>
-
-
+    
+    <div class="text-center">
+        {% if not restaurants %} 
+            </br></br>
+            <strong>Your query returned no results.</strong>
+            </br></br>
+        {% endif %}
+    </div>
     
 {% endblock %}
 
