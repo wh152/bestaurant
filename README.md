@@ -1,0 +1,1 @@
+Logging in with Google is only available for gmail accounts that are on a list of approved accounts - mail me at 2620286H@student.gla.ac.uk to be added.
